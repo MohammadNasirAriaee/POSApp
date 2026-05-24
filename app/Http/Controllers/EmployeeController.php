@@ -13,7 +13,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        return view('employees.index', [
+            'employees' => Employee::all(),
+        ]);
     }
 
     /**
@@ -21,7 +23,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employees.create');
     }
 
     /**
