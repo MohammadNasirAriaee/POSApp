@@ -16,6 +16,8 @@ class EmployeeController extends Controller
         return view('employees.index', [
             'employees' => Employee::all(),
         ]);
+
+        return view('employees.index', ['employees' => Employee::all()]);
     }
 
     /**
