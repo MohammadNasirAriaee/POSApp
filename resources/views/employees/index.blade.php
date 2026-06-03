@@ -14,7 +14,6 @@
                 </tr>
             </thead>
             <tbody>
-                
                 @foreach ($employees as $employee)
                     <tr>
                         <td>{{ $employee->name }}</td>
