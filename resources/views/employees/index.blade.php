@@ -19,7 +19,6 @@
                         <td>{{ $employee->name }}</td>
                         <td>{{ $employee->email }}</td>
                         <td>{{ $employee->position }}</td>
-                        
                         <td>
                             <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('employees.destroy', $employee) }}" method="POST" style="display:inline;">
