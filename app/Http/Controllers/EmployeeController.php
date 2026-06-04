@@ -20,7 +20,6 @@ class EmployeeController extends Controller
         // return view('employees.index', ['employees' => Employee::all()]);
         // return view('')
     }
-    
 
     /**
      * Show the form for creating a new resource.
