@@ -28,7 +28,6 @@ class EmployeeController extends Controller
     {
         return view('employees.create');
     }
-    
 
     /**
      * Store a newly created resource in storage.
