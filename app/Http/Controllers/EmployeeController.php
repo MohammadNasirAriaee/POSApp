@@ -21,7 +21,6 @@ class EmployeeController extends Controller
         // return view('')
     }
 
-    
     /**
      * Show the form for creating a new resource.
      */
