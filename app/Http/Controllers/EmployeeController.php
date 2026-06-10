@@ -40,10 +40,11 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee) // muhd.sharif2001@gmail.com
     {
         //
     }
+    
 
     /**
      * Show the form for editing the specified resource.
