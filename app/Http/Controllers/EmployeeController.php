@@ -43,7 +43,6 @@ class EmployeeController extends Controller
     public function show(Employee $employee) // muhd.sharif2001@gmail.com
     {
         //
-        
     }
 
     /**
