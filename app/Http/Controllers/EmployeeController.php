@@ -59,7 +59,6 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         //
-        
     }
 
     /**
