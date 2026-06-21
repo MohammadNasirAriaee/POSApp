@@ -27,7 +27,6 @@ class UpdateEmployeeRequest extends FormRequest
 			],
 			'phone' => ['nullable', 'string', 'max:30'],
 			'address' => ['nullable', 'string', 'max:500'],
-
 			'position' => ['required', 'string', 'max:100'],
 			'salary' => ['nullable', 'numeric', 'min:0'],
 
