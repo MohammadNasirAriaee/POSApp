@@ -19,6 +19,7 @@ class UpdateEmployeeRequest extends FormRequest
 
 
 
+
         
 		return [
 			'first_name' => ['required', 'string', 'max:100'],
