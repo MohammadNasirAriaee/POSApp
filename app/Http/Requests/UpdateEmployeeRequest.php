@@ -32,4 +32,3 @@ class UpdateEmployeeRequest extends FormRequest
 		];
 	}
 }
-
