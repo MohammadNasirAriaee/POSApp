@@ -33,5 +33,4 @@ class StoreEmployeeRequest extends FormRequest
 			'status' => ['nullable', 'in:active,inactive'],
 		];
 	}
-
 }
