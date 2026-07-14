@@ -32,7 +32,6 @@ class StoreEmployeeRequest extends FormRequest
 			'hire_date' => ['nullable', 'date'],
 			'status' => ['nullable', 'in:active,inactive'],
 
-
 		];
 	}
 }
