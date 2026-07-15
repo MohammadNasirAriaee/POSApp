@@ -20,6 +20,7 @@ class UpdateEmployeeRequest extends FormRequest
 			'email' => [
 				'required',
 
+
                 
 				'email',
 				'max:255',
