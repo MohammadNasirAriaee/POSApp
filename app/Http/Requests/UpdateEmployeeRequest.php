@@ -21,6 +21,7 @@ class UpdateEmployeeRequest extends FormRequest
 				'required',
                 'string',
 
+
                 
 				'email',
 				'max:255',
