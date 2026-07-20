@@ -31,6 +31,7 @@ class UpdateEmployeeRequest extends FormRequest
 			'status' => ['nullable', Rule::in(['active', 'inactive'])],
 		];
 
+
         
 	}
 }
