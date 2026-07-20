@@ -30,14 +30,6 @@ class UpdateEmployeeRequest extends FormRequest
 			'salary' => ['nullable', 'numeric', 'min:0'],
 			'status' => ['nullable', Rule::in(['active', 'inactive'])],
 		];
-
-
-
-
-
-
-
-
         
 	}
 }
