@@ -30,6 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
 
 
 
+
             
 			'phone' => ['nullable', 'string', 'max:30'],
 			'address' => ['nullable', 'string', 'max:500'],
