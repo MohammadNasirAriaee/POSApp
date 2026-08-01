@@ -25,13 +25,12 @@ class StoreEmployeeRequest extends FormRequest
 			'first_name' => ['required', 'string', 'max:100'],
 			'last_name' => ['required', 'string', 'max:100'],
 			'email' => ['required', 'email', 'max:255', 'unique:employees,email'],
-			'phone' => ['nullable', 'string', 'max:20'],
+			'phone' => ['nullable', 'string', 'max:30'],
 			'address' => ['nullable', 'string', 'max:500'],
 			'position' => ['required', 'string', 'max:100'],
 			'salary' => ['nullable', 'numeric', 'min:0'],
-			'hire_date' => ['nullable', 'date'],
+			'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
 			'status' => ['nullable', 'in:active,inactive'],
 		];
 	}
-    
 }
