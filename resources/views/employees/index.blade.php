@@ -26,7 +26,6 @@
                             <th class="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
-                    
                     <tbody class="divide-y divide-slate-200 bg-white">
                         @foreach ($employees as $employee)
                             <tr>
