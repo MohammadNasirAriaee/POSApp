@@ -39,7 +39,6 @@ class EmployeeController extends Controller
             ->route('employees.index')
             ->with('success', 'Employee created successfully.');
     }
-    
 
     /**
      * Display the specified resource.
