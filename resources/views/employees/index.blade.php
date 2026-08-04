@@ -32,6 +32,7 @@
                 </div>
             </div>
 
+            
             <!-- Active Staff -->
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
                 <div>
