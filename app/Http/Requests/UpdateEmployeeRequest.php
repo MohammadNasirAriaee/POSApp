@@ -30,6 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
 			'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
 			'status' => ['nullable', Rule::in(['active', 'inactive', 'on_leave'])],
 		];
+
         
 	}
 }
