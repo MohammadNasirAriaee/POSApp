@@ -30,7 +30,7 @@ class StoreEmployeeRequest extends FormRequest
 			'position' => ['required', 'string', 'max:100'],
 			'salary' => ['nullable', 'numeric', 'min:0'],
 			'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
-			'status' => ['nullable', 'in:active,inactive'],
+			'status' => ['nullable', 'in:active,inactive,on_leave'],
 		];
 	}
 }
