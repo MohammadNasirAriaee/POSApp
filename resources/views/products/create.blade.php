@@ -18,5 +18,5 @@
         </form>
     </div>
 </div>
-// end of section in this file!
+// end of section in this file! - in the mean time it's usefull
 @endsection
