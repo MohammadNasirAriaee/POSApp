@@ -18,4 +18,7 @@
         </form>
     </div>
 </div>
+// how to start a new section just here
+
+// the new section would end up here, after the form and before the end of the content section
 @endsection
