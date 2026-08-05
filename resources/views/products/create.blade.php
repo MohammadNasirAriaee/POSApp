@@ -18,5 +18,5 @@
         </form>
     </div>
 </div>
-// end of section in this file!!! - meaningfull - if not meaning full
+// end of section in this file!!! - meaningfull
 @endsection
