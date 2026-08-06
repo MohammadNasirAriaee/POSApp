@@ -24,12 +24,12 @@ class CustomerController extends Controller
 
         $customers = $query->paginate(12)->withQueryString();
 
-        return view('customers.index', compact('customers', 'search'));
+        return \Inertia\Inertia::render('Customers/Index', compact('customers', 'search'));
     }
 
     public function create()
     {
-        return view('customers.create');
+        return \Inertia\Inertia::render('Customers/Create');
     }
 
     public function store(Request $request)
@@ -49,7 +49,7 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer)
     {
-        return view('customers.edit', compact('customer'));
+        return \Inertia\Inertia::render('Customers/Edit', compact('customer'));
     }
 
     public function update(Request $request, Customer $customer)

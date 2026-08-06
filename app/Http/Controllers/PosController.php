@@ -32,7 +32,7 @@ class PosController extends Controller
         $products = $query->orderBy('name')->get();
         $customers = Customer::orderBy('first_name')->get();
 
-        return view('pos.index', compact('categories', 'products', 'customers'));
+        return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers'));
     }
 
     public function checkout(Request $request)

@@ -19,13 +19,13 @@ class OrderController extends Controller
 
         $orders = $query->paginate(15)->withQueryString();
 
-        return view('orders.index', compact('orders', 'status'));
+        return Inertia::render('Orders/Index', compact('orders', 'status'));
     }
 
     public function show(Order $order)
     {
         $order->load(['customer', 'employee', 'items.product']);
-        return view('orders.show', compact('order'));
+        return Inertia::render('Orders/Show', compact('order'));
     }
 
     public function destroy(Order $order)
