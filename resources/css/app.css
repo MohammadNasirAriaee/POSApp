@@ -1,11 +1,49 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-900: #1e3a8a;
+  
+  --color-surface-50: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
+}
+
+@layer base {
+  body {
+    @apply bg-surface-50 text-surface-800 antialiased;
+    font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .metronic-card {
+    @apply bg-white rounded-xl border border-surface-200 shadow-sm overflow-hidden transition-all duration-200;
+  }
+  
+  .metronic-input {
+    @apply w-full rounded-lg border border-surface-200 bg-surface-50 px-4 py-2.5 text-sm text-surface-900 transition-colors focus:bg-white focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none;
+  }
+
+  .metronic-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .metronic-btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm hover:shadow-md hover:shadow-primary-500/20;
+  }
+  
+  .metronic-btn-light {
+    @apply bg-surface-100 text-surface-800 hover:bg-surface-200 focus:ring-surface-200;
+  }
+  
+  .metronic-btn-danger {
+    @apply bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500 shadow-sm hover:shadow-md hover:shadow-rose-500/20;
+  }
 }

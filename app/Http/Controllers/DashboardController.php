@@ -22,6 +22,9 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard', compact('stats', 'recentOrders'));
+        return \Inertia\Inertia::render('Dashboard', [
+            'stats' => $stats,
+            'recentOrders' => $recentOrders
+        ]);
     }
 }
