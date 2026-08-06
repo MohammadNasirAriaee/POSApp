@@ -105,3 +105,4 @@ class PosController extends Controller
             return back()->with('error', 'Checkout failed: ' . $e->getMessage());
         }
     }
+}
