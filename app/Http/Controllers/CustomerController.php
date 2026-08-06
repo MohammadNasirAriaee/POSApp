@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
@@ -16,20 +17,20 @@ class CustomerController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
-        $customers = $query->paginate(12)->withQueryString(); // on
+        $customers = $query->paginate(12)->withQueryString(); // Paginate results with 12 customers per page and maintain query string parameters
 
-        return \Inertia\Inertia::render('Customers/Index', compact('customers', 'search'));
+        return Inertia::render('Customers/Index', compact('customers', 'search'));
     }
 
     public function create()
     {
-        return \Inertia\Inertia::render('Customers/Create');
+        return Inertia::render('Customers/Create');
     }
 
     public function store(Request $request)
@@ -49,7 +50,7 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer)
     {
-        return \Inertia\Inertia::render('Customers/Edit', compact('customer'));
+        return Inertia::render('Customers/Edit', compact('customer'));
     }
 
     public function update(Request $request, Customer $customer)
@@ -57,7 +58,7 @@ class CustomerController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email,' . $customer->id,
+            'email' => 'nullable|email|unique:customers,email,'.$customer->id,
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
@@ -70,6 +71,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
+
         return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
     }
 }
