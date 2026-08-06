@@ -22,7 +22,7 @@ class CustomerController extends Controller
             });
         }
 
-        $customers = $query->paginate(12)->withQueryString();
+        $customers = $query->paginate(12)->withQueryString(); // 
 
         return \Inertia\Inertia::render('Customers/Index', compact('customers', 'search'));
     }
@@ -41,7 +41,7 @@ class CustomerController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
-        
+
         Customer::create($data);
 
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
@@ -61,7 +61,7 @@ class CustomerController extends Controller
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
         ]);
-        
+
         $customer->update($data);
 
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
