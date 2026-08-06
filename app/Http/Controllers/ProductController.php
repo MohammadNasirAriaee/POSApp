@@ -5,36 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
         $search = $request->query('search');
-        $categoryId = $request->query('category_id');
 
         $query = Product::with('category')->latest();
 
         if ($search) {
-            $query->where('name', 'like', "%{$search}%")
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
                   ->orWhere('sku', 'like', "%{$search}%");
+            });
         }
 
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
+        $products = $query->paginate(10)->withQueryString();
 
-        $products = $query->paginate(12)->withQueryString();
-        $categories = Category::orderBy('name')->get();
-
-        return view('products.index', compact('products', 'categories', 'search', 'categoryId'));
+        return Inertia::render('Products/Index', compact('products', 'search'));
     }
 
     public function create()
     {
-        $categories = Category::orderBy('name')->get();
-        return view('products.create', compact('categories'));
+        $categories = Category::where('is_active', true)->get();
+        return Inertia::render('Products/Create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -42,12 +38,11 @@ class ProductController extends Controller
         $data = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:products,sku',
-            'description' => 'nullable|string',
+            'sku' => 'required|string|max:100|unique:products',
             'price' => 'required|numeric|min:0',
-            'cost' => 'required|numeric|min:0',
+            'cost' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:active,draft,out_of_stock',
         ]);
         
         Product::create($data);
@@ -62,8 +57,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::orderBy('name')->get();
-        return view('products.edit', compact('product', 'categories'));
+        $categories = Category::where('is_active', true)->get();
+        return Inertia::render('Products/Edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
@@ -71,12 +66,11 @@ class ProductController extends Controller
         $data = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
             'name' => 'required|string|max:255',
-            'sku' => 'required|string|unique:products,sku,' . $product->id,
-            'description' => 'nullable|string',
+            'sku' => 'required|string|max:100|unique:products,sku,' . $product->id,
             'price' => 'required|numeric|min:0',
-            'cost' => 'required|numeric|min:0',
+            'cost' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:active,draft,out_of_stock',
         ]);
         
         $product->update($data);

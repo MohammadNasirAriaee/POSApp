@@ -10,20 +10,19 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::withCount('products')->orderBy('name')->paginate(10);
-        return view('categories.index', compact('categories'));
+        $categories = Category::latest()->paginate(10);
+        return \Inertia\Inertia::render('Categories/Index', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        return \Inertia\Inertia::render('Categories/Create');
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'name' => 'required|string|max:255|unique:categories',
             'is_active' => 'boolean',
         ]);
         
@@ -42,14 +41,14 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return \Inertia\Inertia::render('Categories/Edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+            'is_active' => 'boolean',
         ]);
         
         $data['slug'] = Str::slug($data['name']);
@@ -62,8 +61,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if ($category->products()->count() > 0) {
-            return redirect()->route('categories.index')->with('error', 'Cannot delete category that has products.');
+        if ($category->products()->exists()) {
+            return redirect()->route('categories.index')->with('error', 'Cannot delete category with associated products.');
         }
         
         $category->delete();
