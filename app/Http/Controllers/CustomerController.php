@@ -25,7 +25,7 @@ class CustomerController extends Controller
 
         $customers = $query->paginate(12)->withQueryString(); // Paginate with 12 customers per page and maintain query string parameters
 
-        return Inertia::render('Customers/Index', compact('customers', 'search')); // Pass the search term to the view for display
+        return Inertia::render('Customers/Index', compact('customers', 'search')); // display
     }
 
     public function create()
