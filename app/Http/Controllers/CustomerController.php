@@ -23,7 +23,7 @@ class CustomerController extends Controller
             });
         }
 
-        $customers = $query->paginate(12)->withQueryString(); // Paginatation of the customers list, 12 per page, and maintain the search query in the pagination links.
+        $customers = $query->paginate(12)->withQueryString(); // Paginatation of
 
         return Inertia::render('Customers/Index', compact('customers', 'search'));
     }
