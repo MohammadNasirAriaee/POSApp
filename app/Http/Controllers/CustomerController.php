@@ -32,7 +32,7 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Create');
         // add any additional data y
-
+    }
     public function store(Request $request)
     {
         $data = $request->validate([
