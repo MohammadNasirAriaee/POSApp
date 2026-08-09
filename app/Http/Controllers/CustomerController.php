@@ -31,7 +31,7 @@ class CustomerController extends Controller
     public function create()
     {
         return Inertia::render('Customers/Create');
-        // add any additional data you need
+        // add any additional data you 
     }
     public function store(Request $request)
     {
