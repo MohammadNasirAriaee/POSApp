@@ -38,7 +38,7 @@ class CustomerController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email', // do not allow duplicate emails
-            'phone' => 'nullable|string|max:20', // do not allow duplicate phone numbers
+            'phone' => 'nullable|string|max:20|unique:customers,phone', // do not allow duplicate phone numbers
             'address' => 'nullable|string',
         ]);
 
@@ -58,7 +58,7 @@ class CustomerController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,'.$customer->id,
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:20|unique:customers,phone,'.$customer->id,
             'address' => 'nullable|string',
         ]);
 
