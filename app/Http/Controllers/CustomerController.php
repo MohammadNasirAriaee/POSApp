@@ -35,7 +35,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'first_name' => 'required|string|max:255', // Validate first name oen
+            'first_name' => 'required|string|max:255', // Validate name oen
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email',
             'phone' => 'nullable|string|max:20',
