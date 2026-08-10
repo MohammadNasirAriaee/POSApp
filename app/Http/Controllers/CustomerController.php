@@ -58,7 +58,7 @@ class CustomerController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,'.$customer->id,
-            'phone' => 'nullable|string|max:20|unique:customers,phone,'.$customer->id,
+            'phone' => 'nullable|string|max:20|unique:customers,phone,'.$customer->id, // do not allow duplicate phone numbers
             'address' => 'nullable|string', // do not allow duplicate phone numbers
         ]);
 
