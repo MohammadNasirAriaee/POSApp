@@ -55,8 +55,8 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $data = $request->validate([
-            'first_name' => 'required|string|max:255', // do not allow duplicate phone numbers
-            'last_name' => 'nullable|string|max:255', // do not allow duplicate phone numbers
+            'first_name' => 'required|string|max:255', // do not allow duplicate phone numbersasdf 
+            'last_name' => 'nullable|string|max:255', // do not allow duplicate phone numbers sdf
             'email' => 'nullable|email|unique:customers,email,'.$customer->id, // do not allow duplicate emails
             'phone' => 'nullable|string|max:20|unique:customers,phone,'.$customer->id, // do not allow duplicate phone numbers
             'address' => 'nullable|string', // do not allow duplicate phone numbers
