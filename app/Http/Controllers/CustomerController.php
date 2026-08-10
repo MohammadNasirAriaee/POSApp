@@ -23,7 +23,7 @@ class CustomerController extends Controller
             });
         }
 
-        $customers = $query->paginate(12)->withQueryString(); // Paginate with 12 per page and xxsas string parameters
+        $customers = $query->paginate(12)->withQueryString(); // Paginate with 12 per page and xxsas stringd parameters
 
         return Inertia::render('Customers/Index', compact('customers', 'search')); // Rdf
     }
