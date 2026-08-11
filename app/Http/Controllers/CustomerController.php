@@ -59,7 +59,7 @@ class CustomerController extends Controller
             'last_name' => 'nullable|string|max:255', // do not allow duplicate phone numbers
             'email' => 'nullable|email|unique:customers,email,'.$customer->id, // do not allow duplicate emails
             'phone' => 'nullable|string|max:20|unique:customers,phone,'.$customer->id, // do not allow duplicate phone numbers
-            'address' => 'nullable|string', /
+            'address' => 'nullable|string',
         ]);
 
         $customer->update($data);
