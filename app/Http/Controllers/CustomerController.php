@@ -47,12 +47,12 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
 
-    public function edit(Customer $customer) // adsfas asdf 
+    public function edit(Customer $customer) // adsfas asdf
     {
         return Inertia::render('Customers/Edit', compact('customer')); // asdfasdf
     }
 
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Customer $customer) // function to update customer information
     {
         $data = $request->validate([
             'first_name' => 'required|string|max:255', // do not allow duplicate phone numbersasdf
