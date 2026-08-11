@@ -49,7 +49,7 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer) // adsfas asdf
     {
-        return Inertia::render('Customers/Edit', compact('customer')); // asdfasdf
+        return Inertia::render('Customers/Edit', compact('customer')); // return the edit view with the customer data
     }
 
     public function update(Request $request, Customer $customer) // function to update customer
