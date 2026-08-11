@@ -11,7 +11,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    public const STATUS_ACTIVE = 'active';
+    public const STATUS_ACTIVE = 'active'; // status for active employees
     public const STATUS_INACTIVE = 'inactive';
     public const STATUS_ON_LEAVE = 'on_leave';
 
@@ -78,7 +78,7 @@ class Employee extends Model
         }
 
         $diff = $this->hire_date->diff(now());
-        
+
         if ($this->hire_date->isFuture()) {
             return 'Starts ' . $this->hire_date->format('M d, Y');
         }
