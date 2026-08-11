@@ -52,7 +52,7 @@ class CustomerController extends Controller
         return Inertia::render('Customers/Edit', compact('customer')); // asdfasdf
     }
 
-    public function update(Request $request, Customer $customer) // function to update customer information
+    public function update(Request $request, Customer $customer) // function to update customer
     {
         $data = $request->validate([
             'first_name' => 'required|string|max:255', // do not allow duplicate phone numbersasdf
