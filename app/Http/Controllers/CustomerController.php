@@ -47,9 +47,9 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
 
-    public function edit(Customer $customer) // adsfas 
+    public function edit(Customer $customer) // adsfas
     {
-        return Inertia::render('Customers/Edit', compact('customer'));
+        return Inertia::render('Customers/Edit', compact('customer')); // asdfasdf 
     }
 
     public function update(Request $request, Customer $customer)
