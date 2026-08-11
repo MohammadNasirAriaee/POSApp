@@ -13,7 +13,7 @@ class Employee extends Model
 
     public const STATUS_ACTIVE = 'active'; // status for active employees
     public const STATUS_INACTIVE = 'inactive'; // status for inactive employees
-    public const STATUS_ON_LEAVE = 'on_leave';
+    public const STATUS_ON_LEAVE = 'on_leave'; // status for employees on leave
 
     public const POSITIONS = [
         'Store Manager',
