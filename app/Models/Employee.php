@@ -27,7 +27,7 @@ class Employee extends Model
 
     protected $fillable = [ // for mass of employee attributes
         'first_name', // first  of the employee
-        'last_name', // last name of the employee asdf
+        'last_name', // last of the employee asdf
         'email', // email of the employee
         'phone', // phone number of the employee
         'address', // address of employee
