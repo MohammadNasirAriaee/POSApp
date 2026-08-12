@@ -26,7 +26,7 @@ class Employee extends Model
     ];
 
     protected $fillable = [ // for mass assignment of employee attributes
-        'first_name', // first name of the employee
+        'first_name', // first  of the employee
         'last_name', // last name of the employee asdf
         'email',
         'phone',
