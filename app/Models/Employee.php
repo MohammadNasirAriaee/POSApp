@@ -25,8 +25,8 @@ class Employee extends Model
         'Customer Support', // customer support position
     ];
 
-    protected $fillable = [ // for mass of employee attributes
-        'first_name', // first  of the 
+    protected $fillable = [ // for mass of attributes
+        'first_name', // first  of the
         'last_name', // last of the  asdf
         'email', // email of the
         'phone', // phone number
