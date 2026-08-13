@@ -33,7 +33,7 @@ class Employee extends Model
         'address',
         'position',
         'salary', // salary of the
-        'hire_date', // hire date of
+        'hire_date',
         'status', // status of the
     ];
 
