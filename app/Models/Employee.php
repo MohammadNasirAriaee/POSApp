@@ -29,8 +29,8 @@ class Employee extends Model
         'first_name', // first  of the employee
         'last_name', // last of the employee asdf
         'email', // email of the employee
-        'phone', // phone number of the employee
-        'address', // address of 
+        'phone', // phone number of the 
+        'address', // address of
         'position', // position of the
         'salary', // salary of the
         'hire_date', // hire date of
