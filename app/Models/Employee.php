@@ -26,7 +26,7 @@ class Employee extends Model
     ];
 
     protected $fillable = [ //
-        'first_name', // first  of the
+        'first_name',
         'last_name',
         'email',
         'phone',
