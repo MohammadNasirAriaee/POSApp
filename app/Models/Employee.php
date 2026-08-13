@@ -32,7 +32,7 @@ class Employee extends Model
         'phone',
         'address',
         'position',
-        'salary', // salary of the
+        'salary',
         'hire_date',
         'status', // status of the
     ];
