@@ -33,8 +33,8 @@ class Employee extends Model
         'address', // address of employee
         'position', // position of the
         'salary', // salary of the
-        'hire_date', // hire date of 
-        'status', // status of the employee
+        'hire_date', // hire date of
+        'status', // status of the 
     ];
 
     protected $casts = [
