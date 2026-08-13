@@ -30,11 +30,11 @@ class Employee extends Model
         'last_name', // last of the employee asdf
         'email', // email of the employee
         'phone', // phone number of the employee
-        'address', // address of employee
+        'address', // address of 
         'position', // position of the
         'salary', // salary of the
         'hire_date', // hire date of
-        'status', // status of the 
+        'status', // status of the
     ];
 
     protected $casts = [
