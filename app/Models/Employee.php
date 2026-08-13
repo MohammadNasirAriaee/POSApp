@@ -29,7 +29,7 @@ class Employee extends Model
         'first_name', // first  of the employee
         'last_name', // last of the employee asdf
         'email', // email of the employee
-        'phone', // phone number of 
+        'phone', // phone number
         'address', // address of
         'position', // position of the
         'salary', // salary of the
