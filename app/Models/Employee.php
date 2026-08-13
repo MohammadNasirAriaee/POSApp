@@ -34,7 +34,7 @@ class Employee extends Model
         'position',
         'salary',
         'hire_date',
-        'status', // status of the
+        'status',
     ];
 
     protected $casts = [
