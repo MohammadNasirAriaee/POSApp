@@ -12,7 +12,7 @@ class Employee extends Model
     use HasFactory;
 
     public const STATUS_ACTIVE = 'active'; // status for active employees
-    public const STATUS_INACTIVE = 'inactive'; // status for inactive employees
+    public const STATUS_INACTIVE = 'inactive'; // status for employees
     public const STATUS_ON_LEAVE = 'on_leave'; // status for on leave
 
     public const POSITIONS = [
