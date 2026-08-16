@@ -13,7 +13,7 @@ class Employee extends Model
 
     public const STATUS_ACTIVE = 'active'; // status for active employees
     public const STATUS_INACTIVE = 'inactive'; // status for inactive employees
-    public const STATUS_ON_LEAVE = 'on_leave'; // status for employees on leave
+    public const STATUS_ON_LEAVE = 'on_leave'; // status for on leave
 
     public const POSITIONS = [
         'Store Manager',
@@ -21,7 +21,7 @@ class Employee extends Model
         'Shift Supervisor', // shift position
         'Cashier', // cashier position
         'Inventory Specialist', // inventory
-        'Sales Associate', // sales 
+        'Sales Associate', // sales
         'Customer Support', // support
     ];
 
