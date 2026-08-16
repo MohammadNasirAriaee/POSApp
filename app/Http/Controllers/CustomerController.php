@@ -62,7 +62,7 @@ class CustomerController extends Controller
             'address' => 'nullable|string',
         ]);
 
-        $customer->update($data); // update the customer with the validated data
+        $customer->update($data); /
 
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.'); // return to the customer index page with a success message
     }
