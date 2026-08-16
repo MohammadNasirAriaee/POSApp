@@ -13,7 +13,7 @@ class Employee extends Model
 
     public const STATUS_ACTIVE = 'active';
     public const STATUS_INACTIVE = 'inactive';
-    public const STATUS_ON_LEAVE = 'on_leave'; // status for on leave
+    public const STATUS_ON_LEAVE = 'on_leave';
 
     public const POSITIONS = [
         'Store Manager',
@@ -25,7 +25,7 @@ class Employee extends Model
         'Customer Support', // support
     ];
 
-    protected $fillable = [ //
+    protected $fillable = [
         'first_name',
         'last_name',
         'email',
