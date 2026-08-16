@@ -22,7 +22,7 @@ class Employee extends Model
         'Cashier', // cashier position
         'Inventory Specialist', // inventory position
         'Sales Associate', // sales associate position
-        'Customer Support', // customer support position
+        'Customer Support', // customer support 
     ];
 
     protected $fillable = [ //
