@@ -21,7 +21,7 @@ class Employee extends Model
         'Shift Supervisor', // shift position
         'Cashier', // cashier position
         'Inventory Specialist', // inventory
-        'Sales Associate', // sales
+        'Sales Associate',
         'Customer Support',
     ];
 
