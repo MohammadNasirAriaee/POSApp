@@ -18,7 +18,7 @@ class Employee extends Model
     public const POSITIONS = [
         'Store Manager',
         'Assistant Manager',
-        'Shift Supervisor', // shift position
+        'Shift Supervisor',
         'Cashier',
         'Inventory Specialist',
         'Sales Associate',
