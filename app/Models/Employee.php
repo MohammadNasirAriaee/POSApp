@@ -21,8 +21,8 @@ class Employee extends Model
         'Shift Supervisor', // shift supervisor position
         'Cashier', // cashier position
         'Inventory Specialist', // inventory position
-        'Sales Associate', // sales associate position
-        'Customer Support', // customer support 
+        'Sales Associate', // sales associate
+        'Customer Support', // customer support
     ];
 
     protected $fillable = [ //
