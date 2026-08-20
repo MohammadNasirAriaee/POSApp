@@ -24,7 +24,7 @@ class OrderController extends Controller
 
     public function show(Order $order) // function to show order details
     {
-        $order->load(['customer', 'employee', 'items.product']); // load customer and product data for the order
+        $order->load(['customer', 'employee', 'items.product']);
         return Inertia::render('Orders/Show', compact('order')); // return the show with the order data
     }
 
