@@ -29,7 +29,7 @@ class ProductController extends Controller
 
     public function create() // function to show the create product form
     {
-        $categories = Category::where('is_active', true)->get();
+        $categories = Category::where('is_active', true)->get(); // get all active categories to show in the create product form
         return Inertia::render('Products/Create', compact('categories'));
     }
 
