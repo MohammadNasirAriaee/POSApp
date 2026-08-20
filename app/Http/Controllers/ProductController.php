@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $search = $request->query('search'); // get the search query from the request
 
-        $query = Product::with('category')->latest();
+        $query = Product::with('category')->latest(); // get the latest products with their categories
 
         if ($search) {
             $query->where(function ($q) use ($search) {
