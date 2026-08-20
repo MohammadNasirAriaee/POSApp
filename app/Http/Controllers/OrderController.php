@@ -28,7 +28,7 @@ class OrderController extends Controller
         return Inertia::render('Orders/Show', compact('order')); // return the show view with the order data
     }
 
-    public function destroy(Order $order)
+    public function destroy(Order $order) // function to cancel order and return stock
     {
         // Cancel order and return stock
         if ($order->status !== 'cancelled') {
