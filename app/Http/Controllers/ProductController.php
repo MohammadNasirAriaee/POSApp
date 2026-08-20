@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request) // function to list products with search and pagination
     {
         $search = $request->query('search');
 
@@ -44,7 +44,7 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,draft,out_of_stock',
         ]);
-        
+
         Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
@@ -72,7 +72,7 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,draft,out_of_stock',
         ]);
-        
+
         $product->update($data);
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
