@@ -72,4 +72,5 @@ class CustomerController extends Controller
         $customer->delete(); //
         return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.'); // return to the customer index page with a success message
     } //
+    
 }
