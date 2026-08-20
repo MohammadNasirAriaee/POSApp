@@ -17,7 +17,7 @@ class OrderController extends Controller
             $query->where('status', $status);
         }
 
-        $orders = $query->paginate(15)->withQueryString(); // paginate 15 orders per page and keep the query string for pagination links
+        $orders = $query->paginate(15)->withQueryString(); // paginar pagination links
 
         return Inertia::render('Orders/Index', compact('orders', 'status'));
     }
