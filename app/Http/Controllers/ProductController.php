@@ -17,7 +17,7 @@ class ProductController extends Controller
 
         if ($search) { // if there is a search query
             $query->where(function ($q) use ($search) { // define a closure to filter the products
-                $q->where('name', 'like', "%{$search}%")
+                $q->where('name', 'like', "%{$search}%") // search by name
                   ->orWhere('sku', 'like', "%{$search}%");
             });
         }
