@@ -64,7 +64,7 @@ class CustomerController extends Controller
 
         $customer->update($data); //
 
-        return redirect()->route('customers.index')->with('success', 'Customer updated successfully.'); //
+        return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
     }
 
     public function destroy(Customer $customer)
