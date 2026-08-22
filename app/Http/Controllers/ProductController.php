@@ -15,7 +15,7 @@ class ProductController extends Controller
 
         $query = Product::with('category')->latest(); // get the latest products with their categories
 
-        if ($search) { // if there is a search query
+        if ($search) {
             $query->where(function ($q) use ($search) { // define a closure to filter the products
                 $q->where('name', 'like', "%{$search}%") // search by name
                   ->orWhere('sku', 'like', "%{$search}%");
