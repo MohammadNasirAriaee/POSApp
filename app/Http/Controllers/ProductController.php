@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index(Request $request) // function to list products with search and pagination
     {
-        $search = $request->query('search'); // 
+        $search = $request->query('search'); 
 
         $query = Product::with('category')->latest(); // get the latest products with their categories
 
