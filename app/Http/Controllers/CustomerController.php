@@ -37,7 +37,7 @@ class CustomerController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email', // do not allow duplicate emails
+            'email' => 'nullable|email|unique:customers,email',
             'phone' => 'nullable|string|max:20|unique:customers,phone', // do not allow duplicate phone numbers
             'address' => 'nullable|string',
         ]);
