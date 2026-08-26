@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class PosController extends Controller // controller for handling POS operations
 {
-    public function index(Request $request)
+    public function index(Request $request) // function to show the POS interface with products, categories, and customers
     {
         $categories = Category::where('is_active', true)->orderBy('name')->get();
 
