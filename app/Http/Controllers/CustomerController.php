@@ -59,7 +59,7 @@ class CustomerController extends Controller
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,' . $customer->id,
             'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id,
-            'address' => 'nullable|string', // got it well
+            'address' => 'nullable|string',
         ]);
 
         $customer->update($data);
