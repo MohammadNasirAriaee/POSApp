@@ -54,7 +54,7 @@ class CustomerController extends Controller
  // find it, no do not find it
     public function update(Request $request, Customer $customer) // function to update customer
     {
-        $data = $request->validate([
+        $data = $request->validate([ // what to validate
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,' . $customer->id,
