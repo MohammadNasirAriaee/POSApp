@@ -10,18 +10,18 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PosController extends Controller
+class PosController extends Controller // controller for handling POS operations
 {
     public function index(Request $request)
     {
         $categories = Category::where('is_active', true)->orderBy('name')->get();
-        
+
         $query = Product::where('status', 'active');
-        
+
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
-        
+
         if ($request->filled('search')) {
             $query->where(function($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
@@ -46,7 +46,7 @@ class PosController extends Controller
         ]);
 
         $cart = json_decode($request->cart, true);
-        
+
         if (empty($cart)) {
             return back()->with('error', 'Cart is empty!');
         }
@@ -55,15 +55,15 @@ class PosController extends Controller
 
         try {
             $subtotal = 0;
-            
+
             // Calculate real subtotal from DB to prevent tampering
             foreach ($cart as $item) {
                 $product = Product::findOrFail($item['id']);
-                
+
                 if ($product->stock_quantity < $item['quantity']) {
                     throw new \Exception("Not enough stock for {$product->name}");
                 }
-                
+
                 $subtotal += $product->price * $item['quantity'];
             }
 
@@ -83,7 +83,7 @@ class PosController extends Controller
 
             foreach ($cart as $item) {
                 $product = Product::findOrFail($item['id']);
-                
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
