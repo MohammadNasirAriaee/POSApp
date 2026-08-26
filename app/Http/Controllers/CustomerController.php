@@ -42,7 +42,7 @@ class CustomerController extends Controller
             'address' => 'nullable|string',
         ]);
 
-        Customer::create($data);
+        Customer::create($data); // 
 
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
