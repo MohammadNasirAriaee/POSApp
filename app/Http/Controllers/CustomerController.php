@@ -55,8 +55,8 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $data = $request->validate([
-            'first_name' => 'required|string|max:255', // in it
-            'last_name' => 'nullable|string|max:255', // fiber // bit not
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,' . $customer->id, // email must  except for the cuomer
             'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id, // phone must  for the current customer
             'address' => 'nullable|string', // got it well
