@@ -44,7 +44,7 @@ class CustomerController extends Controller
 
         Customer::create($data); //
 
-        return redirect()->route('customers.index')->with('success', 'Customer created successfully.'); // find it soon
+        return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
 
     public function edit(Customer $customer)
