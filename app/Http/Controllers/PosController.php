@@ -24,7 +24,7 @@ class PosController extends Controller // controller for handling POS operations
 
         if ($request->filled('search')) { // if a search query is provided, filter products by name or SKU
             $query->where(function($q) use ($request) { // define a closure to filter the products by name or SKU
-                $q->where('name', 'like', '%' . $request->search . '%') // search by name
+                $q->where('name', 'like', '%' . $request->search . '%') 
                   ->orWhere('sku', 'like', '%' . $request->search . '%'); // search by SKU
             }); // end of closure
         } // end of search filter
