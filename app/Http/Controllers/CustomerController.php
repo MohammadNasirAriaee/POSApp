@@ -51,7 +51,7 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Edit', compact('customer')); // return the edit view with the customer data
     }
- // find it
+ // find it, no do not find it
     public function update(Request $request, Customer $customer) // function to update customer
     {
         $data = $request->validate([
