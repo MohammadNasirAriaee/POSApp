@@ -39,7 +39,7 @@ class PosController extends Controller // controller for handling POS operations
     {
         $request->validate([ // validate the request data
             'cart' => 'required|json', // validate that the cart is a required JSON string
-            'customer_id' => 'nullable|exists:customers,id',
+            'customer_id' => 'nullable|exists:customers,id', // validate that the customer_id is nullable and exists in the customers table
             'payment_method' => 'required|string',
             'tax_rate' => 'required|numeric|min:0|max:100',
             'discount' => 'required|numeric|min:0',
