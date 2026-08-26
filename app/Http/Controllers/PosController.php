@@ -22,10 +22,10 @@ class PosController extends Controller // controller for handling POS operations
             $query->where('category_id', $request->category_id); // added a filter for category_id to the product query
         } // end of category filter
 
-        if ($request->filled('search')) { // if a search query is provided, filter products by name or SKU
+        if ($request->filled('search')) { // if a search query is provided, products by name or SKU
             $query->where(function($q) use ($request) { // define a closure to filter the products by name or SKU
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('sku', 'like', '%' . $request->search . '%'); 
+                  ->orWhere('sku', 'like', '%' . $request->search . '%');
             }); // end of closure
         } // end of search filter
 
