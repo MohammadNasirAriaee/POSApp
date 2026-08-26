@@ -35,7 +35,7 @@ class PosController extends Controller // controller for handling POS operations
         return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers')); // return the POS interface view with the products, categories, and customers
     } // end of index function
 
-    public function checkout(Request $request)
+    public function checkout(Request $request) // function to handle the checkout process
     {
         $request->validate([
             'cart' => 'required|json',
