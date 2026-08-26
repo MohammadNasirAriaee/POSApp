@@ -57,7 +57,7 @@ class CustomerController extends Controller
         $data = $request->validate([ // what to validate
             'first_name' => 'required|string|max:255', // in it // bidfiber
             'last_name' => 'nullable|string|max:255', // fiber // bit not
-            'email' => 'nullable|email|unique:customers,email,' . $customer->id,
+            'email' => 'nullable|email|unique:customers,email,' . $customer->id, // email must be unique except for the current customer
             'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id,
             'address' => 'nullable|string',
         ]);
