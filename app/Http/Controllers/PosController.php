@@ -27,7 +27,7 @@ class PosController extends Controller // controller for handling POS operations
                 $q->where('name', 'like', '%' . $request->search . '%') // search by name
                   ->orWhere('sku', 'like', '%' . $request->search . '%'); // search by SKU
             }); // end of closure
-        }
+        } // end of search filter
 
         $products = $query->orderBy('name')->get();
         $customers = Customer::orderBy('first_name')->get();
