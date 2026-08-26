@@ -42,7 +42,7 @@ class CustomerController extends Controller
             'address' => 'nullable|string',
         ]);
 
-        Customer::create($data); // 
+        Customer::create($data); //
 
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
@@ -51,7 +51,7 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Edit', compact('customer')); // return the edit view with the customer data
     }
-
+ // find it
     public function update(Request $request, Customer $customer) // function to update customer
     {
         $data = $request->validate([
