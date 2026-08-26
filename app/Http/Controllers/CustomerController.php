@@ -49,10 +49,10 @@ class CustomerController extends Controller
 
     public function edit(Customer $customer)
     {
-        return Inertia::render('Customers/Edit', compact('customer')); 
+        return Inertia::render('Customers/Edit', compact('customer'));
     }
  // find it, no do not find it
-    public function update(Request $request, Customer $customer) // function to update customer
+    public function update(Request $request, Customer $customer)
     {
         $data = $request->validate([ // what to validate
             'first_name' => 'required|string|max:255', // in it
