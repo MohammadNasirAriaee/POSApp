@@ -58,7 +58,7 @@ class CustomerController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:customers,email,' . $customer->id, // email must  except for the cuomer
-            'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id, // phone must  for the current customer
+            'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id,
             'address' => 'nullable|string', // got it well
         ]);
 
