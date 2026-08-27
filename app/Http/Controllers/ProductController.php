@@ -19,7 +19,7 @@ class ProductController extends Controller
             $query->where(function ($q) use ($search) { // define a closure to filter the products
                 $q->where('name', 'like', "%{$search}%") // search by name
                   ->orWhere('sku', 'like', "%{$search}%");
-            });
+            }); // 
         }
 
         $products = $query->paginate(10)->withQueryString();
