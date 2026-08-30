@@ -41,7 +41,7 @@ class PosController extends Controller // controller for handling POS operations
             'cart' => 'required|json',
             'customer_id' => 'nullable|exists:customers,id',
             'payment_method' => 'required|string',
-            'tax_rate' => 'required|numeric|min:0|max:100', // validate that the tax_rate is a required numeric value between 0 and 100
+            'tax_rate' => 'required|numeric|min:0|max:100',
             'discount' => 'required|numeric|min:0', // validate that the discount is a required numeric value greater than or equal to 0
         ]);
 
