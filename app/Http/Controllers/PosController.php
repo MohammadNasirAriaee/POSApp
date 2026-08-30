@@ -85,7 +85,7 @@ class PosController extends Controller // controller for handling POS operations
                 $product = Product::findOrFail($item['id']);
 
                 OrderItem::create([
-                    'order_id' => $order->id,
+                    'order_id' => $order->id, // asfd
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'price' => $product->price,
