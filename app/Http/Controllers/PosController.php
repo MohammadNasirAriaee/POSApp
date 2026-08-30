@@ -20,7 +20,7 @@ class PosController extends Controller // controller for handling POS operations
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
-        } // end of category filter
+        }
 
         if ($request->filled('search')) {
             $query->where(function($q) use ($request) {
