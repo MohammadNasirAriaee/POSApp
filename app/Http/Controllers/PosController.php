@@ -42,7 +42,7 @@ class PosController extends Controller // controller for handling POS operations
             'customer_id' => 'nullable|exists:customers,id',
             'payment_method' => 'required|string',
             'tax_rate' => 'required|numeric|min:0|max:100',
-            'discount' => 'required|numeric|min:0', // validate that the discount is a required numeric value greater than or equal to 0
+            'discount' => 'required|numeric|min:0',
         ]);
 
         $cart = json_decode($request->cart, true);
