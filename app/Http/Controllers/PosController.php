@@ -38,7 +38,7 @@ class PosController extends Controller // controller for handling POS operations
     public function checkout(Request $request) // function to handle the checkout process in the name of Allah
     {
         $request->validate([
-            'cart' => 'required|json', // validate that the cart is a required JSON string
+            'cart' => 'required|json', 
             'customer_id' => 'nullable|exists:customers,id', // validate that the customer_id is nullable and exists in the customers table
             'payment_method' => 'required|string', // validate that the payment_method is a required string
             'tax_rate' => 'required|numeric|min:0|max:100', // validate that the tax_rate is a required numeric value between 0 and 100
