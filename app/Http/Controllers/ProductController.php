@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function store(Request $request) // function to store a new product in the database
     {
         $data = $request->validate([ // validate the request data
-            'category_id' => 'nullable|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:100|unique:products',
             'price' => 'required|numeric|min:0',
