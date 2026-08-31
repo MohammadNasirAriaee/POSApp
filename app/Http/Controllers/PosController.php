@@ -98,7 +98,7 @@ class PosController extends Controller // controller for handling POS operations
 
             DB::commit(); // Commit the transaction
 
-            return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
+            return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!'); // Redirect to the order details page with a success message
 
         } catch (\Exception $e) {
             DB::rollBack();
