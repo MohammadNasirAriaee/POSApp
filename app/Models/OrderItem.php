@@ -21,7 +21,7 @@ class OrderItem extends Model
         'subtotal' => 'decimal:2',
     ];
 
-    public function order()
+    public function order() // define the relationship between OrderItem and Order models
     {
         return $this->belongsTo(Order::class);
     }
