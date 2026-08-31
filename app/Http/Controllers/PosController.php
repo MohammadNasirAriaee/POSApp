@@ -102,7 +102,7 @@ class PosController extends Controller // controller for handling POS operations
 
         } catch (\Exception $e) { // Handle any exceptions that occur during the transaction
             DB::rollBack(); // Rollback the transaction if an error occurs
-            return back()->with('error', 'Checkout failed: ' . $e->getMessage());
+            return back()->with('error', 'Checkout failed: ' . $e->getMessage()); // Return back with an error message if checkout fails
         }
     }
 }
