@@ -16,7 +16,7 @@ class Category extends Model
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active' => 'boolean', // cast is_active to boolean
     ];
 
     public function products()
