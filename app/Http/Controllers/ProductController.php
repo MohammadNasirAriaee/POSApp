@@ -42,7 +42,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0', // price is required, must be numeric, and cannot be negative
             'cost' => 'nullable|numeric|min:0', // cost is optional, must be numeric, and cannot be negative
             'stock_quantity' => 'required|integer|min:0', // stock_quantity is required, must be an integer, and cannot be negative
-            'status' => 'required|in:active,draft,out_of_stock',
+            'status' => 'required|in:active,draft,out_of_stock', // status is required and must be one of the specified values
         ]);
 
         Product::create($data);
