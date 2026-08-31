@@ -86,10 +86,10 @@ class PosController extends Controller // controller for handling POS operations
 
                 OrderItem::create([
                     'order_id' => $order->id, // asfd asdf asdf asdf
-                    'product_id' => $product->id, // next field
+                    'product_id' => $product->id, // product ID
                     'name' => $product->name, // product name
-                    'price' => $product->price,
-                    'quantity' => $item['quantity'],
+                    'price' => $product->price, // product price
+                    'quantity' => $item['quantity'], // quantity of the product in the order
                     'subtotal' => $product->price * $item['quantity'],
                 ]);
 
