@@ -96,7 +96,7 @@ class PosController extends Controller // controller for handling POS operations
                 $product->decrement('stock_quantity', $item['quantity']); // decrement the stock quantity of the product by the quantity sold
             }
 
-            DB::commit();
+            DB::commit(); // Commit the transaction
 
             return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
 
