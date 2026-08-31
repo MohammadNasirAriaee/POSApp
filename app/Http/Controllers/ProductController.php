@@ -45,7 +45,7 @@ class ProductController extends Controller
             'status' => 'required|in:active,draft,out_of_stock', // status is required and must be one of the specified values
         ]);
 
-        Product::create($data);
+        Product::create($data); / / create a new product with the validated data
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
