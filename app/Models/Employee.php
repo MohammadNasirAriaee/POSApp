@@ -43,6 +43,11 @@ class Employee extends Model
     ];
 
     /**
+     * Expose the computed full name to JSON payloads (Inertia pages read `name`).
+     */
+    protected $appends = ['name'];
+
+    /**
      * Get full name.
      */
     public function getNameAttribute(): string

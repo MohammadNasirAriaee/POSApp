@@ -54,55 +54,80 @@ class PosController extends Controller // controller for handling POS operations
         DB::beginTransaction();
 
         try {
+            // Collapse duplicate cart lines and lock the rows so two concurrent
+            // sales cannot both pass the stock check on the same product.
+            $quantities = [];
+            foreach ($cart as $item) {
+                $id = (int) ($item['id'] ?? 0);
+                $qty = (int) ($item['quantity'] ?? 0);
+
+                if ($id <= 0 || $qty <= 0) {
+                    throw new \Exception('Invalid cart line.');
+                }
+
+                $quantities[$id] = ($quantities[$id] ?? 0) + $qty;
+            }
+
+            $products = Product::whereIn('id', array_keys($quantities))
+                ->lockForUpdate()
+                ->get()
+                ->keyBy('id');
+
             $subtotal = 0;
 
-            // Calculate real subtotal from DB to prevent tampering
-            foreach ($cart as $item) {
-                $product = Product::findOrFail($item['id']);
+            // Price and stock always come from the DB, never from the cart payload.
+            foreach ($quantities as $productId => $quantity) {
+                $product = $products->get($productId);
 
-                if ($product->stock_quantity < $item['quantity']) {
+                if (! $product || $product->status !== 'active') {
+                    throw new \Exception('Product is no longer available.');
+                }
+
+                if ($product->stock_quantity < $quantity) {
                     throw new \Exception("Not enough stock for {$product->name}");
                 }
 
-                $subtotal += $product->price * $item['quantity'];
+                $subtotal += $product->price * $quantity;
             }
 
-            $tax = $subtotal * ($request->tax_rate / 100); // Calculate tax based on the subtotal and tax rate
-            $total = $subtotal + $tax - $request->discount; // Calculate total by adding tax and subtracting discount
+            $tax = round($subtotal * ($request->tax_rate / 100), 2);
+            $discount = min((float) $request->discount, $subtotal + $tax); // never discount below zero
+            $total = $subtotal + $tax - $discount;
 
             $order = Order::create([
-                'customer_id' => $request->customer_id, // customer ID from the request
-                'employee_id' => auth()->id() ?? null, // In future: map to logged in user
-                'subtotal' => $subtotal, // in the one of them
-                'tax' => $tax, // taxation not
-                'discount' => $request->discount, // discount
-                'total' => max(0, $total), // total max
+                'customer_id' => $request->customer_id,
+                'employee_id' => null, // In future: map to the logged in employee
+                'subtotal' => $subtotal,
+                'tax' => $tax,
+                'discount' => $discount,
+                'total' => $total,
                 'payment_method' => $request->payment_method,
                 'status' => 'completed',
             ]);
 
-            foreach ($cart as $item) {
-                $product = Product::findOrFail($item['id']); // how to do it
+            foreach ($quantities as $productId => $quantity) {
+                $product = $products->get($productId);
 
                 OrderItem::create([
-                    'order_id' => $order->id, // asfd asdf asdf asdf
-                    'product_id' => $product->id, // product ID
-                    'name' => $product->name, // product name
-                    'price' => $product->price, // product price
-                    'quantity' => $item['quantity'], // quantity of the product in the order
-                    'subtotal' => $product->price * $item['quantity'], // subtotal for this item (price * quantity)
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'quantity' => $quantity,
+                    'subtotal' => $product->price * $quantity,
                 ]);
 
-                $product->decrement('stock_quantity', $item['quantity']); // decrement the stock quantity of the product by the quantity sold
+                $product->decrement('stock_quantity', $quantity);
             }
 
-            DB::commit(); // Commit the transaction
+            DB::commit();
 
-            return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!'); // Redirect to the order details page with a success message
+            return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
 
-        } catch (\Exception $e) { // Handle any exceptions that occur during the transaction
-            DB::rollBack(); // Rollback the transaction if an error occurs
-            return back()->with('error', 'Checkout failed: ' . $e->getMessage()); // Return back with an error message if checkout fails
-        } // end of try-catch block
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->with('error', 'Checkout failed: ' . $e->getMessage());
+        }
     } // end of checkout function
 } // end of PosController class

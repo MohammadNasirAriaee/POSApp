@@ -16,6 +16,11 @@ class Customer extends Model
         'address',
     ];
 
+    /**
+     * Expose the computed full name to JSON payloads (Inertia pages read `name`).
+     */
+    protected $appends = ['name'];
+
     public function getNameAttribute(): string
     {
         return trim("{$this->first_name} {$this->last_name}");

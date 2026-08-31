@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
-import { DollarSign, ShoppingBag, Package, Users } from 'lucide-vue-next';
+import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 
 defineProps({
     stats: Object,
@@ -23,7 +23,7 @@ const formatMoney = (amount) => {
         </div>
 
         <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
             <Card>
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
@@ -68,6 +68,18 @@ const formatMoney = (amount) => {
                     <div>
                         <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Total Customers</p>
                         <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.total_customers }}</h4>
+                    </div>
+                </div>
+            </Card>
+
+            <Card>
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                        <AlertTriangle class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Low Stock</p>
+                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.low_stock_products }}</h4>
                     </div>
                 </div>
             </Card>

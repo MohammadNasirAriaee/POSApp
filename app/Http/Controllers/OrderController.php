@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -30,19 +32,19 @@ class OrderController extends Controller
 
     public function destroy(Order $order) // function to cancel order and return stock
     {
-        if ($order->status !== 'cancelled') {
+        if ($order->status === 'cancelled') {
+            return redirect()->back()->with('error', 'Order is already cancelled.');
+        }
+
+        DB::transaction(function () use ($order) {
             $order->update(['status' => 'cancelled']);
 
             // Return stock to inventory
-            foreach ($order->items as $item) {
-                if ($item->product_id) {
-                    $item->product->increment('stock_quantity', $item->quantity);
-                }
+            foreach ($order->items()->with('product')->get() as $item) {
+                $item->product?->increment('stock_quantity', $item->quantity);
             }
+        });
 
-            return redirect()->back()->with('success', 'Order cancelled and stock returned successfully.');
-        }
-
-        return redirect()->back()->with('error', 'Order is already cancelled.');
+        return redirect()->back()->with('success', 'Order cancelled and stock returned successfully.');
     }
 }
