@@ -24,7 +24,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(10)->withQueryString(); // paginate the results and keep the query string for pagination links
 
-        return Inertia::render('Products/Index', compact('products', 'search')); // asdf
+        return Inertia::render('Products/Index', compact('products', 'search')); // return the products index view with the products and search query
     }
 
     public function create() // function to show the create product form
