@@ -105,4 +105,4 @@ class PosController extends Controller // controller for handling POS operations
             return back()->with('error', 'Checkout failed: ' . $e->getMessage()); // Return back with an error message if checkout fails
         } // end of try-catch block
     } // end of checkout function
-}
+} // end of PosController class
