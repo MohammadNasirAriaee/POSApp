@@ -100,7 +100,7 @@ class PosController extends Controller // controller for handling POS operations
 
             return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!'); // Redirect to the order details page with a success message
 
-        } catch (\Exception $e) {
+        } catch (\Exception $e) { // Handle any exceptions that occur during the transaction
             DB::rollBack();
             return back()->with('error', 'Checkout failed: ' . $e->getMessage());
         }
