@@ -26,7 +26,7 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function product()
+    public function product() // define the relationship between OrderItem and Product models
     {
         return $this->belongsTo(Product::class);
     }
