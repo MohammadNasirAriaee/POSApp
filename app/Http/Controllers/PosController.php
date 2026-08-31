@@ -68,13 +68,13 @@ class PosController extends Controller // controller for handling POS operations
             }
 
             $tax = $subtotal * ($request->tax_rate / 100); // Calculate tax based on the subtotal and tax rate
-            $total = $subtotal + $tax - $request->discount; // asdf
+            $total = $subtotal + $tax - $request->discount; // Calculate total by adding tax and subtracting discount
 
             $order = Order::create([
-                'customer_id' => $request->customer_id,
+                'customer_id' => $request->customer_id, // customer ID from the request
                 'employee_id' => auth()->id() ?? null, // In future: map to logged in user
                 'subtotal' => $subtotal, // in the one of them
-                'tax' => $tax, // taxation
+                'tax' => $tax, // taxation not
                 'discount' => $request->discount, // discount
                 'total' => max(0, $total), // total max
                 'payment_method' => $request->payment_method,
