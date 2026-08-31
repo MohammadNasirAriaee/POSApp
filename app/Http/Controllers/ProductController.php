@@ -39,7 +39,7 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
             'name' => 'required|string|max:255', // name is required, must be a string, and cannot exceed 255 characters
             'sku' => 'required|string|max:100|unique:products', // SKU is required, must be a string, cannot exceed 100 characters, and must be unique in the products table
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0', // price is required, must be numeric, and cannot be negative
             'cost' => 'nullable|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
             'status' => 'required|in:active,draft,out_of_stock',
