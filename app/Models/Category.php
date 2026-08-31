@@ -19,7 +19,7 @@ class Category extends Model
         'is_active' => 'boolean', // cast is_active to boolean
     ];
 
-    public function products()
+    public function products() // define the relationship between Category and Product models
     {
         return $this->hasMany(Product::class);
     }
