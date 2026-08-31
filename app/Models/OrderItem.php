@@ -15,7 +15,7 @@ class OrderItem extends Model
         'subtotal',
     ];
 
-    protected $casts = [
+    protected $casts = [ // cast the price and subtotal to decimal with 2 decimal places, and quantity to integer
         'price' => 'decimal:2',
         'quantity' => 'integer',
         'subtotal' => 'decimal:2',
