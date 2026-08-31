@@ -90,7 +90,7 @@ class PosController extends Controller // controller for handling POS operations
                     'name' => $product->name, // product name
                     'price' => $product->price, // product price
                     'quantity' => $item['quantity'], // quantity of the product in the order
-                    'subtotal' => $product->price * $item['quantity'],
+                    'subtotal' => $product->price * $item['quantity'], // subtotal for this item (price * quantity)
                 ]);
 
                 $product->decrement('stock_quantity', $item['quantity']);
