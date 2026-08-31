@@ -33,7 +33,7 @@ class ProductController extends Controller
         return Inertia::render('Products/Create', compact('categories')); // return the create product view with the active categories
     }
 
-    public function store(Request $request)
+    public function store(Request $request) // function to store a new product in the database
     {
         $data = $request->validate([
             'category_id' => 'nullable|exists:categories,id',
