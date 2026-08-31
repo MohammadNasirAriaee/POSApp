@@ -20,7 +20,7 @@ class Product extends Model
         'status',
     ];
 
-    protected $casts = [
+    protected $casts = [ // cast attributes to specific data types
         'price' => 'decimal:2',
         'cost' => 'decimal:2',
         'stock_quantity' => 'integer',
