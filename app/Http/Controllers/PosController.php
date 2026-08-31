@@ -82,11 +82,11 @@ class PosController extends Controller // controller for handling POS operations
             ]);
 
             foreach ($cart as $item) {
-                $product = Product::findOrFail($item['id']);
+                $product = Product::findOrFail($item['id']); // how to do it
 
                 OrderItem::create([
                     'order_id' => $order->id, // asfd asdf asdf asdf
-                    'product_id' => $product->id,
+                    'product_id' => $product->id, // next field
                     'name' => $product->name,
                     'price' => $product->price,
                     'quantity' => $item['quantity'],
