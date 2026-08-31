@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
-    protected $fillable = [
+    protected $fillable = [ // fillable attributes for mass assignment
         'category_id',
         'name',
         'sku',
