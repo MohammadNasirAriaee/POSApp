@@ -18,7 +18,7 @@ class ProductController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) { // search for products by name or SKU
                 $q->where('name', 'like', "%{$search}%") // search by name
-                  ->orWhere('sku', 'like', "%{$search}%");
+                  ->orWhere('sku', 'like', "%{$search}%"); // search by SKU
             }); // one agent
         }
 
