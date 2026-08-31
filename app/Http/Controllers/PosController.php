@@ -67,8 +67,8 @@ class PosController extends Controller // controller for handling POS operations
                 $subtotal += $product->price * $item['quantity'];
             }
 
-            $tax = $subtotal * ($request->tax_rate / 100);
-            $total = $subtotal + $tax - $request->discount; // asdf 
+            $tax = $subtotal * ($request->tax_rate / 100); // Calculate tax based on the subtotal and tax rate
+            $total = $subtotal + $tax - $request->discount; // asdf
 
             $order = Order::create([
                 'customer_id' => $request->customer_id,
