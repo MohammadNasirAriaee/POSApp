@@ -12,7 +12,7 @@ class Category extends Model
         'name', // name of the category
         'slug', // slug for the category
         'description', // description of the category
-        'is_active',
+        'is_active', // whether the category is active or not
     ];
 
     protected $casts = [
