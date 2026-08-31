@@ -76,7 +76,7 @@ class PosController extends Controller // controller for handling POS operations
                 'subtotal' => $subtotal, // in the one of them
                 'tax' => $tax, // taxation
                 'discount' => $request->discount, // discount
-                'total' => max(0, $total),
+                'total' => max(0, $total), // total max
                 'payment_method' => $request->payment_method,
                 'status' => 'completed',
             ]);
