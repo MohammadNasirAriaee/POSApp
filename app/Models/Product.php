@@ -26,7 +26,7 @@ class Product extends Model
         'stock_quantity' => 'integer',
     ];
 
-    public function category()
+    public function category() // define the relationship between Product and Category models
     {
         return $this->belongsTo(Category::class);
     }
