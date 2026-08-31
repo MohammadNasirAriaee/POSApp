@@ -22,7 +22,7 @@ class ProductController extends Controller
             }); // one agent
         }
 
-        $products = $query->paginate(10)->withQueryString();
+        $products = $query->paginate(10)->withQueryString(); // paginate the results and keep the query string for pagination links
 
         return Inertia::render('Products/Index', compact('products', 'search')); // asdf
     }
