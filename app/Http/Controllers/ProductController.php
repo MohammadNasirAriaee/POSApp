@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([ // validate the request data
             'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255', // name is required, must be a string, and cannot exceed 255 characters
             'sku' => 'required|string|max:100|unique:products',
             'price' => 'required|numeric|min:0',
             'cost' => 'nullable|numeric|min:0',
