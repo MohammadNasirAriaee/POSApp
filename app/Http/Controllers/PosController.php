@@ -109,7 +109,7 @@ class PosController extends Controller // controller for handling POS operations
                 $product = $products->get($productId);
 
                 OrderItem::create([
-                    'order_id' => $order->id,
+                    'order_id' => $order->id, // associate the order item with the created order
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'price' => $product->price,
