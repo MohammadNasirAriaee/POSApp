@@ -66,7 +66,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->validate([
-            'category_id' => 'nullable|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:100|unique:products,sku,' . $product->id,
             'price' => 'required|numeric|min:0',
