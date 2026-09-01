@@ -60,7 +60,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::where('is_active', true)->get(); // get all active categories to populate the category dropdown in the edit form
-        return Inertia::render('Products/Edit', compact('product', 'categories'));
+        return Inertia::render('Products/Edit', compact('product', 'categories')); // return the edit product view with the product and active categories
     }
 
     public function update(Request $request, Product $product)
