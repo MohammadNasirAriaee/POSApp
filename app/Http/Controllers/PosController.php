@@ -105,8 +105,8 @@ class PosController extends Controller // controller for handling POS operations
                 'status' => 'completed', // status of the order, set to completed for successful checkout
             ]);
 
-            foreach ($quantities as $productId => $quantity) { // 
-                $product = $products->get($productId);
+            foreach ($quantities as $productId => $quantity) { //
+                $product = $products->get($productId); // asdf
 
                 OrderItem::create([
                     'order_id' => $order->id, // associate the order item with the created order
