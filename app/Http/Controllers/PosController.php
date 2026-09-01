@@ -97,7 +97,7 @@ class PosController extends Controller // controller for handling POS operations
             $order = Order::create([
                 'customer_id' => $request->customer_id,
                 'employee_id' => null, // In future: map to the logged in employee
-                'subtotal' => $subtotal,
+                'subtotal' => $subtotal, // total before tax and discount
                 'tax' => $tax, // tax amount applied to the order
                 'discount' => $discount, // discount amount applied to the order
                 'total' => $total, // final total after tax and discount
