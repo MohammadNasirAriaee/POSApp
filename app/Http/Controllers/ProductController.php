@@ -55,6 +55,8 @@ class ProductController extends Controller
         return Inertia::render('Products/Show', compact('product'));
     }
 
+
+    
     public function edit(Product $product)
     {
         $categories = Category::where('is_active', true)->get();
