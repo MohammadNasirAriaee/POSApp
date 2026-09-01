@@ -102,10 +102,10 @@ class PosController extends Controller // controller for handling POS operations
                 'discount' => $discount, // discount amount applied to the order
                 'total' => $total, // final total after tax and discount
                 'payment_method' => $request->payment_method, // payment method used for the order
-                'status' => 'completed',
+                'status' => 'completed', // status of the order, set to completed for successful checkout
             ]);
 
-            foreach ($quantities as $productId => $quantity) {
+            foreach ($quantities as $productId => $quantity) { // 
                 $product = $products->get($productId);
 
                 OrderItem::create([
