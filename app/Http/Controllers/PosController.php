@@ -99,7 +99,7 @@ class PosController extends Controller // controller for handling POS operations
                 'employee_id' => null, // In future: map to the logged in employee
                 'subtotal' => $subtotal,
                 'tax' => $tax,
-                'discount' => $discount,
+                'discount' => $discount, // discount amount applied to the order
                 'total' => $total, // final total after tax and discount
                 'payment_method' => $request->payment_method,
                 'status' => 'completed',
