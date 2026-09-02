@@ -5,14 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()->paginate(10);
-        return \Inertia\Inertia::render('Categories/Index', compact('categories'));
+        $search = $request->string('search')->trim()->value();
+
+        $categories = Category::query()
+            ->when($search, fn ($query) => $query->where('name', 'like', "%{$search}%"))
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return \Inertia\Inertia::render('Categories/Index', compact('categories', 'search'));
     }
 
     public function create()
