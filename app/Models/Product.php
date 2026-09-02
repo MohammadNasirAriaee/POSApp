@@ -43,4 +43,9 @@ class Product extends Model
     {
         return $query->where('status', 'active');
     }
+
+    public function scopeInStock(Builder $query): Builder
+    {
+        return $query->where('stock_quantity', '>', 0);
+    }
 }
