@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -19,12 +20,9 @@ class CategoryController extends Controller
         return \Inertia\Inertia::render('Categories/Create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
-            'is_active' => 'boolean',
-        ]);
+        $data = $request->validated();
         
         $data['slug'] = Str::slug($data['name']);
         $data['is_active'] = $request->has('is_active');
@@ -44,12 +42,9 @@ class CategoryController extends Controller
         return \Inertia\Inertia::render('Categories/Edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
-            'is_active' => 'boolean',
-        ]);
+        $data = $request->validated();
         
         $data['slug'] = Str::slug($data['name']);
         $data['is_active'] = $request->has('is_active');
