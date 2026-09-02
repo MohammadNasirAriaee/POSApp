@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->query('search');
+        $search = $request->string('search')->trim()->value();
 
         $query = Product::with('category')->latest(); // get the latest products with their categories
 
