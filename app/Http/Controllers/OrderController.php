@@ -11,12 +11,14 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $status = $request->query('status');
+        $status = $request->string('status')->trim()->value();
 
         $query = Order::with(['customer', 'employee'])->latest();
 
-        if ($status) {
+        if (in_array($status, ['pending', 'completed', 'cancelled'], true)) {
             $query->where('status', $status);
+        } else {
+            $status = null;
         }
 
         $orders = $query->paginate(15)->withQueryString();
