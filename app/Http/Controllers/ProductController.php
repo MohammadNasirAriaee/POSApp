@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function create() // function to show the create product form
     {
-        $categories = Category::where('is_active', true)->get();
+        $categories = Category::active()->orderBy('name')->get();
         return Inertia::render('Products/Create', compact('categories')); // return the create product view with the active categories
     }
 
@@ -51,7 +51,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::where('is_active', true)->get(); // get all active categories to populate the category dropdown in the edit form
+        $categories = Category::active()->orderBy('name')->get(); // get all active categories to populate the category dropdown in the edit form
         return Inertia::render('Products/Edit', compact('product', 'categories')); // return the edit product view with the product and active categories
     }
 
