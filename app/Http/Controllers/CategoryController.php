@@ -15,6 +15,7 @@ class CategoryController extends Controller
         $search = $request->string('search')->trim()->value();
 
         $categories = Category::query()
+            ->withCount('products')
             ->when($search, fn ($query) => $query->where('name', 'like', "%{$search}%"))
             ->latest()
             ->paginate(10)
