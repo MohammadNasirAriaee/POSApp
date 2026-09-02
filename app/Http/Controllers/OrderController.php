@@ -32,18 +32,26 @@ class OrderController extends Controller
 
     public function destroy(Order $order) // function to cancel order and return stock
     {
-        if ($order->status === 'cancelled') {
-            return redirect()->back()->with('error', 'Order is already cancelled.');
-        }
+        $cancelled = DB::transaction(function () use ($order) {
+            $order = Order::lockForUpdate()->findOrFail($order->id);
 
-        DB::transaction(function () use ($order) {
+            if ($order->status === 'cancelled') {
+                return false;
+            }
+
             $order->update(['status' => 'cancelled']);
 
             // Return stock to inventory
             foreach ($order->items()->with('product')->get() as $item) {
                 $item->product?->increment('stock_quantity', $item->quantity);
             }
+
+            return true;
         });
+
+        if (! $cancelled) {
+            return redirect()->back()->with('error', 'Order is already cancelled.');
+        }
 
         return redirect()->back()->with('success', 'Order cancelled and stock returned successfully.');
     }
