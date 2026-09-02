@@ -12,7 +12,7 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->query('search');
+        $search = $request->string('search')->trim()->value();
 
         $query = Customer::latest();
 
