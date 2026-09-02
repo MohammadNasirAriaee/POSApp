@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,17 +35,9 @@ class ProductController extends Controller
         return Inertia::render('Products/Create', compact('categories')); // return the create product view with the active categories
     }
 
-    public function store(Request $request) // function to store a new product in the database
+    public function store(StoreProductRequest $request) // function to store a new product in the database
     {
-        $data = $request->validate([ // validate the request data
-            'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
-            'name' => 'required|string|max:255', // name is required, must be a string, and cannot exceed 255 characters
-            'sku' => 'required|string|max:100|unique:products', // SKU is required, must be a string, cannot exceed 100 characters, and must be unique in the products table
-            'price' => 'required|numeric|min:0', // price is required, must be numeric, and cannot be negative
-            'cost' => 'nullable|numeric|min:0', // cost is optional, must be numeric, and cannot be negative
-            'stock_quantity' => 'required|integer|min:0', // stock_quantity is required, must be an integer, and cannot be negative
-            'status' => 'required|in:active,draft,out_of_stock', // status is required and must be one of the specified values
-        ]);
+        $data = $request->validated();
 
         Product::create($data); // create a new // product with the validated data
 
@@ -55,25 +49,15 @@ class ProductController extends Controller
         return Inertia::render('Products/Show', compact('product'));
     }
 
-
-
     public function edit(Product $product)
     {
         $categories = Category::where('is_active', true)->get(); // get all active categories to populate the category dropdown in the edit form
         return Inertia::render('Products/Edit', compact('product', 'categories')); // return the edit product view with the product and active categories
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->validate([
-            'category_id' => 'nullable|exists:categories,id', // category_id is optional and must exist in the categories table
-            'name' => 'required|string|max:255', // name is required, must be a string, and cannot exceed 255 characters
-            'sku' => 'required|string|max:100|unique:products,sku,' . $product->id, // SKU is required, must be a string, cannot exceed 100 characters, and must be unique in the products table except for the current product being updated
-            'price' => 'required|numeric|min:0', // price is required, must be numeric, and cannot be negative
-            'cost' => 'nullable|numeric|min:0', // cost is optional, must be numeric, and cannot be negative
-            'stock_quantity' => 'required|integer|min:0', // stock_quantity is required, must be an integer, and cannot be negative
-            'status' => 'required|in:active,draft,out_of_stock', // status is required and must be one of the specified values
-        ]);
+        $data = $request->validated();
 
         $product->update($data);
 
