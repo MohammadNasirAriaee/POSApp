@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,15 +34,9 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Create');
     }
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
-        $data = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email',
-            'phone' => 'nullable|string|max:20|unique:customers,phone',
-            'address' => 'nullable|string',
-        ]);
+        $data = $request->validated();
 
         Customer::create($data); //
 
@@ -51,16 +47,9 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Edit', compact('customer'));
     }
- // find it, no do not find it
-    public function update(Request $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $data = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email,' . $customer->id,
-            'phone' => 'nullable|string|max:20|unique:customers,phone,' . $customer->id,
-            'address' => 'nullable|string',
-        ]);
+        $data = $request->validated();
 
         $customer->update($data);
 
