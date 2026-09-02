@@ -81,11 +81,9 @@ const clearCart = () => {
 const checkoutForm = useForm({
     cart: [],
     customer_id: '',
-    tendered: '',
-    subtotal: 0,
-    tax: 0,
+    payment_method: 'cash',
+    tax_rate: 10,
     discount: 0,
-    total: 0
 });
 
 const processCheckout = () => {
@@ -101,11 +99,9 @@ const processCheckout = () => {
 
     checkoutForm.cart = cart.value.map(i => ({ id: i.id, quantity: i.quantity, price: i.price }));
     checkoutForm.customer_id = selectedCustomer.value;
-    checkoutForm.tendered = tendered;
-    checkoutForm.subtotal = cartSubtotal.value;
-    checkoutForm.tax = cartTax.value;
+    checkoutForm.payment_method = 'cash';
+    checkoutForm.tax_rate = 10;
     checkoutForm.discount = 0;
-    checkoutForm.total = cartTotal.value;
 
     checkoutForm.post(route('pos.checkout'), {
         preserveScroll: true,
