@@ -76,7 +76,7 @@ const formatMoney = (amount) => {
                     </thead>
                     <tbody class="divide-y divide-surface-100">
                         <tr v-for="item in order.items" :key="item.id">
-                            <td class="py-3 font-semibold text-surface-900">{{ item.product ? item.product.name : 'Unknown Product' }}</td>
+                            <td class="py-3 font-semibold text-surface-900">{{ item.name }}</td>
                             <td class="py-3 text-center text-surface-600">{{ item.quantity }}</td>
                             <td class="py-3 text-right text-surface-600">{{ formatMoney(item.price) }}</td>
                             <td class="py-3 text-right font-bold text-surface-900">{{ formatMoney(item.subtotal) }}</td>
