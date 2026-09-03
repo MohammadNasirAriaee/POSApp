@@ -43,7 +43,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        //
+        return redirect()->route('categories.edit', $category);
     }
 
     public function edit(Category $category)
