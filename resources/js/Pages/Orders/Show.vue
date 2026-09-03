@@ -44,9 +44,9 @@ const formatMoney = (amount) => {
                     <div>
                         <p class="text-surface-500 font-semibold mb-1">Billed To:</p>
                         <template v-if="order.customer">
-                            <p class="font-bold text-surface-900">{{ order.customer.name }}</p>
-                            <p class="text-surface-600">{{ order.customer.email }}</p>
-                            <p class="text-surface-600">{{ order.customer.phone }}</p>
+                            <p class="font-bold text-surface-900">{{ order.customer?.name || 'Walk-in customer' }}</p>
+                            <p v-if="order.customer?.email" class="text-surface-600">{{ order.customer.email }}</p>
+                            <p v-if="order.customer?.phone" class="text-surface-600">{{ order.customer.phone }}</p>
                         </template>
                         <p v-else class="font-bold text-surface-900">Walk-in Customer</p>
                     </div>
