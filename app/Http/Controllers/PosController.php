@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,19 +36,10 @@ class PosController extends Controller // controller for handling POS operations
         return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers')); // return the POS interface view with the products, categories, and customers
     } // end of index function
 
-    public function checkout(Request $request)
+    public function checkout(StoreOrderRequest $request)
     {
-        $request->validate([
-            'cart' => 'required|array|min:1',
-            'cart.*.id' => 'required|integer',
-            'cart.*.quantity' => 'required|integer|min:1',
-            'customer_id' => 'nullable|exists:customers,id',
-            'payment_method' => 'required|in:cash,card,bank_transfer',
-            'tax_rate' => 'required|numeric|min:0|max:100',
-            'discount' => 'required|numeric|min:0',
-        ]);
-
-        $cart = $request->input('cart');
+        $data = $request->validated();
+        $cart = $data['cart'];
 
         if (empty($cart)) {
             return back()->with('error', 'Cart is empty!');
@@ -92,18 +84,18 @@ class PosController extends Controller // controller for handling POS operations
                 $subtotal += $product->price * $quantity;
             }
 
-            $tax = round($subtotal * ($request->tax_rate / 100), 2);
-            $discount = min((float) $request->discount, $subtotal + $tax); // never discount below zero
+            $tax = round($subtotal * ($data['tax_rate'] / 100), 2);
+            $discount = min((float) $data['discount'], $subtotal + $tax); // never discount below zero
             $total = $subtotal + $tax - $discount;
 
             $order = Order::create([
-                'customer_id' => $request->customer_id,
+                'customer_id' => $data['customer_id'] ?? null,
                 'employee_id' => null, // In future: map to the logged in employee
                 'subtotal' => $subtotal, // total before tax and discount
                 'tax' => $tax, // tax amount applied to the order
                 'discount' => $discount, // discount amount applied to the order
                 'total' => $total, // final total after tax and discount
-                'payment_method' => $request->payment_method, // payment method used for the order
+                'payment_method' => $data['payment_method'], // payment method used for the order
                 'status' => 'completed', // status of the order, set to completed for successful checkout
             ]);
 
