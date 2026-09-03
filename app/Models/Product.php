@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_DRAFT = 'draft';
+    public const STATUS_OUT_OF_STOCK = 'out_of_stock';
+
     protected $fillable = [ // fillable attributes for mass assignment
         'category_id',
         'name',
