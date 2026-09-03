@@ -13,8 +13,7 @@ class DashboardController extends Controller
     {
         $today = now()->startOfDay();
 
-        // Cancelled orders are refunded/restocked, so they must not count as sales.
-        $todayOrders = Order::where('created_at', '>=', $today)->where('status', '!=', 'cancelled');
+        $todayOrders = Order::completed()->where('created_at', '>=', $today);
 
         $stats = [
             'today_sales' => (clone $todayOrders)->sum('total'),
