@@ -15,7 +15,7 @@ class OrderController extends Controller
 
         $query = Order::with(['customer', 'employee'])->latest();
 
-        if (in_array($status, ['pending', 'completed', 'cancelled'], true)) {
+        if (in_array($status, [Order::STATUS_PENDING, Order::STATUS_COMPLETED, Order::STATUS_CANCELLED], true)) {
             $query->where('status', $status);
         } else {
             $status = null;
@@ -37,11 +37,11 @@ class OrderController extends Controller
         $cancelled = DB::transaction(function () use ($order) {
             $order = Order::lockForUpdate()->findOrFail($order->id);
 
-            if ($order->status === 'cancelled') {
+            if ($order->status === Order::STATUS_CANCELLED) {
                 return false;
             }
 
-            $order->update(['status' => 'cancelled']);
+            $order->update(['status' => Order::STATUS_CANCELLED]);
 
             // Return stock to inventory
             foreach ($order->items()->with('product')->get() as $item) {
