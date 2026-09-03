@@ -73,6 +73,10 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if ($product->orderItems()->exists()) {
+            return redirect()->route('products.index')->with('error', 'Cannot delete a product with recorded sales.');
+        }
+
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     } // not
