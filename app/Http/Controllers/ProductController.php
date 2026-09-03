@@ -53,7 +53,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return Inertia::render('Products/Show', compact('product'));
+        return redirect()->route('products.edit', $product);
     }
 
     public function edit(Product $product)
