@@ -35,8 +35,8 @@ class PosController extends Controller // controller for handling POS operations
             });
         }
 
-        $products = $query->orderBy('name')->get();
-        $customers = Customer::orderBy('first_name')->get();
+        $products = $query->orderBy('name')->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
+        $customers = Customer::orderBy('first_name')->orderBy('last_name')->get(['id', 'first_name', 'last_name']);
 
         return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers')); // return the POS interface view with the products, categories, and customers
     } // end of index function
