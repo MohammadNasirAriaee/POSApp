@@ -15,6 +15,8 @@ class PosController extends Controller // controller for handling POS operations
 {
     public function index(Request $request) // function to show the POS interface with products, categories, and customers
     {
+        $categoryId = $request->integer('category_id');
+        $search = $request->string('search')->trim()->value();
         $categories = Category::active()->orderBy('name')->get();
 
         $query = Product::active()
@@ -24,14 +26,14 @@ class PosController extends Controller // controller for handling POS operations
                     ->orWhereHas('category', fn ($categoryQuery) => $categoryQuery->active());
             });
 
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
+        if ($categoryId > 0) {
+            $query->where('category_id', $categoryId);
         }
 
-        if ($request->filled('search')) {
-            $query->where(function($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('sku', 'like', '%' . $request->search . '%');
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('sku', 'like', "%{$search}%");
             });
         }
 
