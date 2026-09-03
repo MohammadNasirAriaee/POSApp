@@ -14,8 +14,15 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $search = $request->string('search')->trim()->value();
+        $status = $request->string('status')->trim()->value();
 
         $query = Product::with('category')->latest(); // get the latest products with their categories
+
+        if (in_array($status, [Product::STATUS_ACTIVE, Product::STATUS_DRAFT, Product::STATUS_OUT_OF_STOCK], true)) {
+            $query->where('status', $status);
+        } else {
+            $status = null;
+        }
 
         if ($search) {
             $query->where(function ($q) use ($search) { // search for products by name or SKU
@@ -26,7 +33,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(10)->withQueryString(); // paginate the results and keep the query string for pagination links
 
-        return Inertia::render('Products/Index', compact('products', 'search')); // return the products index view with the products and search query
+        return Inertia::render('Products/Index', compact('products', 'search', 'status')); // return the products index view with the products and search query
     }
 
     public function create() // function to show the create product form
