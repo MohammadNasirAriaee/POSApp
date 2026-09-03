@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         
         $data['slug'] = Str::slug($data['name']);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         Category::create($data);
 
@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $data = $request->validated();
         
         $data['slug'] = Str::slug($data['name']);
-        $data['is_active'] = $request->has('is_active');
+        $data['is_active'] = $request->boolean('is_active');
 
         $category->update($data);
 
