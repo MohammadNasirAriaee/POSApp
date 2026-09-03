@@ -17,7 +17,12 @@ class PosController extends Controller // controller for handling POS operations
     {
         $categories = Category::active()->orderBy('name')->get();
 
-        $query = Product::active()->inStock();
+        $query = Product::active()
+            ->inStock()
+            ->where(function ($query) {
+                $query->whereNull('category_id')
+                    ->orWhereHas('category', fn ($categoryQuery) => $categoryQuery->active());
+            });
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
