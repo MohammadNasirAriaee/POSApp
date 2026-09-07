@@ -92,7 +92,7 @@ const deleteCustomer = (id) => {
                         </td>
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-2">
-                                <Link :href="route('customers.edit', customer.id)" class="text-primary-600 hover:text-primary-800 p-1">
+                                <Link :href="route('customers.edit', customer.id)" aria-label="Edit customer" class="text-primary-600 hover:text-primary-800 p-1">
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button @click="deleteCustomer(customer.id)" class="text-rose-500 hover:text-rose-700 p-1">
