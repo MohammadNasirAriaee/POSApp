@@ -77,6 +77,7 @@ const submit = () => {
                             label="Price ($)" 
                             type="number"
                             step="0.01"
+                            min="0"
                             v-model="form.price" 
                             :error="form.errors.price" 
                             required 
@@ -85,12 +86,14 @@ const submit = () => {
                             label="Cost ($)" 
                             type="number"
                             step="0.01"
+                            min="0"
                             v-model="form.cost" 
                             :error="form.errors.cost" 
                         />
                         <TextInput 
                             label="Stock Quantity" 
                             type="number"
+                            min="0"
                             v-model="form.stock_quantity" 
                             :error="form.errors.stock_quantity" 
                             required 
