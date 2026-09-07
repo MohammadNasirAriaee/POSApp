@@ -189,6 +189,7 @@ const formatMoney = (amount) => {
                                 </Link>
                                 <button
                                     @click="deleteProduct(product.id)"
+                                        aria-label="Delete product"
                                     class="text-rose-500 hover:text-rose-700 p-1"
                                 >
                                     <Trash2 class="w-4 h-4" />
