@@ -34,11 +34,12 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Create');
     }
+
     public function store(StoreCustomerRequest $request)
     {
         $data = $request->validated();
 
-        Customer::create($data); //
+        Customer::create($data);
 
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
@@ -47,6 +48,7 @@ class CustomerController extends Controller
     {
         return Inertia::render('Customers/Edit', compact('customer'));
     }
+
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $data = $request->validated();
