@@ -9,22 +9,34 @@ import { ref, watch } from 'vue';
 const props = defineProps({
     products: Object,
     search: String,
+    status: String,
 });
 
 const form = useForm({});
 const searchQuery = ref(props.search || '');
+const statusFilter = ref(props.status || '');
 
 let searchTimeout = null;
 watch(searchQuery, (value) => {
     if (searchTimeout) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
-        router.get(route('products.index'), { search: value }, { preserveState: true, replace: true });
+        router.get(route('products.index'), {
+            search: value,
+            status: statusFilter.value,
+        }, { preserveState: true, replace: true });
     }, 300);
+});
+
+watch(statusFilter, (value) => {
+    router.get(route('products.index'), {
+        search: searchQuery.value,
+        status: value,
+    }, { preserveState: true, replace: true });
 });
 
 const clearSearch = () => {
     searchQuery.value = '';
-    router.get(route('products.index'));
+    router.get(route('products.index'), { status: statusFilter.value });
 };
 
 const deleteProduct = (id) => {
@@ -52,19 +64,27 @@ const formatMoney = (amount) => {
 
         <Card>
             <template #header>
-                <div class="relative w-full max-w-sm">
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-surface-400">
-                        <Search class="w-4 h-4" />
+                <div class="flex w-full flex-col gap-3 sm:flex-row">
+                    <div class="relative w-full max-w-sm">
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-surface-400">
+                            <Search class="w-4 h-4" />
+                        </div>
+                        <input 
+                            v-model="searchQuery" 
+                            type="text" 
+                            placeholder="Search products by name or SKU..." 
+                            class="w-full rounded-lg border border-surface-200 bg-white pl-9 pr-8 py-2 text-sm text-surface-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
+                        />
+                        <button v-if="searchQuery" @click="clearSearch" class="absolute inset-y-0 right-0 flex items-center pr-3 text-surface-400 hover:text-surface-600">
+                            <X class="w-4 h-4" />
+                        </button>
                     </div>
-                    <input 
-                        v-model="searchQuery" 
-                        type="text" 
-                        placeholder="Search products by name or SKU..." 
-                        class="w-full rounded-lg border border-surface-200 bg-white pl-9 pr-8 py-2 text-sm text-surface-900 focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
-                    />
-                    <button v-if="searchQuery" @click="clearSearch" class="absolute inset-y-0 right-0 flex items-center pr-3 text-surface-400 hover:text-surface-600">
-                        <X class="w-4 h-4" />
-                    </button>
+                    <select v-model="statusFilter" class="metronic-input w-full sm:w-44">
+                        <option value="">All statuses</option>
+                        <option value="active">Active</option>
+                        <option value="draft">Draft</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
                 </div>
             </template>
 
