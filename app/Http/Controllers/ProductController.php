@@ -16,7 +16,7 @@ class ProductController extends Controller
         $search = $request->string('search')->trim()->value();
         $status = $request->string('status')->trim()->value();
 
-        $query = Product::with('category')->latest(); // get the latest products with their categories
+        $query = Product::with('category')->latest();
 
         if (in_array($status, [Product::STATUS_ACTIVE, Product::STATUS_DRAFT, Product::STATUS_OUT_OF_STOCK], true)) {
             $query->where('status', $status);
@@ -25,28 +25,29 @@ class ProductController extends Controller
         }
 
         if ($search) {
-            $query->where(function ($q) use ($search) { // search for products by name or SKU
-                $q->where('name', 'like', "%{$search}%") // search by name
-                  ->orWhere('sku', 'like', "%{$search}%"); // search by SKU
-            }); // one agent
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
+            });
         }
 
-        $products = $query->paginate(10)->withQueryString(); // paginate the results and keep the query string for pagination links
+        $products = $query->paginate(10)->withQueryString();
 
-        return Inertia::render('Products/Index', compact('products', 'search', 'status')); // return the products index view with the products and search query
+        return Inertia::render('Products/Index', compact('products', 'search', 'status'));
     }
 
-    public function create() // function to show the create product form
+    public function create()
     {
         $categories = Category::active()->orderBy('name')->get();
-        return Inertia::render('Products/Create', compact('categories')); // return the create product view with the active categories
+
+        return Inertia::render('Products/Create', compact('categories'));
     }
 
-    public function store(StoreProductRequest $request) // function to store a new product in the database
+    public function store(StoreProductRequest $request)
     {
         $data = $request->validated();
 
-        Product::create($data); // create a new // product with the validated data
+        Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
@@ -58,8 +59,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::active()->orderBy('name')->get(); // get all active categories to populate the category dropdown in the edit form
-        return Inertia::render('Products/Edit', compact('product', 'categories')); // return the edit product view with the product and active categories
+        $categories = Category::active()->orderBy('name')->get();
+
+        return Inertia::render('Products/Edit', compact('product', 'categories'));
     }
 
     public function update(UpdateProductRequest $request, Product $product)
@@ -79,5 +81,5 @@ class ProductController extends Controller
 
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
-    } // not
+    }
 }
