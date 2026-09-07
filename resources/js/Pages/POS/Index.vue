@@ -261,6 +261,7 @@ const formatMoney = (amount) => {
                 <div class="p-4 border-b border-surface-200 shrink-0">
                     <select
                         v-model="selectedCustomer"
+                        aria-label="Select customer"
                         class="metronic-input text-sm"
                     >
                         <option value="">Walk-in Customer</option>
