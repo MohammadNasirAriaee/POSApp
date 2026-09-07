@@ -168,6 +168,7 @@ const formatMoney = (amount) => {
                     </div>
                     <select
                         v-model="activeCategory"
+                        aria-label="Filter products by category"
                         class="metronic-input w-full sm:w-48"
                     >
                         <option value="">All Categories</option>
