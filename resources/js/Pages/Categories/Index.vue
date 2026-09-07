@@ -51,7 +51,7 @@ const deleteCategory = (id) => {
                         <td class="py-4 px-6 text-surface-600 font-semibold">{{ category.products_count || 0 }}</td>
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-2">
-                                <Link :href="route('categories.edit', category.id)" class="text-primary-600 hover:text-primary-800 p-1">
+                                <Link :href="route('categories.edit', category.id)" aria-label="Edit category" class="text-primary-600 hover:text-primary-800 p-1">
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button @click="deleteCategory(category.id)" class="text-rose-500 hover:text-rose-700 p-1">
