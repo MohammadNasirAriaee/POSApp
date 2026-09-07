@@ -25,7 +25,7 @@ const filteredProducts = computed(() => {
     return props.products.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || 
                               product.sku.toLowerCase().includes(searchQuery.value.toLowerCase());
-        const matchesCategory = activeCategory.value === '' || product.category_id === activeCategory.value;
+        const matchesCategory = activeCategory.value === '' || String(product.category_id) === String(activeCategory.value);
         return matchesSearch && matchesCategory;
     });
 });
