@@ -323,6 +323,7 @@ const formatMoney = (amount) => {
                             >
                                 <button
                                     @click="updateQuantity(item, -1)"
+                                    :aria-label="`Decrease quantity of ${item.name}`"
                                     class="w-6 h-6 flex items-center justify-center rounded bg-white text-surface-600 hover:text-primary-600 hover:shadow-sm transition-all shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
                                 >
                                     <Minus class="w-3 h-3" />
