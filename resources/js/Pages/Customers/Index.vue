@@ -96,6 +96,7 @@ const deleteCustomer = (id) => {
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button @click="deleteCustomer(customer.id)" class="text-rose-500 hover:text-rose-700 p-1">
+                                    <span class="sr-only">Delete customer</span>
                                     <Trash2 class="w-4 h-4" />
                                 </button>
                             </div>
