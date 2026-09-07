@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -21,7 +23,11 @@ class StoreProductRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0'],
             'cost' => ['nullable', 'numeric', 'min:0'],
             'stock_quantity' => ['required', 'integer', 'min:0'],
-            'status' => ['required', 'in:active,draft,out_of_stock'],
+            'status' => ['required', Rule::in([
+                Product::STATUS_ACTIVE,
+                Product::STATUS_DRAFT,
+                Product::STATUS_OUT_OF_STOCK,
+            ])],
         ];
     }
 }
