@@ -58,7 +58,10 @@ const deleteProduct = (id) => {
 };
 
 const formatMoney = (amount) => {
-    return "$" + parseFloat(amount).toFixed(2);
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+    }).format(Number(amount) || 0);
 };
 </script>
 
