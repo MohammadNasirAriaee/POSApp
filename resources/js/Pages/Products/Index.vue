@@ -197,14 +197,15 @@ const formatMoney = (amount) => {
                             <div class="flex items-center gap-2">
                                 <Link
                                     :href="route('products.edit', product.id)"
-                                    aria-label="Edit product"
+                                    :aria-label="`Edit ${product.name}`"
                                     class="text-primary-600 hover:text-primary-800 p-1"
                                 >
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button
                                     @click="deleteProduct(product.id)"
-                                    aria-label="Delete product"
+                                    :aria-label="`Delete ${product.name}`"
+                                    :disabled="form.processing"
                                     class="text-rose-500 hover:text-rose-700 p-1"
                                 >
                                     <Trash2 class="w-4 h-4" />
