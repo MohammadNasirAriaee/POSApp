@@ -87,12 +87,16 @@ const formatMoney = (amount) => {
             <template #header>
                 <div class="flex w-full flex-col gap-3 sm:flex-row">
                     <div class="relative w-full max-w-sm">
+                        <label for="product-search" class="sr-only"
+                            >Search products</label
+                        >
                         <div
                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-surface-400"
                         >
                             <Search class="w-4 h-4" />
                         </div>
                         <input
+                            id="product-search"
                             v-model="searchQuery"
                             type="text"
                             placeholder="Search products by name or SKU..."
@@ -107,7 +111,11 @@ const formatMoney = (amount) => {
                             <X class="w-4 h-4" />
                         </button>
                     </div>
+                    <label for="product-status" class="sr-only"
+                        >Filter products by status</label
+                    >
                     <select
+                        id="product-status"
                         v-model="statusFilter"
                         class="metronic-input w-full sm:w-44"
                     >
