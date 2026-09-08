@@ -4,7 +4,7 @@ import Card from "../../Components/Card.vue";
 import DataTable from "../../Components/DataTable.vue";
 import { Link, useForm, router } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
-import { ref, watch } from "vue";
+import { onBeforeUnmount, ref, watch } from "vue";
 
 const props = defineProps({
     products: Object,
@@ -17,6 +17,10 @@ const searchQuery = ref(props.search || "");
 const statusFilter = ref(props.status || "");
 
 let searchTimeout = null;
+onBeforeUnmount(() => {
+    if (searchTimeout) clearTimeout(searchTimeout);
+});
+
 watch(searchQuery, (value) => {
     if (searchTimeout) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
