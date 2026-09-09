@@ -20,7 +20,7 @@ defineProps({
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="border-b border-surface-200 bg-surface-50/80">
-                    <th v-for="header in headers" :key="header" class="py-3.5 px-6 text-[11px] font-bold uppercase tracking-wider text-surface-500 whitespace-nowrap">
+                    <th v-for="header in headers" :key="header" scope="col" class="py-3.5 px-6 text-[11px] font-bold uppercase tracking-wider text-surface-500 whitespace-nowrap">
                         {{ header }}
                     </th>
                 </tr>
