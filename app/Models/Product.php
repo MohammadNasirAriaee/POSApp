@@ -14,6 +14,7 @@ class Product extends Model
     public const STATUS_ACTIVE = 'active';
     public const STATUS_DRAFT = 'draft';
     public const STATUS_OUT_OF_STOCK = 'out_of_stock';
+    public const LOW_STOCK_THRESHOLD = 5;
 
     protected $fillable = [ // fillable attributes for mass assignment
         'category_id',
@@ -48,7 +49,7 @@ class Product extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
-    public function scopeLowStock(Builder $query, int $threshold = 5): Builder
+    public function scopeLowStock(Builder $query, int $threshold = self::LOW_STOCK_THRESHOLD): Builder
     {
         return $query
             ->active()
@@ -60,7 +61,7 @@ class Product extends Model
         return $query->where('stock_quantity', '>', 0);
     }
 
-    public function isLowStock(int $threshold = 5): bool
+    public function isLowStock(int $threshold = self::LOW_STOCK_THRESHOLD): bool
     {
         return $this->status === self::STATUS_ACTIVE
             && $this->stock_quantity <= $threshold;
