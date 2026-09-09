@@ -20,7 +20,7 @@ class DashboardController extends Controller
             'today_orders' => (clone $todayOrders)->count(),
             'total_products' => Product::count(),
             'total_customers' => Customer::count(),
-            'low_stock_products' => Product::active()->where('stock_quantity', '<=', 5)->count(),
+            'low_stock_products' => Product::lowStock()->count(),
         ];
 
         $recentOrders = Order::with(['customer', 'employee'])
