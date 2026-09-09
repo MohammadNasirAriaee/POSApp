@@ -61,6 +61,18 @@ class Product extends Model
         return $query->where('stock_quantity', '>', 0);
     }
 
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        if (blank($term)) {
+            return $query;
+        }
+
+        return $query->where(function (Builder $q) use ($term) {
+            $q->where('name', 'like', "%{$term}%")
+                ->orWhere('sku', 'like', "%{$term}%");
+        });
+    }
+
     public function isLowStock(int $threshold = self::LOW_STOCK_THRESHOLD): bool
     {
         return $this->status === self::STATUS_ACTIVE
