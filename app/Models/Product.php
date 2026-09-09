@@ -66,4 +66,13 @@ class Product extends Model
         return $this->status === self::STATUS_ACTIVE
             && $this->stock_quantity <= $threshold;
     }
+
+    public static function statuses(): array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_DRAFT,
+            self::STATUS_OUT_OF_STOCK,
+        ];
+    }
 }
