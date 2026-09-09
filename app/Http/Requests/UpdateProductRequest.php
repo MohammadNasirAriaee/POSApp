@@ -23,11 +23,7 @@ class UpdateProductRequest extends FormRequest
             'price' => ['required', 'numeric', 'min:0'],
             'cost' => ['nullable', 'numeric', 'min:0'],
             'stock_quantity' => ['required', 'integer', 'min:0'],
-            'status' => ['required', Rule::in([
-                Product::STATUS_ACTIVE,
-                Product::STATUS_DRAFT,
-                Product::STATUS_OUT_OF_STOCK,
-            ])],
+            'status' => ['required', Rule::in(Product::statuses())],
         ];
     }
 }
