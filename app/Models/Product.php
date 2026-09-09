@@ -48,8 +48,21 @@ class Product extends Model
         return $query->where('status', self::STATUS_ACTIVE);
     }
 
+    public function scopeLowStock(Builder $query, int $threshold = 5): Builder
+    {
+        return $query
+            ->active()
+            ->where('stock_quantity', '<=', $threshold);
+    }
+
     public function scopeInStock(Builder $query): Builder
     {
         return $query->where('stock_quantity', '>', 0);
+    }
+
+    public function isLowStock(int $threshold = 5): bool
+    {
+        return $this->status === self::STATUS_ACTIVE
+            && $this->stock_quantity <= $threshold;
     }
 }
