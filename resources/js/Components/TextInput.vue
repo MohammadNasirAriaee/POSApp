@@ -30,6 +30,7 @@ defineEmits(['update:modelValue']);
             @input="$emit('update:modelValue', $event.target.value)"
             class="metronic-input"
             :class="[error ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
+            :aria-invalid="error ? 'true' : 'false'"
             v-bind="$attrs"
         />
         <p v-if="error" class="mt-1.5 text-xs font-medium text-rose-600">{{ error }}</p>
