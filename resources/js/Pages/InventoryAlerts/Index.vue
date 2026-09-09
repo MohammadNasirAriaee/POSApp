@@ -2,13 +2,20 @@
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
 import { Link } from "@inertiajs/vue3";
+import { computed } from "vue";
 import { AlertTriangle, ArrowRight, PackageSearch } from "lucide-vue-next";
 
-defineProps({
+const props = defineProps({
     alerts: {
         type: Array,
         default: () => [],
     },
+});
+
+const lowStockThreshold = 5;
+
+const sortedAlerts = computed(() => {
+    return [...props.alerts].sort((a, b) => a.stock_quantity - b.stock_quantity || a.name.localeCompare(b.name));
 });
 
 const formatStockStatus = (quantity) => {
@@ -39,11 +46,11 @@ const formatStockStatus = (quantity) => {
 
         <Card
             title="Low stock items"
-            :description="`${alerts.length} product(s) need restocking.`"
+            :description="`${sortedAlerts.length} product(s) below ${lowStockThreshold} units need restocking.`"
         >
-            <div v-if="alerts.length" class="space-y-4">
+            <div v-if="sortedAlerts.length" class="space-y-4">
                 <div
-                    v-for="product in alerts"
+                    v-for="product in sortedAlerts"
                     :key="product.id"
                     class="flex flex-col gap-4 rounded-2xl border border-amber-200 bg-amber-50/60 p-4 md:flex-row md:items-center md:justify-between"
                 >
