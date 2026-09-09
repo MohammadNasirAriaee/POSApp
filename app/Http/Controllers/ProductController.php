@@ -18,7 +18,7 @@ class ProductController extends Controller
 
         $query = Product::with('category')->latest();
 
-        if (in_array($status, [Product::STATUS_ACTIVE, Product::STATUS_DRAFT, Product::STATUS_OUT_OF_STOCK], true)) {
+        if (in_array($status, Product::statuses(), true)) {
             $query->where('status', $status);
         } else {
             $status = null;
