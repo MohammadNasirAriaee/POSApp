@@ -11,8 +11,7 @@ class InventoryAlertsController extends Controller
     {
         $alerts = Product::query()
             ->with('category')
-            ->active()
-            ->where('stock_quantity', '<=', 5)
+            ->lowStock()
             ->orderBy('stock_quantity')
             ->orderBy('name')
             ->get();
