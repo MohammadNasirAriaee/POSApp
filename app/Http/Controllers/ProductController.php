@@ -24,12 +24,7 @@ class ProductController extends Controller
             $status = null;
         }
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%");
-            });
-        }
+        $query->search($search);
 
         $products = $query->paginate(10)->withQueryString();
 
