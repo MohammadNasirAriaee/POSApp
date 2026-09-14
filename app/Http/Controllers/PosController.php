@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class PosController extends Controller
 {
@@ -40,7 +41,7 @@ class PosController extends Controller
         $products = $query->orderBy('name')->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
         $customers = Customer::orderBy('first_name')->orderBy('last_name')->get(['id', 'first_name', 'last_name']);
 
-        return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers'));
+        return Inertia::render('POS/Index', compact('products', 'categories', 'customers'));
     }
 
     public function checkout(StoreOrderRequest $request)

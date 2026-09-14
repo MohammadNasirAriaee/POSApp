@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
@@ -21,12 +22,12 @@ class CategoryController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return \Inertia\Inertia::render('Categories/Index', compact('categories', 'search'));
+        return Inertia::render('Categories/Index', compact('categories', 'search'));
     }
 
     public function create()
     {
-        return \Inertia\Inertia::render('Categories/Create');
+        return Inertia::render('Categories/Create');
     }
 
     public function store(StoreCategoryRequest $request)
@@ -48,7 +49,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return \Inertia\Inertia::render('Categories/Edit', compact('category'));
+        return Inertia::render('Categories/Edit', compact('category'));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
