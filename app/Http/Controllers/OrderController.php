@@ -15,7 +15,7 @@ class OrderController extends Controller
 
         $query = Order::with(['customer', 'employee'])->latest();
 
-        if (in_array($status, [Order::STATUS_PENDING, Order::STATUS_COMPLETED, Order::STATUS_CANCELLED], true)) {
+        if (in_array($status, Order::statuses(), true)) {
             $query->where('status', $status);
         } else {
             $status = null;

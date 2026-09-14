@@ -55,4 +55,16 @@ class Order extends Model
     {
         return $query->where('status', self::STATUS_COMPLETED);
     }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function statuses(): array
+    {
+        return [
+            self::STATUS_PENDING,
+            self::STATUS_COMPLETED,
+            self::STATUS_CANCELLED,
+        ];
+    }
 }
