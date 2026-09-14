@@ -1,8 +1,8 @@
 <script setup>
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
-import { useForm, router, Link } from "@inertiajs/vue3";
-import { ref, computed, watch } from "vue";
+import { useForm } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
 import {
     ShoppingCart,
     Search,
