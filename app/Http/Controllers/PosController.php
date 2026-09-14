@@ -11,9 +11,9 @@ use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PosController extends Controller // controller for handling POS operations
+class PosController extends Controller
 {
-    public function index(Request $request) // function to show the POS interface with products, categories, and customers
+    public function index(Request $request)
     {
         $categoryId = $request->integer('category_id');
         $search = $request->string('search')->trim()->value();
@@ -40,8 +40,8 @@ class PosController extends Controller // controller for handling POS operations
         $products = $query->orderBy('name')->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
         $customers = Customer::orderBy('first_name')->orderBy('last_name')->get(['id', 'first_name', 'last_name']);
 
-        return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers')); // return the POS interface view with the products, categories, and customers
-    } // end of index function
+        return \Inertia\Inertia::render('POS/Index', compact('products', 'categories', 'customers'));
+    }
 
     public function checkout(StoreOrderRequest $request)
     {
@@ -98,19 +98,19 @@ class PosController extends Controller // controller for handling POS operations
             $order = Order::create([
                 'customer_id' => $data['customer_id'] ?? null,
                 'employee_id' => null, // In future: map to the logged in employee
-                'subtotal' => $subtotal, // total before tax and discount
-                'tax' => $tax, // tax amount applied to the order
-                'discount' => $discount, // discount amount applied to the order
-                'total' => $total, // final total after tax and discount
-                'payment_method' => $data['payment_method'], // payment method used for the order
+                'subtotal' => $subtotal,
+                'tax' => $tax,
+                'discount' => $discount,
+                'total' => $total,
+                'payment_method' => $data['payment_method'],
                 'status' => Order::STATUS_COMPLETED,
             ]);
 
-            foreach ($quantities as $productId => $quantity) { //
-                $product = $products->get($productId); // asdf
+            foreach ($quantities as $productId => $quantity) {
+                $product = $products->get($productId);
 
                 OrderItem::create([
-                    'order_id' => $order->id, // associate the order item with the created order
+                    'order_id' => $order->id,
                     'product_id' => $product->id,
                     'name' => $product->name,
                     'price' => $product->price,
@@ -130,5 +130,5 @@ class PosController extends Controller // controller for handling POS operations
 
             return back()->with('error', 'Checkout failed: ' . $e->getMessage());
         }
-    } // end of checkout function
-} // end of PosController class
+    }
+}
