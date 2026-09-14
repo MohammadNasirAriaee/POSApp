@@ -12,33 +12,43 @@ class InventoryAlertTest extends TestCase
 
     public function test_it_only_returns_products_at_or_below_low_stock_threshold(): void
     {
-        Product::create([
+        $atThreshold = Product::factory()->create([
             'name' => 'Bread Loaf',
-            'sku' => 'BREAD-001',
-            'price' => 2.50,
-            'cost' => 1.20,
-            'stock_quantity' => 3,
+            'stock_quantity' => Product::LOW_STOCK_THRESHOLD,
             'status' => Product::STATUS_ACTIVE,
         ]);
 
-        Product::create([
+        Product::factory()->create([
             'name' => 'Milk Carton',
-            'sku' => 'MILK-001',
-            'price' => 3.75,
-            'cost' => 2.10,
-            'stock_quantity' => 12,
+            'stock_quantity' => Product::LOW_STOCK_THRESHOLD + 1,
             'status' => Product::STATUS_ACTIVE,
         ]);
 
-        $alerts = Product::query()
-            ->active()
-            ->where('stock_quantity', '<=', 5)
-            ->orderBy('stock_quantity')
-            ->orderBy('name')
-            ->get();
+        $alerts = Product::lowStock()->get();
 
-        $this->assertCount(1, $alerts);
-        $this->assertSame('Bread Loaf', $alerts->first()->name);
-        $this->assertSame(3, $alerts->first()->stock_quantity);
+        $this->assertSame([$atThreshold->id], $alerts->pluck('id')->all());
+    }
+
+    public function test_it_ignores_products_that_are_not_active(): void
+    {
+        Product::factory()->create([
+            'name' => 'Draft Item',
+            'stock_quantity' => 0,
+            'status' => Product::STATUS_DRAFT,
+        ]);
+
+        $this->assertCount(0, Product::lowStock()->get());
+    }
+
+    public function test_it_accepts_a_custom_threshold(): void
+    {
+        Product::factory()->create([
+            'name' => 'Rice Bag',
+            'stock_quantity' => 20,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->assertCount(0, Product::lowStock()->get());
+        $this->assertCount(1, Product::lowStock(25)->get());
     }
 }
