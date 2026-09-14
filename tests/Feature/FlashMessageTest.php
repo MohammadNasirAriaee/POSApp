@@ -22,6 +22,14 @@ class FlashMessageTest extends TestCase
             ->assertInertia(fn ($page) => $page->where('flash.success', 'Category created successfully.'));
     }
 
+    public function test_it_shares_the_app_name_with_inertia_pages(): void
+    {
+        config(['app.name' => 'Corner Store POS']);
+
+        $this->get(route('categories.index'))
+            ->assertInertia(fn ($page) => $page->where('config.appName', 'Corner Store POS'));
+    }
+
     public function test_it_shares_an_error_flash_when_a_delete_is_blocked(): void
     {
         $category = Category::create(['name' => 'Snacks', 'slug' => 'snacks', 'is_active' => true]);
