@@ -36,14 +36,23 @@ class EmployeeController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        // Calculate Overview Stats/KPIs
+        // Overview stats/KPIs, gathered in a single pass over the table.
+        $counts = Employee::query()
+            ->selectRaw('status, count(*) as total, sum(salary) as payroll')
+            ->groupBy('status')
+            ->get()
+            ->keyBy('status');
+
+        $activeCount = (int) ($counts[Employee::STATUS_ACTIVE]->total ?? 0);
+        $activePayroll = (float) ($counts[Employee::STATUS_ACTIVE]->payroll ?? 0);
+
         $stats = [
-            'total' => Employee::count(),
-            'active' => Employee::where('status', Employee::STATUS_ACTIVE)->count(),
-            'on_leave' => Employee::where('status', Employee::STATUS_ON_LEAVE)->count(),
-            'inactive' => Employee::where('status', Employee::STATUS_INACTIVE)->count(),
-            'monthly_payroll' => Employee::where('status', Employee::STATUS_ACTIVE)->sum('salary'),
-            'avg_salary' => Employee::where('status', Employee::STATUS_ACTIVE)->avg('salary') ?? 0,
+            'total' => (int) $counts->sum('total'),
+            'active' => $activeCount,
+            'on_leave' => (int) ($counts[Employee::STATUS_ON_LEAVE]->total ?? 0),
+            'inactive' => (int) ($counts[Employee::STATUS_INACTIVE]->total ?? 0),
+            'monthly_payroll' => $activePayroll,
+            'avg_salary' => $activeCount > 0 ? $activePayroll / $activeCount : 0,
         ];
 
         // Available position options for filtering dropdown
