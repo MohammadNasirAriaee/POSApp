@@ -19,6 +19,10 @@ const props = defineProps({
     customers: Array,
 });
 
+// Tax percentage applied to every sale. Sent to the server, which recalculates
+// the authoritative tax from this same rate.
+const TAX_RATE_PERCENT = 10;
+
 // Cart State
 const cart = ref([]);
 const searchQuery = ref("");
@@ -50,7 +54,7 @@ const cartSubtotal = computed(() => {
         0,
     );
 });
-const cartTax = computed(() => cartSubtotal.value * 0.1); // 10% tax for example
+const cartTax = computed(() => cartSubtotal.value * (TAX_RATE_PERCENT / 100));
 const cartTotal = computed(() => cartSubtotal.value + cartTax.value);
 const cartItemCount = computed(() =>
     cart.value.reduce((count, item) => count + item.quantity, 0),
@@ -100,7 +104,7 @@ const checkoutForm = useForm({
     cart: [],
     customer_id: "",
     payment_method: "cash",
-    tax_rate: 10,
+    tax_rate: TAX_RATE_PERCENT,
     discount: 0,
 });
 
@@ -121,9 +125,6 @@ const processCheckout = () => {
         price: i.price,
     }));
     checkoutForm.customer_id = selectedCustomer.value;
-    checkoutForm.payment_method = "cash";
-    checkoutForm.tax_rate = 10;
-    checkoutForm.discount = 0;
 
     checkoutForm.post(route("pos.checkout"), {
         preserveScroll: true,
@@ -358,7 +359,7 @@ const formatMoney = (amount) => {
                     </div>
                     <div class="flex justify-between text-sm">
                         <span class="text-surface-500 font-medium"
-                            >Tax (10%)</span
+                            >Tax ({{ TAX_RATE_PERCENT }}%)</span
                         >
                         <span class="text-surface-900 font-bold">{{
                             formatMoney(cartTax)
