@@ -80,7 +80,7 @@ class PosController extends Controller // controller for handling POS operations
             foreach ($quantities as $productId => $quantity) {
                 $product = $products->get($productId);
 
-                if (! $product || $product->status !== 'active') {
+                if (! $product || $product->status !== Product::STATUS_ACTIVE) {
                     throw new \Exception('Product is no longer available.');
                 }
 
