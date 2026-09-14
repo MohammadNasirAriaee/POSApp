@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
+    use HasFactory;
+
     public const STATUS_ACTIVE = 'active';
     public const STATUS_DRAFT = 'draft';
     public const STATUS_OUT_OF_STOCK = 'out_of_stock';

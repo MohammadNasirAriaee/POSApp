@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'name', // name of the category
         'slug', // slug for the category
