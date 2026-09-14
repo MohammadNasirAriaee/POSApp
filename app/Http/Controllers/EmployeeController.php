@@ -20,12 +20,6 @@ class EmployeeController extends Controller
         $position = $request->query('position');
         $status = $request->query('status');
 
-        // Base query with search and filters applied
-        $query = Employee::query()
-            ->search($search)
-            ->filterByPosition($position)
-            ->filterByStatus($status);
-
         // Sorting
         $sortField = $request->query('sort', 'first_name');
         $allowedSorts = ['first_name', 'last_name', 'position', 'salary', 'hire_date', 'status'];
@@ -34,7 +28,10 @@ class EmployeeController extends Controller
         }
         $sortDirection = strtolower($request->query('direction', 'asc')) === 'desc' ? 'desc' : 'asc';
 
-        $employees = (clone $query)
+        $employees = Employee::query()
+            ->search($search)
+            ->filterByPosition($position)
+            ->filterByStatus($status)
             ->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->withQueryString();
