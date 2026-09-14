@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Employee;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +29,7 @@ class UpdateEmployeeRequest extends FormRequest
 			'position' => ['required', 'string', 'max:100'],
 			'salary' => ['nullable', 'numeric', 'min:0'],
 			'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
-			'status' => ['nullable', Rule::in(['active', 'inactive', 'on_leave'])],
+			'status' => ['nullable', Rule::in(Employee::statuses())],
 		];
 	}
 }

@@ -48,6 +48,18 @@ class Employee extends Model
     protected $appends = ['name'];
 
     /**
+     * @return array<int, string>
+     */
+    public static function statuses(): array
+    {
+        return [
+            self::STATUS_ACTIVE,
+            self::STATUS_INACTIVE,
+            self::STATUS_ON_LEAVE,
+        ];
+    }
+
+    /**
      * Get full name.
      */
     public function getNameAttribute(): string

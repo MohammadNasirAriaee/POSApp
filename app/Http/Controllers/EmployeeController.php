@@ -148,7 +148,7 @@ class EmployeeController extends Controller
 
         if ($request->has('new_status')) {
             $requestedStatus = $request->input('new_status');
-            if (in_array($requestedStatus, [Employee::STATUS_ACTIVE, Employee::STATUS_INACTIVE, Employee::STATUS_ON_LEAVE], true)) {
+            if (in_array($requestedStatus, Employee::statuses(), true)) {
                 $nextStatus = $requestedStatus;
             }
         }
