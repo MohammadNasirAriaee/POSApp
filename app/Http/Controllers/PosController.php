@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Exceptions\CheckoutException;
 use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,83 +54,80 @@ class PosController extends Controller
             return back()->with('error', 'Cart is empty!');
         }
 
-        DB::beginTransaction();
-
         try {
-            // Collapse duplicate cart lines and lock the rows so two concurrent
-            // sales cannot both pass the stock check on the same product.
-            $quantities = [];
-            foreach ($cart as $item) {
-                $id = (int) ($item['id'] ?? 0);
-                $qty = (int) ($item['quantity'] ?? 0);
+            $order = DB::transaction(function () use ($data, $cart) {
+                // Collapse duplicate cart lines and lock the rows so two concurrent
+                // sales cannot both pass the stock check on the same product.
+                $quantities = [];
+                foreach ($cart as $item) {
+                    $id = (int) ($item['id'] ?? 0);
+                    $qty = (int) ($item['quantity'] ?? 0);
 
-                if ($id <= 0 || $qty <= 0) {
-                    throw new \Exception('Invalid cart line.');
+                    if ($id <= 0 || $qty <= 0) {
+                        throw new CheckoutException('Invalid cart line.');
+                    }
+
+                    $quantities[$id] = ($quantities[$id] ?? 0) + $qty;
                 }
 
-                $quantities[$id] = ($quantities[$id] ?? 0) + $qty;
-            }
+                $products = Product::whereIn('id', array_keys($quantities))
+                    ->lockForUpdate()
+                    ->get()
+                    ->keyBy('id');
 
-            $products = Product::whereIn('id', array_keys($quantities))
-                ->lockForUpdate()
-                ->get()
-                ->keyBy('id');
+                $subtotal = 0;
 
-            $subtotal = 0;
+                // Price and stock always come from the DB, never from the cart payload.
+                foreach ($quantities as $productId => $quantity) {
+                    $product = $products->get($productId);
 
-            // Price and stock always come from the DB, never from the cart payload.
-            foreach ($quantities as $productId => $quantity) {
-                $product = $products->get($productId);
+                    if (! $product || $product->status !== Product::STATUS_ACTIVE) {
+                        throw new CheckoutException('Product is no longer available.');
+                    }
 
-                if (! $product || $product->status !== Product::STATUS_ACTIVE) {
-                    throw new \Exception('Product is no longer available.');
+                    if ($product->stock_quantity < $quantity) {
+                        throw new CheckoutException("Not enough stock for {$product->name}");
+                    }
+
+                    $subtotal += $product->price * $quantity;
                 }
 
-                if ($product->stock_quantity < $quantity) {
-                    throw new \Exception("Not enough stock for {$product->name}");
-                }
+                $tax = round($subtotal * ($data['tax_rate'] / 100), 2);
+                $discount = min((float) $data['discount'], $subtotal + $tax); // never discount below zero
+                $total = $subtotal + $tax - $discount;
 
-                $subtotal += $product->price * $quantity;
-            }
-
-            $tax = round($subtotal * ($data['tax_rate'] / 100), 2);
-            $discount = min((float) $data['discount'], $subtotal + $tax); // never discount below zero
-            $total = $subtotal + $tax - $discount;
-
-            $order = Order::create([
-                'customer_id' => $data['customer_id'] ?? null,
-                'employee_id' => null, // In future: map to the logged in employee
-                'subtotal' => $subtotal,
-                'tax' => $tax,
-                'discount' => $discount,
-                'total' => $total,
-                'payment_method' => $data['payment_method'],
-                'status' => Order::STATUS_COMPLETED,
-            ]);
-
-            foreach ($quantities as $productId => $quantity) {
-                $product = $products->get($productId);
-
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'quantity' => $quantity,
-                    'subtotal' => $product->price * $quantity,
+                $order = Order::create([
+                    'customer_id' => $data['customer_id'] ?? null,
+                    'employee_id' => null, // In future: map to the logged in employee
+                    'subtotal' => $subtotal,
+                    'tax' => $tax,
+                    'discount' => $discount,
+                    'total' => $total,
+                    'payment_method' => $data['payment_method'],
+                    'status' => Order::STATUS_COMPLETED,
                 ]);
 
-                $product->decrement('stock_quantity', $quantity);
-            }
+                foreach ($quantities as $productId => $quantity) {
+                    $product = $products->get($productId);
 
-            DB::commit();
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'quantity' => $quantity,
+                        'subtotal' => $product->price * $quantity,
+                    ]);
 
-            return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
+                    $product->decrement('stock_quantity', $quantity);
+                }
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-
+                return $order;
+            });
+        } catch (CheckoutException $e) {
             return back()->with('error', 'Checkout failed: ' . $e->getMessage());
         }
+
+        return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
     }
 }

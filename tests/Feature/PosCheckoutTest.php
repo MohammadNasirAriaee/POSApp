@@ -73,6 +73,29 @@ class PosCheckoutTest extends TestCase
         $this->assertSame(1, $product->fresh()->stock_quantity);
     }
 
+    public function test_an_unexpected_failure_rolls_back_instead_of_flashing_internals(): void
+    {
+        $product = Product::factory()->create([
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        // Force a non-CheckoutException failure from inside the transaction.
+        Order::creating(fn () => throw new \ErrorException('boom'));
+
+        try {
+            $this->post(route('pos.checkout'), $this->payload([
+                ['id' => $product->id, 'quantity' => 1],
+            ]));
+            $this->fail('Unexpected errors should not be swallowed.');
+        } catch (\Throwable $e) {
+            $this->assertStringNotContainsString('Checkout failed', (string) $e->getMessage());
+        }
+
+        $this->assertSame(0, Order::count());
+        $this->assertSame(5, $product->fresh()->stock_quantity);
+    }
+
     public function test_it_prices_from_the_database_not_the_cart_payload(): void
     {
         $product = Product::factory()->create([
