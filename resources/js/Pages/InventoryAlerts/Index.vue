@@ -10,9 +10,11 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    lowStockThreshold: {
+        type: Number,
+        required: true,
+    },
 });
-
-const lowStockThreshold = 5;
 
 const sortedAlerts = computed(() => {
     return [...props.alerts].sort(

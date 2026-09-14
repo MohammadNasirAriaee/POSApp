@@ -18,6 +18,7 @@ class InventoryAlertsController extends Controller
 
         return Inertia::render('InventoryAlerts/Index', [
             'alerts' => $alerts,
+            'lowStockThreshold' => Product::LOW_STOCK_THRESHOLD,
         ]);
     }
 }
