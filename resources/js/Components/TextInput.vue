@@ -1,4 +1,8 @@
 <script setup>
+// Attributes are forwarded to the <input> explicitly, so stop Vue from also
+// dropping them on the wrapper <div> (which duplicated id/placeholder).
+defineOptions({ inheritAttrs: false });
+
 defineProps({
     modelValue: {
         type: [String, Number],
