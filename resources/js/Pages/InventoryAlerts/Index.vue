@@ -15,7 +15,10 @@ const props = defineProps({
 const lowStockThreshold = 5;
 
 const sortedAlerts = computed(() => {
-    return [...props.alerts].sort((a, b) => a.stock_quantity - b.stock_quantity || a.name.localeCompare(b.name));
+    return [...props.alerts].sort(
+        (a, b) =>
+            a.stock_quantity - b.stock_quantity || a.name.localeCompare(b.name),
+    );
 });
 
 const formatStockStatus = (quantity) => {
