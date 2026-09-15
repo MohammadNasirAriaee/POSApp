@@ -58,6 +58,16 @@ class Product extends Model
             ->where('stock_quantity', '<=', $threshold);
     }
 
+    /**
+     * In-memory counterpart of {@see scopeLowStock()}. The two must agree;
+     * ProductLowStockTest pins that they do.
+     */
+    public function isLowStock(int $threshold = self::LOW_STOCK_THRESHOLD): bool
+    {
+        return $this->status === self::STATUS_ACTIVE
+            && $this->stock_quantity <= $threshold;
+    }
+
     public function scopeInStock(Builder $query): Builder
     {
         return $query->where('stock_quantity', '>', 0);
@@ -73,12 +83,6 @@ class Product extends Model
             $q->where('name', 'like', "%{$term}%")
                 ->orWhere('sku', 'like', "%{$term}%");
         });
-    }
-
-    public function isLowStock(int $threshold = self::LOW_STOCK_THRESHOLD): bool
-    {
-        return $this->status === self::STATUS_ACTIVE
-            && $this->stock_quantity <= $threshold;
     }
 
     public static function statuses(): array
