@@ -14,18 +14,10 @@ class CustomerController extends Controller
     {
         $search = $request->string('search')->trim()->value();
 
-        $query = Customer::latest();
-
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
-            });
-        }
-
-        $customers = $query->paginate(12)->withQueryString();
+        $customers = Customer::search($search)
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
 
         return Inertia::render('Customers/Index', compact('customers', 'search'));
     }

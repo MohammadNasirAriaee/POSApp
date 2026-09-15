@@ -34,6 +34,15 @@ class Category extends Model
         return $query->where('is_active', true);
     }
 
+    public function scopeSearch(Builder $query, ?string $term): Builder
+    {
+        if (blank($term)) {
+            return $query;
+        }
+
+        return $query->where('name', 'like', "%{$term}%");
+    }
+
     /**
      * Build a slug that is unique across categories. Distinct names can reduce
      * to the same slug ("Foo Bar" and "Foo-Bar"), which would otherwise hit the
