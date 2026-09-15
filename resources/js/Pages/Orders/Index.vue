@@ -4,7 +4,7 @@ import Card from '../../Components/Card.vue';
 import DataTable from '../../Components/DataTable.vue';
 import Pagination from "../../Components/Pagination.vue";
 import { Link, useForm, router } from '@inertiajs/vue3';
-import { Eye, Trash2 } from 'lucide-vue-next';
+import { Eye, Ban } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 
 const props = defineProps({
@@ -30,8 +30,9 @@ watch(statusFilter, (value) => {
     );
 });
 
-const deleteOrder = (id) => {
-    if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+// The server cancels the order and returns its items to stock; nothing is deleted.
+const cancelOrder = (id) => {
+    if (confirm('Cancel this order? Its items will be returned to stock.')) {
         form.delete(route('orders.destroy', id));
     }
 };
@@ -97,8 +98,14 @@ const formatMoney = (amount) => {
                                 <Link :href="route('orders.show', order.id)" class="text-surface-600 hover:text-primary-600 p-1" title="View Receipt">
                                     <Eye class="w-4 h-4" />
                                 </Link>
-                                <button @click="deleteOrder(order.id)" class="text-rose-500 hover:text-rose-700 p-1" title="Delete Order">
-                                    <Trash2 class="w-4 h-4" />
+                                <button
+                                    v-if="order.status !== 'cancelled'"
+                                    @click="cancelOrder(order.id)"
+                                    class="text-rose-500 hover:text-rose-700 p-1"
+                                    title="Cancel Order"
+                                >
+                                    <span class="sr-only">Cancel order</span>
+                                    <Ban class="w-4 h-4" />
                                 </button>
                             </div>
                         </td>
