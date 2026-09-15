@@ -33,6 +33,7 @@ class ProductController extends Controller
             'search' => $search,
             'status' => $status,
             'lowStockThreshold' => Product::LOW_STOCK_THRESHOLD,
+            'statusLabels' => Product::statusLabels(),
         ]);
     }
 
@@ -40,7 +41,10 @@ class ProductController extends Controller
     {
         $categories = Category::active()->orderBy('name')->get();
 
-        return Inertia::render('Products/Create', compact('categories'));
+        return Inertia::render('Products/Create', [
+            'categories' => $categories,
+            'statusLabels' => Product::statusLabels(),
+        ]);
     }
 
     public function store(StoreProductRequest $request)
@@ -61,7 +65,11 @@ class ProductController extends Controller
     {
         $categories = Category::active()->orderBy('name')->get();
 
-        return Inertia::render('Products/Edit', compact('product', 'categories'));
+        return Inertia::render('Products/Edit', [
+            'product' => $product,
+            'categories' => $categories,
+            'statusLabels' => Product::statusLabels(),
+        ]);
     }
 
     public function update(UpdateProductRequest $request, Product $product)

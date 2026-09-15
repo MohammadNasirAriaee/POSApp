@@ -7,6 +7,10 @@ import { Save, X } from 'lucide-vue-next';
 
 const props = defineProps({
     categories: Array,
+    statusLabels: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 
 const form = useForm({
@@ -63,9 +67,13 @@ const submit = () => {
                         <div>
                             <label class="block text-sm font-semibold text-surface-700 mb-1.5">Status</label>
                             <select v-model="form.status" class="metronic-input">
-                                <option value="active">Active</option>
-                                <option value="draft">Draft</option>
-                                <option value="out_of_stock">Out of Stock</option>
+                                <option
+                                    v-for="(label, value) in statusLabels"
+                                    :key="value"
+                                    :value="value"
+                                >
+                                    {{ label }}
+                                </option>
                             </select>
                             <p v-if="form.errors.status" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.status }}</p>
                         </div>

@@ -21,6 +21,27 @@ class ProductIndexTest extends TestCase
                 ->where('lowStockThreshold', Product::LOW_STOCK_THRESHOLD));
     }
 
+    public function test_every_product_form_receives_the_status_labels(): void
+    {
+        $product = Product::factory()->create();
+
+        foreach ([
+            route('products.index'),
+            route('products.create'),
+            route('products.edit', $product),
+        ] as $url) {
+            $this->get($url)
+                ->assertOk()
+                ->assertInertia(fn ($page) => $page
+                    ->where('statusLabels', Product::statusLabels()));
+        }
+    }
+
+    public function test_statuses_stay_in_sync_with_the_label_map(): void
+    {
+        $this->assertSame(Product::statuses(), array_keys(Product::statusLabels()));
+    }
+
     public function test_it_filters_by_search_and_status_together(): void
     {
         $match = Product::factory()->create(['name' => 'Widget Pro', 'status' => Product::STATUS_ACTIVE]);

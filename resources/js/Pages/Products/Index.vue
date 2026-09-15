@@ -16,6 +16,10 @@ const props = defineProps({
         type: Number,
         required: true,
     },
+    statusLabels: {
+        type: Object,
+        default: () => ({}),
+    },
 });
 
 const form = useForm({});
@@ -110,9 +114,13 @@ const formatMoney = (amount) => {
                         class="metronic-input w-full sm:w-44"
                     >
                         <option value="">All statuses</option>
-                        <option value="active">Active</option>
-                        <option value="draft">Draft</option>
-                        <option value="out_of_stock">Out of Stock</option>
+                        <option
+                            v-for="(label, value) in statusLabels"
+                            :key="value"
+                            :value="value"
+                        >
+                            {{ label }}
+                        </option>
                     </select>
                 </div>
             </template>

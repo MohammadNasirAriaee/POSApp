@@ -85,12 +85,25 @@ class Product extends Model
         });
     }
 
+    /**
+     * @return array<int, string>
+     */
     public static function statuses(): array
     {
+        return array_keys(self::statusLabels());
+    }
+
+    /**
+     * Human readable name for each status, keyed by the stored value.
+     *
+     * @return array<string, string>
+     */
+    public static function statusLabels(): array
+    {
         return [
-            self::STATUS_ACTIVE,
-            self::STATUS_DRAFT,
-            self::STATUS_OUT_OF_STOCK,
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_DRAFT => 'Draft',
+            self::STATUS_OUT_OF_STOCK => 'Out of Stock',
         ];
     }
 }
