@@ -52,11 +52,29 @@ class Employee extends Model
      */
     public static function statuses(): array
     {
+        return array_keys(self::statusLabels());
+    }
+
+    /**
+     * Human readable name for each status, keyed by the stored value.
+     *
+     * @return array<string, string>
+     */
+    public static function statusLabels(): array
+    {
         return [
-            self::STATUS_ACTIVE,
-            self::STATUS_INACTIVE,
-            self::STATUS_ON_LEAVE,
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_INACTIVE => 'Inactive',
+            self::STATUS_ON_LEAVE => 'On Leave',
         ];
+    }
+
+    /**
+     * Human readable name for this employee's status.
+     */
+    public function getStatusLabelAttribute(): string
+    {
+        return self::statusLabels()[$this->status] ?? $this->status;
     }
 
     /**

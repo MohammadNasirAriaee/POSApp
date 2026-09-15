@@ -1,9 +1,5 @@
 @php
-    $statuses = [
-        'active' => 'Active',
-        'on_leave' => 'On Leave',
-        'inactive' => 'Inactive',
-    ];
+    $statuses = \App\Models\Employee::statusLabels();
 
     $positionList = $positions ?? \App\Models\Employee::POSITIONS;
 @endphp

@@ -155,15 +155,9 @@ class EmployeeController extends Controller
 
         $employee->update(['status' => $nextStatus]);
 
-        $statusLabels = [
-            Employee::STATUS_ACTIVE => 'Active',
-            Employee::STATUS_INACTIVE => 'Inactive',
-            Employee::STATUS_ON_LEAVE => 'On Leave',
-        ];
-
         return redirect()
             ->back()
-            ->with('success', "Status for {$employee->name} changed to " . ($statusLabels[$nextStatus] ?? $nextStatus) . ".");
+            ->with('success', "Status for {$employee->name} changed to {$employee->status_label}.");
     }
 
     /**
