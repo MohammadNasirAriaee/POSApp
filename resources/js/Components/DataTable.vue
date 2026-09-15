@@ -6,7 +6,7 @@ defineProps({
     },
     items: {
         type: Array,
-        required: true,
+        default: () => [],
     },
     emptyMessage: {
         type: String,
@@ -20,13 +20,13 @@ defineProps({
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="border-b border-surface-200 bg-surface-50/80">
-                    <th v-for="header in headers" :key="header" scope="col" class="py-3.5 px-6 text-[11px] font-bold uppercase tracking-wider text-surface-500 whitespace-nowrap">
+                    <th v-for="(header, index) in headers" :key="index" scope="col" class="py-3.5 px-6 text-[11px] font-bold uppercase tracking-wider text-surface-500 whitespace-nowrap">
                         {{ header }}
                     </th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-surface-100 text-sm">
-                <template v-if="items.length > 0">
+                <template v-if="items.length">
                     <slot name="rows" :items="items" />
                 </template>
                 <tr v-else>
