@@ -16,9 +16,9 @@ class EmployeeController extends Controller
      */
     public function index(Request $request): View
     {
-        $search = $request->query('search');
-        $position = $request->query('position');
-        $status = $request->query('status');
+        $search = $request->string('search')->trim()->value();
+        $position = $request->string('position')->trim()->value();
+        $status = $request->string('status')->trim()->value();
 
         // Sorting
         $sortField = $request->query('sort', 'first_name');
