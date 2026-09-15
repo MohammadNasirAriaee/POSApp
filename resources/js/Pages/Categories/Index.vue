@@ -4,13 +4,19 @@ import Card from "../../Components/Card.vue";
 import DataTable from "../../Components/DataTable.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { Link, useForm } from "@inertiajs/vue3";
-import { Plus, Edit2, Trash2 } from "lucide-vue-next";
+import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
+import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
 
-defineProps({
+const props = defineProps({
     categories: Object,
+    search: String,
 });
 
 const form = useForm({});
+const { searchQuery, clearSearch } = useDebouncedSearch(
+    "categories.index",
+    props.search,
+);
 
 const deleteCategory = (id) => {
     if (confirm("Are you sure you want to delete this category?")) {
@@ -21,7 +27,9 @@ const deleteCategory = (id) => {
 
 <template>
     <AppLayout>
-        <div class="mb-6 flex items-center justify-between">
+        <div
+            class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-surface-900">
                     Categories
@@ -32,13 +40,36 @@ const deleteCategory = (id) => {
             </div>
             <Link
                 :href="route('categories.create')"
-                class="metronic-btn metronic-btn-primary"
+                class="metronic-btn metronic-btn-primary shrink-0"
             >
                 <Plus class="w-4 h-4" /> Add Category
             </Link>
         </div>
 
         <Card>
+            <div class="mb-4 relative max-w-sm">
+                <div
+                    class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                >
+                    <Search class="w-4 h-4 text-surface-400" />
+                </div>
+                <input
+                    v-model="searchQuery"
+                    type="text"
+                    aria-label="Search categories"
+                    class="metronic-input pl-10 pr-10"
+                    placeholder="Search categories by name..."
+                />
+                <button
+                    v-if="searchQuery"
+                    @click="clearSearch"
+                    aria-label="Clear category search"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-surface-400 hover:text-surface-600"
+                >
+                    <X class="w-4 h-4" />
+                </button>
+            </div>
+
             <DataTable
                 :headers="['Name', 'Slug', 'Status', 'Products', 'Actions']"
                 :items="categories.data"
