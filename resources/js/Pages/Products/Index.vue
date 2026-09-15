@@ -42,6 +42,14 @@ watch(statusFilter, (value) => {
     );
 });
 
+const STATUS_BADGE_CLASSES = {
+    active: "bg-emerald-100 text-emerald-700",
+    out_of_stock: "bg-rose-100 text-rose-700",
+};
+
+const statusBadgeClass = (status) =>
+    STATUS_BADGE_CLASSES[status] ?? "bg-surface-100 text-surface-600";
+
 const deleteProduct = (id) => {
     if (confirm("Are you sure you want to delete this product?")) {
         form.delete(route("products.destroy", id));
@@ -179,14 +187,10 @@ const formatMoney = (amount) => {
                             <span
                                 :class="[
                                     'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide',
-                                    product.status === 'active'
-                                        ? 'bg-emerald-100 text-emerald-700'
-                                        : product.status === 'out_of_stock'
-                                          ? 'bg-rose-100 text-rose-700'
-                                          : 'bg-surface-100 text-surface-600',
+                                    statusBadgeClass(product.status),
                                 ]"
                             >
-                                {{ product.status.replace("_", " ") }}
+                                {{ statusLabels[product.status] ?? product.status }}
                             </span>
                         </td>
                         <td class="py-4 px-6">
