@@ -3,14 +3,32 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
 import DataTable from '../../Components/DataTable.vue';
 import Pagination from "../../Components/Pagination.vue";
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm, router } from '@inertiajs/vue3';
 import { Eye, Trash2 } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
 
-defineProps({
+const props = defineProps({
     orders: Object,
+    status: String,
+    statuses: {
+        type: Array,
+        default: () => [],
+    },
 });
 
 const form = useForm({});
+const statusFilter = ref(props.status || '');
+
+const statusLabel = (value) =>
+    value.replace(/_/g, ' ').replace(/\w/g, (c) => c.toUpperCase());
+
+watch(statusFilter, (value) => {
+    router.get(
+        route('orders.index'),
+        value ? { status: value } : {},
+        { preserveState: true, replace: true },
+    );
+});
 
 const deleteOrder = (id) => {
     if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
@@ -25,11 +43,21 @@ const formatMoney = (amount) => {
 
 <template>
     <AppLayout>
-        <div class="mb-6 flex items-center justify-between">
+        <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-surface-900">Orders</h1>
                 <p class="text-sm text-surface-500 mt-1">View and manage past sales transactions.</p>
             </div>
+            <select
+                v-model="statusFilter"
+                aria-label="Filter orders by status"
+                class="metronic-input w-full sm:w-48 shrink-0"
+            >
+                <option value="">All Statuses</option>
+                <option v-for="value in statuses" :key="value" :value="value">
+                    {{ statusLabel(value) }}
+                </option>
+            </select>
         </div>
 
         <Card>

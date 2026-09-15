@@ -23,7 +23,11 @@ class OrderController extends Controller
 
         $orders = $query->paginate(15)->withQueryString();
 
-        return Inertia::render('Orders/Index', compact('orders', 'status'));
+        return Inertia::render('Orders/Index', [
+            'orders' => $orders,
+            'status' => $status,
+            'statuses' => Order::statuses(),
+        ]);
     }
 
     public function show(Order $order) // function to show order details

@@ -23,6 +23,13 @@ class OrderIndexTest extends TestCase
                 ->where('orders.data.0.id', $completed->id));
     }
 
+    public function test_it_exposes_the_selectable_statuses(): void
+    {
+        $this->get(route('orders.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('statuses', Order::statuses()));
+    }
+
     public function test_it_ignores_an_unknown_status(): void
     {
         Order::factory()->count(2)->create(['status' => Order::STATUS_COMPLETED]);
