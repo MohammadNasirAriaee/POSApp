@@ -2,6 +2,7 @@
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
 import DataTable from '../../Components/DataTable.vue';
+import Pagination from "../../Components/Pagination.vue";
 import { Link, useForm } from '@inertiajs/vue3';
 import { Eye, Trash2 } from 'lucide-vue-next';
 
@@ -77,12 +78,7 @@ const formatMoney = (amount) => {
                 </template>
             </DataTable>
             
-            <div v-if="orders.links && orders.links.length > 3" class="mt-6 flex items-center justify-center gap-1">
-                <template v-for="(link, k) in orders.links" :key="k">
-                    <div v-if="link.url === null" class="px-3 py-1 text-sm text-surface-400 border border-surface-200 rounded-lg" v-html="link.label"></div>
-                    <Link v-else :href="link.url" class="px-3 py-1 text-sm border rounded-lg transition-colors" :class="link.active ? 'bg-primary-600 text-white border-primary-600' : 'border-surface-200 text-surface-700 hover:bg-surface-50'" v-html="link.label"></Link>
-                </template>
-            </div>
+            <Pagination :links="orders.links" />
         </Card>
     </AppLayout>
 </template>
