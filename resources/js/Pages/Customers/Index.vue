@@ -3,9 +3,9 @@ import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
 import DataTable from "../../Components/DataTable.vue";
 import Pagination from "../../Components/Pagination.vue";
-import { Link, useForm, router } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
-import { ref, watch } from "vue";
+import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
 
 const props = defineProps({
     customers: Object,
@@ -13,24 +13,10 @@ const props = defineProps({
 });
 
 const form = useForm({});
-const searchQuery = ref(props.search || "");
-
-let searchTimeout = null;
-watch(searchQuery, (value) => {
-    if (searchTimeout) clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        router.get(
-            route("customers.index"),
-            { search: value },
-            { preserveState: true, replace: true },
-        );
-    }, 300);
-});
-
-const clearSearch = () => {
-    searchQuery.value = "";
-    router.get(route("customers.index"));
-};
+const { searchQuery, clearSearch } = useDebouncedSearch(
+    "customers.index",
+    props.search,
+);
 
 const deleteCustomer = (id) => {
     if (confirm("Are you sure you want to delete this customer?")) {

@@ -5,7 +5,8 @@ import DataTable from "../../Components/DataTable.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { Link, useForm, router } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
-import { onBeforeUnmount, ref, watch } from "vue";
+import { ref, watch } from "vue";
+import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
 
 const props = defineProps({
     products: Object,
@@ -14,27 +15,13 @@ const props = defineProps({
 });
 
 const form = useForm({});
-const searchQuery = ref(props.search || "");
 const statusFilter = ref(props.status || "");
 
-let searchTimeout = null;
-onBeforeUnmount(() => {
-    if (searchTimeout) clearTimeout(searchTimeout);
-});
-
-watch(searchQuery, (value) => {
-    if (searchTimeout) clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        router.get(
-            route("products.index"),
-            {
-                search: value,
-                status: statusFilter.value,
-            },
-            { preserveState: true, replace: true },
-        );
-    }, 300);
-});
+const { searchQuery, clearSearch } = useDebouncedSearch(
+    "products.index",
+    props.search,
+    () => ({ status: statusFilter.value }),
+);
 
 watch(statusFilter, (value) => {
     router.get(
@@ -46,11 +33,6 @@ watch(statusFilter, (value) => {
         { preserveState: true, replace: true },
     );
 });
-
-const clearSearch = () => {
-    searchQuery.value = "";
-    router.get(route("products.index"), { status: statusFilter.value });
-};
 
 const deleteProduct = (id) => {
     if (confirm("Are you sure you want to delete this product?")) {
