@@ -6,7 +6,6 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -33,8 +32,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->validated();
-        
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = Category::uniqueSlug($data['name']);
         $data['is_active'] = $request->boolean('is_active');
 
         Category::create($data);
@@ -55,8 +53,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $data = $request->validated();
-        
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = Category::uniqueSlug($data['name'], $category->id);
         $data['is_active'] = $request->boolean('is_active');
 
         $category->update($data);
