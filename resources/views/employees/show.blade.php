@@ -28,7 +28,7 @@
                         <div class="flex items-center gap-2.5 flex-wrap">
                             <h1 class="text-2xl font-bold tracking-tight text-slate-900">{{ $employee->name }}</h1>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ring-1 ring-inset {{ $employee->status_badge_class }}">
-                                {{ ucfirst(str_replace('_', ' ', $employee->status)) }}
+                                {{ $employee->status_label }}
                             </span>
                         </div>
                         <p class="text-sm font-semibold text-slate-500 mt-1 flex items-center gap-2">

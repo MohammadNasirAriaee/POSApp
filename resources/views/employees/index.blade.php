@@ -217,7 +217,7 @@
                                             @method('PATCH')
                                             <button type="submit" title="Click to cycle status" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ring-1 ring-inset {{ $employee->status_badge_class }} hover:opacity-80 transition-opacity">
                                                 <span class="w-1.5 h-1.5 rounded-full {{ $employee->status === 'active' ? 'bg-emerald-500' : ($employee->status === 'on_leave' ? 'bg-amber-500' : 'bg-slate-400') }}"></span>
-                                                {{ ucfirst(str_replace('_', ' ', $employee->status)) }}
+                                                {{ $employee->status_label }}
                                             </button>
                                         </form>
                                     </td>
