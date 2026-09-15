@@ -12,6 +12,10 @@ const props = defineProps({
     products: Object,
     search: String,
     status: String,
+    lowStockThreshold: {
+        type: Number,
+        required: true,
+    },
 });
 
 const form = useForm({});
@@ -154,7 +158,8 @@ const formatMoney = (amount) => {
                             <span
                                 :class="[
                                     'font-bold',
-                                    product.stock_quantity <= 5
+                                    product.stock_quantity <=
+                                    lowStockThreshold
                                         ? 'text-rose-600'
                                         : 'text-surface-700',
                                 ]"

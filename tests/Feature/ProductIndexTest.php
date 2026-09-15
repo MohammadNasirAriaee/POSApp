@@ -1,0 +1,45 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Product;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class ProductIndexTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_it_shares_the_low_stock_threshold(): void
+    {
+        Product::factory()->create();
+
+        $this->get(route('products.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->component('Products/Index')
+                ->where('lowStockThreshold', Product::LOW_STOCK_THRESHOLD));
+    }
+
+    public function test_it_filters_by_search_and_status_together(): void
+    {
+        $match = Product::factory()->create(['name' => 'Widget Pro', 'status' => Product::STATUS_ACTIVE]);
+        Product::factory()->create(['name' => 'Widget Pro', 'status' => Product::STATUS_DRAFT]);
+        Product::factory()->create(['name' => 'Gadget', 'status' => Product::STATUS_ACTIVE]);
+
+        $this->get(route('products.index', ['search' => 'Widget', 'status' => Product::STATUS_ACTIVE]))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('products.data', 1)
+                ->where('products.data.0.id', $match->id));
+    }
+
+    public function test_it_ignores_an_unknown_status(): void
+    {
+        Product::factory()->count(2)->create();
+
+        $this->get(route('products.index', ['status' => 'bogus']))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('status', null)->has('products.data', 2));
+    }
+}

@@ -28,7 +28,12 @@ class ProductController extends Controller
 
         $products = $query->paginate(10)->withQueryString();
 
-        return Inertia::render('Products/Index', compact('products', 'search', 'status'));
+        return Inertia::render('Products/Index', [
+            'products' => $products,
+            'search' => $search,
+            'status' => $status,
+            'lowStockThreshold' => Product::LOW_STOCK_THRESHOLD,
+        ]);
     }
 
     public function create()
