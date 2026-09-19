@@ -131,12 +131,21 @@ const processCheckout = () => {
 
     checkoutForm.post(route("pos.checkout"), {
         preserveScroll: true,
-        onSuccess: () => {
+        onSuccess: (page) => {
+            processingCheckout.value = false;
+
+            // A rejected sale comes back as a redirect carrying a flash error,
+            // which Inertia reports as a successful visit. Keep the cart so the
+            // cashier can correct the problem instead of rebuilding the order.
+            if (page.props.flash?.error) {
+                showCheckoutModal.value = false;
+                return;
+            }
+
             cart.value = [];
             selectedCustomer.value = "";
             tenderedAmount.value = "";
             showCheckoutModal.value = false;
-            processingCheckout.value = false;
         },
         onError: () => {
             processingCheckout.value = false;
