@@ -32,17 +32,21 @@ class PosController extends Controller
             $query->where('category_id', $categoryId);
         }
 
-        if ($search) {
-            $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('sku', 'like', "%{$search}%");
-            });
-        }
+        $products = $query->search($search)
+            ->orderBy('name')
+            ->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
 
-        $products = $query->orderBy('name')->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
         $customers = Customer::orderBy('first_name')->orderBy('last_name')->get(['id', 'first_name', 'last_name']);
 
-        return Inertia::render('POS/Index', compact('products', 'categories', 'customers'));
+        // The page filters the loaded set as the cashier types; these echo any
+        // query string back so a linked-to filter is visible in the controls.
+        return Inertia::render('POS/Index', [
+            'products' => $products,
+            'categories' => $categories,
+            'customers' => $customers,
+            'search' => $search ?: null,
+            'categoryId' => $categoryId > 0 ? $categoryId : null,
+        ]);
     }
 
     public function checkout(StoreOrderRequest $request)

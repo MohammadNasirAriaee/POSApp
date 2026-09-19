@@ -18,6 +18,8 @@ const props = defineProps({
     products: Array,
     categories: Array,
     customers: Array,
+    search: String,
+    categoryId: Number,
 });
 
 // Tax percentage applied to every sale. Sent to the server, which recalculates
@@ -26,8 +28,8 @@ const TAX_RATE_PERCENT = 10;
 
 // Cart State
 const cart = ref([]);
-const searchQuery = ref("");
-const activeCategory = ref("");
+const searchQuery = ref(props.search || "");
+const activeCategory = ref(props.categoryId ?? "");
 const selectedCustomer = ref("");
 const tenderedAmount = ref("");
 const showCheckoutModal = ref(false);
