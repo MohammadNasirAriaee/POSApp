@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
+import StatCard from '../Components/StatCard.vue';
 import OrderStatusBadge from '../Components/OrderStatusBadge.vue';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 import { formatMoney } from '../Support/money';
@@ -23,65 +24,40 @@ defineProps({
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-8">
-            <Card>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                        <DollarSign class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Today's Sales</p>
-                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ formatMoney(stats.today_sales) }}</h4>
-                    </div>
-                </div>
-            </Card>
-
-            <Card>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                        <ShoppingBag class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Today's Orders</p>
-                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.today_orders }}</h4>
-                    </div>
-                </div>
-            </Card>
-
-            <Card>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                        <Package class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Total Products</p>
-                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.total_products }}</h4>
-                    </div>
-                </div>
-            </Card>
-
-            <Card>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                        <Users class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Total Customers</p>
-                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.total_customers }}</h4>
-                    </div>
-                </div>
-            </Card>
-
-            <Card>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
-                        <AlertTriangle class="w-6 h-6" />
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">Low Stock</p>
-                        <h4 class="text-2xl font-black text-surface-900 mt-1">{{ stats.low_stock_products }}</h4>
-                    </div>
-                </div>
-            </Card>
+            <StatCard
+                label="Today's Sales"
+                :value="formatMoney(stats.today_sales)"
+                :icon="DollarSign"
+                tone="bg-emerald-50 text-emerald-600"
+            />
+            <StatCard
+                label="Today's Orders"
+                :value="stats.today_orders"
+                :icon="ShoppingBag"
+                tone="bg-indigo-50 text-indigo-600"
+                :href="route('orders.index')"
+            />
+            <StatCard
+                label="Total Products"
+                :value="stats.total_products"
+                :icon="Package"
+                tone="bg-amber-50 text-amber-600"
+                :href="route('products.index')"
+            />
+            <StatCard
+                label="Total Customers"
+                :value="stats.total_customers"
+                :icon="Users"
+                tone="bg-blue-50 text-blue-600"
+                :href="route('customers.index')"
+            />
+            <StatCard
+                label="Low Stock"
+                :value="stats.low_stock_products"
+                :icon="AlertTriangle"
+                tone="bg-rose-50 text-rose-600"
+                :href="route('inventory-alerts.index')"
+            />
         </div>
 
         <!-- Recent Orders -->
