@@ -47,6 +47,8 @@ const navigation = [
             <span class="font-bold text-lg tracking-tight">{{ appName }}</span>
             <button
                 @click="sidebarOpen = !sidebarOpen"
+                :aria-label="sidebarOpen ? 'Close navigation menu' : 'Open navigation menu'"
+                :aria-expanded="sidebarOpen"
                 class="text-surface-400 hover:text-white transition-colors"
             >
                 <Menu v-if="!sidebarOpen" class="w-6 h-6" />
@@ -154,6 +156,8 @@ const navigation = [
                 </div>
                 <div class="flex items-center gap-4">
                     <button
+                        type="button"
+                        aria-label="Notifications"
                         class="relative p-2 text-surface-400 hover:text-primary-600 transition-colors bg-surface-50 rounded-lg hover:bg-primary-50"
                     >
                         <Bell class="w-5 h-5" />
