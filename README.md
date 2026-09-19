@@ -50,10 +50,32 @@ Start the development servers:
 composer run dev
 ```
 
+## Receipt Details
+
+The store name, address, and phone printed on customer receipts come from the
+environment. `STORE_NAME` falls back to `APP_NAME`, and the address and phone
+lines are omitted from the receipt when left blank:
+
+```dotenv
+STORE_NAME="Corner Store"
+STORE_ADDRESS="1 High Street, Springfield"
+STORE_PHONE="(555) 123-4567"
+```
+
 ## Testing
 
 Run the PHP test suite:
 
 ```bash
 composer test
+```
+
+## Formatting
+
+PHP sources are formatted with [Pint](https://laravel.com/docs/pint). Check
+formatting without writing changes, or apply it:
+
+```bash
+composer lint
+composer format
 ```
