@@ -3,14 +3,12 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
 import { Link } from '@inertiajs/vue3';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
+import { formatMoney } from '../../Support/money';
 
 defineProps({
     order: Object,
 });
 
-const formatMoney = (amount) => {
-    return '$' + parseFloat(amount).toFixed(2);
-};
 </script>
 
 <template>

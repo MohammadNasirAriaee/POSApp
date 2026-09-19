@@ -7,6 +7,7 @@ import { Link, useForm, router } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
 import { ref, watch } from "vue";
 import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
+import { formatMoney } from "../../Support/money";
 
 const props = defineProps({
     products: Object,
@@ -56,12 +57,6 @@ const deleteProduct = (id) => {
     }
 };
 
-const formatMoney = (amount) => {
-    return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-    }).format(Number(amount) || 0);
-};
 </script>
 
 <template>

@@ -2,15 +2,13 @@
 import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
+import { formatMoney } from '../Support/money';
 
 defineProps({
     stats: Object,
     recentOrders: Array,
 });
 
-const formatMoney = (amount) => {
-    return '$' + parseFloat(amount).toFixed(2);
-};
 </script>
 
 <template>

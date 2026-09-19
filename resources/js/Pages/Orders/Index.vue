@@ -6,6 +6,7 @@ import Pagination from "../../Components/Pagination.vue";
 import { Link, useForm, router } from '@inertiajs/vue3';
 import { Eye, Ban } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
+import { formatMoney } from '../../Support/money';
 
 const props = defineProps({
     orders: Object,
@@ -37,9 +38,6 @@ const cancelOrder = (id) => {
     }
 };
 
-const formatMoney = (amount) => {
-    return '$' + parseFloat(amount).toFixed(2);
-};
 </script>
 
 <template>

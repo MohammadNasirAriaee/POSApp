@@ -12,6 +12,7 @@ import {
     CreditCard,
     Loader2,
 } from "lucide-vue-next";
+import { formatMoney } from "../../Support/money";
 
 const props = defineProps({
     products: Array,
@@ -143,9 +144,6 @@ const processCheckout = () => {
     });
 };
 
-const formatMoney = (amount) => {
-    return "$" + parseFloat(amount).toFixed(2);
-};
 </script>
 
 <template>
