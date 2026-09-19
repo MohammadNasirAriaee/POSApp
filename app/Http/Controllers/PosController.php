@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CheckoutException;
+use App\Http\Requests\StoreOrderRequest;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
-use App\Exceptions\CheckoutException;
-use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -132,7 +132,7 @@ class PosController extends Controller
                 return $order;
             });
         } catch (CheckoutException $e) {
-            return back()->with('error', 'Checkout failed: ' . $e->getMessage());
+            return back()->with('error', 'Checkout failed: '.$e->getMessage());
         }
 
         return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');

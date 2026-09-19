@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -66,8 +66,9 @@ class CategoryController extends Controller
         if ($category->products()->exists()) {
             return redirect()->route('categories.index')->with('error', 'Cannot delete category with associated products.');
         }
-        
+
         $category->delete();
+
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }

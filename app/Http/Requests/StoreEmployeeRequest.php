@@ -3,36 +3,37 @@
 namespace App\Http\Requests;
 
 use App\Models\Employee;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class StoreEmployeeRequest extends FormRequest
 {
-	/**
-	 * Determine if the user is authorized to make this request.
-	 */
-	public function authorize(): bool
-	{
-		return true;
-	}
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-	 */
-	public function rules(): array
-	{
-		return [
-			'first_name' => ['required', 'string', 'max:100'],
-			'last_name' => ['required', 'string', 'max:100'],
-			'email' => ['required', 'email', 'max:255', 'unique:employees,email'],
-			'phone' => ['nullable', 'string', 'max:30'],
-			'address' => ['nullable', 'string', 'max:500'],
-			'position' => ['required', 'string', 'max:100'],
-			'salary' => ['nullable', 'numeric', 'min:0'],
-			'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
-			'status' => ['nullable', Rule::in(Employee::statuses())],
-		];
-	}
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:255', 'unique:employees,email'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'address' => ['nullable', 'string', 'max:500'],
+            'position' => ['required', 'string', 'max:100'],
+            'salary' => ['nullable', 'numeric', 'min:0'],
+            'hire_date' => ['nullable', 'date', 'before_or_equal:today'],
+            'status' => ['nullable', Rule::in(Employee::statuses())],
+        ];
+    }
 }

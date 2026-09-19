@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -38,12 +37,12 @@ class ProductSeeder extends Seeder
 
         foreach ($products as $index => $prodData) {
             $category = $categories->where('name', $prodData['category'])->first();
-            
+
             if ($category) {
                 Product::create([
                     'category_id' => $category->id,
                     'name' => $prodData['name'],
-                    'sku' => 'SKU' . str_pad($index + 1, 5, '0', STR_PAD_LEFT),
+                    'sku' => 'SKU'.str_pad($index + 1, 5, '0', STR_PAD_LEFT),
                     'price' => $prodData['price'],
                     'cost' => $prodData['cost'],
                     'stock_quantity' => rand(10, 100),

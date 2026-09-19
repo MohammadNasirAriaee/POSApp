@@ -30,4 +30,3 @@ Route::get('/inventory-alerts', [InventoryAlertsController::class, 'index'])->na
 // Staff
 Route::patch('employees/{employee}/toggle-status', [EmployeeController::class, 'toggleStatus'])->name('employees.toggle-status');
 Route::resource('employees', EmployeeController::class);
-

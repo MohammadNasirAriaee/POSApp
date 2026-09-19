@@ -173,4 +173,3 @@ class EmployeeController extends Controller
             ->with('success', "Employee {$name} deleted successfully.");
     }
 }
-

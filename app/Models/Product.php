@@ -2,20 +2,24 @@
 
 namespace App\Models;
 
+use Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
+    /** @use HasFactory<ProductFactory> */
     use HasFactory;
 
     public const STATUS_ACTIVE = 'active';
+
     public const STATUS_DRAFT = 'draft';
+
     public const STATUS_OUT_OF_STOCK = 'out_of_stock';
+
     public const LOW_STOCK_THRESHOLD = 5;
 
     protected $fillable = [ // fillable attributes for mass assignment

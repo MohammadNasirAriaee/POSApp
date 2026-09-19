@@ -9,6 +9,4 @@ use RuntimeException;
  * such as an empty cart line or insufficient stock. The message is shown to
  * the user, so it must never carry internal detail.
  */
-class CheckoutException extends RuntimeException
-{
-}
+class CheckoutException extends RuntimeException {}

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +11,9 @@ class Employee extends Model
     use HasFactory;
 
     public const STATUS_ACTIVE = 'active';
+
     public const STATUS_INACTIVE = 'inactive';
+
     public const STATUS_ON_LEAVE = 'on_leave';
 
     public const POSITIONS = [
@@ -92,6 +93,7 @@ class Employee extends Model
     {
         $first = mb_substr($this->first_name ?? '', 0, 1);
         $last = mb_substr($this->last_name ?? '', 0, 1);
+
         return strtoupper("{$first}{$last}");
     }
 
@@ -100,7 +102,7 @@ class Employee extends Model
      */
     public function getFormattedSalaryAttribute(): string
     {
-        return '$' . number_format((float) ($this->salary ?? 0), 2);
+        return '$'.number_format((float) ($this->salary ?? 0), 2);
     }
 
     /**
@@ -115,19 +117,19 @@ class Employee extends Model
         $diff = $this->hire_date->diff(now());
 
         if ($this->hire_date->isFuture()) {
-            return 'Starts ' . $this->hire_date->format('M d, Y');
+            return 'Starts '.$this->hire_date->format('M d, Y');
         }
 
         if ($diff->y > 0) {
-            return $diff->y . ' yr' . ($diff->y > 1 ? 's' : '') . ($diff->m > 0 ? ' ' . $diff->m . ' mo' . ($diff->m > 1 ? 's' : '') : '');
+            return $diff->y.' yr'.($diff->y > 1 ? 's' : '').($diff->m > 0 ? ' '.$diff->m.' mo'.($diff->m > 1 ? 's' : '') : '');
         }
 
         if ($diff->m > 0) {
-            return $diff->m . ' month' . ($diff->m > 1 ? 's' : '');
+            return $diff->m.' month'.($diff->m > 1 ? 's' : '');
         }
 
         if ($diff->d > 0) {
-            return $diff->d . ' day' . ($diff->d > 1 ? 's' : '');
+            return $diff->d.' day'.($diff->d > 1 ? 's' : '');
         }
 
         return 'Joined today';
@@ -188,4 +190,3 @@ class Employee extends Model
         return $query->where('status', $status);
     }
 }
-

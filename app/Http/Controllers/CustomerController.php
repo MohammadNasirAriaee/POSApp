@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -57,6 +57,7 @@ class CustomerController extends Controller
         }
 
         $customer->delete();
+
         return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');
     }
 }
