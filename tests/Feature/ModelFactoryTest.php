@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -21,6 +22,7 @@ class ModelFactoryTest extends TestCase
             'customer' => [Customer::class],
             'product' => [Product::class],
             'order' => [Order::class],
+            'order item' => [OrderItem::class],
         ];
     }
 
