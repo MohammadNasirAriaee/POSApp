@@ -50,11 +50,16 @@ class OrderController extends Controller
                 return false;
             }
 
+            // Only a completed sale took stock out, so only a completed sale
+            // puts it back. Cancelling a pending order must not create stock.
+            $returnsStock = $order->status === Order::STATUS_COMPLETED;
+
             $order->update(['status' => Order::STATUS_CANCELLED]);
 
-            // Return stock to inventory
-            foreach ($order->items()->with('product')->get() as $item) {
-                $item->product?->increment('stock_quantity', $item->quantity);
+            if ($returnsStock) {
+                foreach ($order->items()->with('product')->get() as $item) {
+                    $item->product?->increment('stock_quantity', $item->quantity);
+                }
             }
 
             return true;
