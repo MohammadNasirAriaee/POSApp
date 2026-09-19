@@ -7,7 +7,6 @@ use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
@@ -20,7 +19,7 @@ class OrderSeeder extends Seeder
     {
         $customers = Customer::all();
         $employees = Employee::all();
-        $products = Product::where('status', 'active')->get();
+        $products = Product::active()->get();
 
         if ($products->isEmpty()) {
             return; // Can't seed orders without products
@@ -28,13 +27,16 @@ class OrderSeeder extends Seeder
 
         // Let's create 15 dummy orders over the last 30 days
         for ($i = 0; $i < 15; $i++) {
-            $customer = rand(0, 3) > 0 ? $customers->random() : null; // 75% chance of having a customer
-            $employee = $employees->count() > 0 ? $employees->random() : null;
-            
+            // 75% chance of a named customer, when there are any to pick from.
+            $customer = ($customers->isNotEmpty() && rand(0, 3) > 0)
+                ? $customers->random()
+                : null;
+            $employee = $employees->isNotEmpty() ? $employees->random() : null;
+
             // Generate 1 to 4 random items
-            $numItems = rand(1, 4);
+            $numItems = min(rand(1, 4), $products->count());
             $orderProducts = $products->random($numItems);
-            
+
             $subtotal = 0;
             $itemsData = [];
 
@@ -53,32 +55,45 @@ class OrderSeeder extends Seeder
             }
 
             $taxRate = 0.05; // 5%
-            $tax = $subtotal * $taxRate;
+            $tax = round($subtotal * $taxRate, 2);
             $discount = rand(0, 2) === 0 ? rand(1, 5) : 0; // 33% chance of discount
-            
-            $total = max(0, $subtotal + $tax - $discount);
-            
-            $date = Carbon::now()->subDays(rand(0, 30))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
-            $statuses = ['completed', 'completed', 'completed', 'completed', 'pending', 'cancelled'];
 
-            $order = Order::create([
-                'customer_id' => $customer ? $customer->id : null,
-                'employee_id' => $employee ? $employee->id : null,
+            $total = max(0, $subtotal + $tax - $discount);
+
+            $date = Carbon::now()->subDays(rand(0, 30))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
+            $statuses = [
+                Order::STATUS_COMPLETED,
+                Order::STATUS_COMPLETED,
+                Order::STATUS_COMPLETED,
+                Order::STATUS_COMPLETED,
+                Order::STATUS_PENDING,
+                Order::STATUS_CANCELLED,
+            ];
+
+            // Timestamps are not mass assignable, so they are set on the
+            // instance; assigning them before save stops Eloquent from
+            // replacing them with the current time.
+            $order = new Order([
+                'customer_id' => $customer?->id,
+                'employee_id' => $employee?->id,
                 'subtotal' => $subtotal,
                 'tax' => $tax,
                 'discount' => $discount,
                 'total' => $total,
-                'payment_method' => rand(0, 1) ? 'Cash' : 'Card',
+                'tendered' => $total,
+                'payment_method' => rand(0, 1) ? 'cash' : 'card',
                 'status' => $statuses[array_rand($statuses)],
-                'created_at' => $date,
-                'updated_at' => $date,
             ]);
+            $order->created_at = $date;
+            $order->updated_at = $date;
+            $order->save();
 
             foreach ($itemsData as $itemData) {
-                $itemData['order_id'] = $order->id;
-                $itemData['created_at'] = $date;
-                $itemData['updated_at'] = $date;
-                OrderItem::create($itemData);
+                $item = new OrderItem($itemData);
+                $item->order_id = $order->id;
+                $item->created_at = $date;
+                $item->updated_at = $date;
+                $item->save();
             }
         }
     }
