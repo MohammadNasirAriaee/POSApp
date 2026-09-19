@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasFullName;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFullName;
 
     public const STATUS_ACTIVE = 'active';
 
@@ -44,11 +45,6 @@ class Employee extends Model
     ];
 
     /**
-     * Expose the computed full name to JSON payloads (Inertia pages read `name`).
-     */
-    protected $appends = ['name'];
-
-    /**
      * @return array<int, string>
      */
     public static function statuses(): array
@@ -76,14 +72,6 @@ class Employee extends Model
     public function getStatusLabelAttribute(): string
     {
         return self::statusLabels()[$this->status] ?? $this->status;
-    }
-
-    /**
-     * Get full name.
-     */
-    public function getNameAttribute(): string
-    {
-        return trim("{$this->first_name} {$this->last_name}");
     }
 
     /**

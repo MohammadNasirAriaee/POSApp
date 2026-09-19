@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasFullName;
 use Database\Factories\CustomerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,8 @@ class Customer extends Model
     /** @use HasFactory<CustomerFactory> */
     use HasFactory;
 
+    use HasFullName;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -20,16 +23,6 @@ class Customer extends Model
         'phone',
         'address',
     ];
-
-    /**
-     * Expose the computed full name to JSON payloads (Inertia pages read `name`).
-     */
-    protected $appends = ['name'];
-
-    public function getNameAttribute(): string
-    {
-        return trim("{$this->first_name} {$this->last_name}");
-    }
 
     public function orders(): HasMany
     {
