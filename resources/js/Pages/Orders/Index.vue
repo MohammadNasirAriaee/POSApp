@@ -35,7 +35,7 @@ watch(statusFilter, (value) => {
 // The server cancels the order and returns its items to stock; nothing is deleted.
 const cancelOrder = (id) => {
     if (confirm('Cancel this order? Its items will be returned to stock.')) {
-        form.delete(route('orders.destroy', id));
+        form.delete(route('orders.cancel', id));
     }
 };
 

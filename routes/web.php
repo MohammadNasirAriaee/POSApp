@@ -24,7 +24,8 @@ Route::post('/pos/checkout', [PosController::class, 'checkout'])->name('pos.chec
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
 Route::resource('customers', CustomerController::class);
-Route::resource('orders', OrderController::class)->only(['index', 'show', 'destroy']);
+Route::resource('orders', OrderController::class)->only(['index', 'show']);
+Route::delete('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 Route::get('/inventory-alerts', [InventoryAlertsController::class, 'index'])->name('inventory-alerts.index');
 
 // Staff

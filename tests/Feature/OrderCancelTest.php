@@ -30,7 +30,7 @@ class OrderCancelTest extends TestCase
         $order = Order::latest('id')->firstOrFail();
         $this->assertSame(7, $product->fresh()->stock_quantity);
 
-        $this->delete(route('orders.destroy', $order))->assertSessionHas('success');
+        $this->delete(route('orders.cancel', $order))->assertSessionHas('success');
 
         $this->assertSame(Order::STATUS_CANCELLED, $order->fresh()->status);
         $this->assertSame(10, $product->fresh()->stock_quantity);
@@ -54,8 +54,8 @@ class OrderCancelTest extends TestCase
 
         $order = Order::latest('id')->firstOrFail();
 
-        $this->delete(route('orders.destroy', $order));
-        $this->delete(route('orders.destroy', $order))->assertSessionHas('error');
+        $this->delete(route('orders.cancel', $order));
+        $this->delete(route('orders.cancel', $order))->assertSessionHas('error');
 
         $this->assertSame(10, $product->fresh()->stock_quantity);
     }

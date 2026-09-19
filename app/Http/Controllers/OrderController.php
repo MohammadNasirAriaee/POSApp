@@ -37,7 +37,11 @@ class OrderController extends Controller
         return Inertia::render('Orders/Show', compact('order'));
     }
 
-    public function destroy(Order $order) // function to cancel order and return stock
+    /**
+     * Cancel an order and return its items to stock. The order itself is kept
+     * for the sales record, so nothing is deleted.
+     */
+    public function cancel(Order $order)
     {
         $cancelled = DB::transaction(function () use ($order) {
             $order = Order::lockForUpdate()->findOrFail($order->id);
