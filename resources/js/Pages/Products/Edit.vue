@@ -15,6 +15,7 @@ const props = defineProps({
 const form = useForm({
     name: props.product.name,
     sku: props.product.sku,
+    description: props.product.description || '',
     category_id: props.product.category_id || '',
     price: props.product.price,
     cost: props.product.cost,

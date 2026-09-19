@@ -5,6 +5,7 @@ import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
+    description: '',
     is_active: true,
 });
 

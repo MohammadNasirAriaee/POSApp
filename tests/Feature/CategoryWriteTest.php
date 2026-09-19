@@ -20,6 +20,17 @@ class CategoryWriteTest extends TestCase
         $this->assertTrue($category->is_active);
     }
 
+    public function test_it_stores_the_description(): void
+    {
+        $this->post(route('categories.store'), [
+            'name' => 'Bakery',
+            'description' => 'Fresh bread and pastries.',
+            'is_active' => true,
+        ])->assertRedirect(route('categories.index'));
+
+        $this->assertSame('Fresh bread and pastries.', Category::firstOrFail()->description);
+    }
+
     public function test_an_unchecked_active_box_stores_false(): void
     {
         $this->post(route('categories.store'), ['name' => 'Hidden', 'is_active' => false]);

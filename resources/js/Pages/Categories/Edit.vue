@@ -9,6 +9,7 @@ const props = defineProps({
 
 const form = useForm({
     name: props.category.name,
+    description: props.category.description || '',
     is_active: Boolean(props.category.is_active),
 });
 

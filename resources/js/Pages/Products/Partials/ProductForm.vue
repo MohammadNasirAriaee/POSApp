@@ -71,6 +71,21 @@ const emit = defineEmits(['submit']);
                 </div>
             </div>
 
+            <div>
+                <label for="product-description" class="block text-sm font-semibold text-surface-700 mb-1.5">Description</label>
+                <textarea
+                    id="product-description"
+                    v-model="form.description"
+                    rows="3"
+                    :maxlength="2000"
+                    class="metronic-input"
+                    :class="[form.errors.description ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
+                    :aria-invalid="form.errors.description ? 'true' : 'false'"
+                    placeholder="Optional product details"
+                ></textarea>
+                <p v-if="form.errors.description" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <TextInput
                     label="Price ($)"

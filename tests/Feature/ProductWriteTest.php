@@ -28,6 +28,20 @@ class ProductWriteTest extends TestCase
         $this->assertDatabaseHas('products', ['sku' => 'WID-001', 'name' => 'Widget']);
     }
 
+    public function test_it_stores_the_description(): void
+    {
+        $this->post(route('products.store'), [
+            'name' => 'Widget',
+            'sku' => 'WID-DESC',
+            'description' => 'A very useful widget.',
+            'price' => 1.00,
+            'stock_quantity' => 1,
+            'status' => Product::STATUS_ACTIVE,
+        ])->assertRedirect(route('products.index'));
+
+        $this->assertSame('A very useful widget.', Product::firstOrFail()->description);
+    }
+
     public function test_it_updates_a_product(): void
     {
         $product = Product::factory()->create(['name' => 'Old', 'status' => Product::STATUS_DRAFT]);
