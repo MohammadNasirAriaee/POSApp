@@ -28,6 +28,22 @@ class EmployeeTest extends TestCase
         $response->assertSee('Store Manager');
     }
 
+    public function test_row_actions_carry_accessible_names(): void
+    {
+        Employee::factory()->create([
+            'first_name' => 'Alice',
+            'last_name' => 'Smith',
+            'status' => Employee::STATUS_ACTIVE,
+        ]);
+
+        $this->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('aria-label="View profile for Alice Smith"', false)
+            ->assertSee('aria-label="Edit Alice Smith"', false)
+            ->assertSee('aria-label="Delete Alice Smith"', false)
+            ->assertSee('aria-label="Change status for Alice Smith, currently Active"', false);
+    }
+
     public function test_can_search_employees_by_keyword(): void
     {
         Employee::factory()->create([
