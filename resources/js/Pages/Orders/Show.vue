@@ -1,13 +1,17 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
 import { formatMoney } from '../../Support/money';
 
 defineProps({
     order: Object,
 });
+
+const page = usePage();
+const store = computed(() => page.props.config?.store ?? {});
 
 </script>
 
@@ -32,9 +36,9 @@ defineProps({
             <Card class="print:border-none print:shadow-none">
                 <!-- Receipt Header -->
                 <div class="text-center pb-6 border-b border-surface-200 mb-6">
-                    <h2 class="text-2xl font-black text-surface-900 mb-2">✦ POS System</h2>
-                    <p class="text-sm text-surface-500">123 Business Road, City, State 12345</p>
-                    <p class="text-sm text-surface-500">Phone: (555) 123-4567</p>
+                    <h2 class="text-2xl font-black text-surface-900 mb-2">{{ store.name }}</h2>
+                    <p v-if="store.address" class="text-sm text-surface-500">{{ store.address }}</p>
+                    <p v-if="store.phone" class="text-sm text-surface-500">Phone: {{ store.phone }}</p>
                 </div>
 
                 <!-- Order Info -->
