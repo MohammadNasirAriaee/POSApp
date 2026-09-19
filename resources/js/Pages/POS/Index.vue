@@ -106,6 +106,7 @@ const checkoutForm = useForm({
     payment_method: "cash",
     tax_rate: TAX_RATE_PERCENT,
     discount: 0,
+    tendered: null,
 });
 
 const processCheckout = () => {
@@ -125,6 +126,7 @@ const processCheckout = () => {
         price: i.price,
     }));
     checkoutForm.customer_id = selectedCustomer.value;
+    checkoutForm.tendered = tendered;
 
     checkoutForm.post(route("pos.checkout"), {
         preserveScroll: true,

@@ -96,6 +96,12 @@ class PosController extends Controller
                 $discount = min((float) $data['discount'], $subtotal + $tax); // never discount below zero
                 $total = $subtotal + $tax - $discount;
 
+                // A cash drawer cannot hand back money it never received.
+                $tendered = isset($data['tendered']) ? (float) $data['tendered'] : null;
+                if ($tendered !== null && $tendered + 0.001 < $total) {
+                    throw new CheckoutException('Tendered amount does not cover the total.');
+                }
+
                 $order = Order::create([
                     'customer_id' => $data['customer_id'] ?? null,
                     'employee_id' => null, // In future: map to the logged in employee
@@ -103,6 +109,7 @@ class PosController extends Controller
                     'tax' => $tax,
                     'discount' => $discount,
                     'total' => $total,
+                    'tendered' => $tendered,
                     'payment_method' => $data['payment_method'],
                     'status' => Order::STATUS_COMPLETED,
                 ]);

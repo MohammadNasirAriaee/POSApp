@@ -24,6 +24,7 @@ class Order extends Model
         'tax',
         'discount',
         'total',
+        'tendered',
         'payment_method',
         'status',
         'notes',
@@ -34,7 +35,23 @@ class Order extends Model
         'tax' => 'decimal:2',
         'discount' => 'decimal:2',
         'total' => 'decimal:2',
+        'tendered' => 'decimal:2',
     ];
+
+    /**
+     * The receipt reads `change`; it is derived rather than stored so it can
+     * never disagree with the tendered amount and the total.
+     */
+    protected $appends = ['change'];
+
+    public function getChangeAttribute(): string
+    {
+        if ($this->tendered === null) {
+            return '0.00';
+        }
+
+        return number_format(max(0, (float) $this->tendered - (float) $this->total), 2, '.', '');
+    }
 
     public function customer(): BelongsTo
     {
