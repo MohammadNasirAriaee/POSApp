@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
+import OrderStatusBadge from '../Components/OrderStatusBadge.vue';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 import { formatMoney } from '../Support/money';
 
@@ -99,11 +100,7 @@ defineProps({
                         </div>
                         <div class="text-right">
                             <p class="font-black text-primary-600 text-lg">{{ formatMoney(order.total) }}</p>
-                            <span :class="[
-                                'inline-flex mt-1 items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide',
-                                order.status === 'completed' ? 'bg-emerald-100 text-emerald-700' :
-                                order.status === 'cancelled' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
-                            ]">{{ order.status }}</span>
+                            <OrderStatusBadge :status="order.status" class="mt-1" />
                         </div>
                     </div>
                 </div>

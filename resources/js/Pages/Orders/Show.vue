@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
+import OrderStatusBadge from '../../Components/OrderStatusBadge.vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
@@ -57,11 +58,11 @@ const store = computed(() => page.props.config?.store ?? {});
                         <p><span class="text-surface-500">Receipt:</span> <span class="font-mono text-surface-900 font-bold">#{{ String(order.id).padStart(5, '0') }}</span></p>
                         <p><span class="text-surface-500">Cashier:</span> <span class="text-surface-900 font-bold">{{ order.employee ? order.employee.name : 'Admin' }}</span></p>
                         <p><span class="text-surface-500">Status:</span> 
-                            <span :class="[
-                                'uppercase text-[10px] font-bold ml-1',
-                                order.status === 'completed' ? 'text-emerald-600' :
-                                order.status === 'cancelled' ? 'text-rose-600' : 'text-amber-600'
-                            ]">{{ order.status }}</span>
+                            <OrderStatusBadge
+                                :status="order.status"
+                                variant="text"
+                                class="ml-1"
+                            />
                         </p>
                     </div>
                 </div>

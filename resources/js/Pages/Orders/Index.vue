@@ -3,6 +3,7 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
 import DataTable from '../../Components/DataTable.vue';
 import Pagination from "../../Components/Pagination.vue";
+import OrderStatusBadge from '../../Components/OrderStatusBadge.vue';
 import { Link, useForm, router } from '@inertiajs/vue3';
 import { Eye, Ban } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
@@ -83,13 +84,7 @@ const cancelOrder = (id) => {
                             {{ formatMoney(order.total) }}
                         </td>
                         <td class="py-4 px-6">
-                            <span :class="[
-                                'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide',
-                                order.status === 'completed' ? 'bg-emerald-100 text-emerald-700' :
-                                order.status === 'cancelled' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700'
-                            ]">
-                                {{ order.status }}
-                            </span>
+                            <OrderStatusBadge :status="order.status" />
                         </td>
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-2">
