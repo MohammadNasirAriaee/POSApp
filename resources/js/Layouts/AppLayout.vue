@@ -1,6 +1,6 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { Link, router, usePage } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 import {
     LayoutDashboard,
     Tags,
@@ -14,12 +14,22 @@ import {
     Bell,
     User,
 } from "lucide-vue-next";
-import { ref } from "vue";
 
 const page = usePage();
 const appName = computed(() => page.props.config?.appName || "POS System");
 
 const sidebarOpen = ref(false);
+
+// The topbar search has no dedicated results page, so it jumps straight to
+// the product catalog filtered by the term - the most common thing a cashier
+// or manager is looking for.
+const globalSearch = ref("");
+const submitGlobalSearch = () => {
+    const term = globalSearch.value.trim();
+    if (!term) return;
+
+    router.get(route("products.index"), { search: term });
+};
 
 const navigation = [
     { name: "Dashboard", route: "dashboard", icon: LayoutDashboard },
@@ -128,18 +138,27 @@ const navigation = [
                 class="bg-white border-b border-surface-200 h-16 flex items-center justify-between px-6 shrink-0 z-10 hidden md:flex"
             >
                 <div class="flex items-center gap-4">
-                    <!-- Global Search Placeholder -->
-                    <div class="relative">
+                    <!-- Jumps to the product catalog filtered by this term -->
+                    <form
+                        @submit.prevent="submitGlobalSearch"
+                        class="relative"
+                        role="search"
+                    >
                         <input
-                            type="text"
-                            placeholder="Search..."
+                            v-model="globalSearch"
+                            type="search"
+                            placeholder="Search products..."
+                            aria-label="Search products"
                             class="bg-surface-50 border border-surface-200 rounded-lg pl-4 pr-10 py-2 text-sm w-64 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition-all"
                         />
-                        <div
-                            class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-surface-400"
+                        <button
+                            type="submit"
+                            aria-label="Submit search"
+                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-surface-400 hover:text-primary-600"
                         >
                             <svg
                                 class="w-4 h-4"
+                                aria-hidden="true"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -151,8 +170,8 @@ const navigation = [
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                                 ></path>
                             </svg>
-                        </div>
-                    </div>
+                        </button>
+                    </form>
                 </div>
                 <div class="flex items-center gap-4">
                     <button
