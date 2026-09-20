@@ -38,6 +38,28 @@ class CategoryWriteTest extends TestCase
         $this->assertFalse(Category::firstOrFail()->is_active);
     }
 
+    public function test_names_that_differ_only_by_case_are_rejected_as_duplicates(): void
+    {
+        $this->post(route('categories.store'), ['name' => 'Beverages', 'is_active' => true]);
+
+        $this->post(route('categories.store'), ['name' => 'BEVERAGES', 'is_active' => true])
+            ->assertSessionHasErrors('name');
+
+        $this->assertSame(1, Category::count());
+    }
+
+    public function test_a_category_can_recase_its_own_name(): void
+    {
+        $category = Category::factory()->create(['name' => 'beverages']);
+
+        $this->put(route('categories.update', $category), [
+            'name' => 'Beverages',
+            'is_active' => true,
+        ])->assertSessionHasNoErrors();
+
+        $this->assertSame('Beverages', $category->fresh()->name);
+    }
+
     public function test_it_toggles_an_existing_category_inactive(): void
     {
         $category = Category::factory()->create(['is_active' => true]);

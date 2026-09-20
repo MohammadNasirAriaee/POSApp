@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CaseInsensitiveUnique;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCategoryRequest extends FormRequest
@@ -14,7 +15,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:categories,name'],
+            'name' => ['required', 'string', 'max:255', new CaseInsensitiveUnique('categories', 'name')],
             'description' => ['nullable', 'string', 'max:1000'],
             'is_active' => ['nullable', 'boolean'],
         ];

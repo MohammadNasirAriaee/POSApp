@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CaseInsensitiveUnique;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -14,8 +14,10 @@ class UpdateCategoryRequest extends FormRequest
 
     public function rules(): array
     {
+        $categoryId = $this->route('category')?->id ?? $this->route('category');
+
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->route('category'))],
+            'name' => ['required', 'string', 'max:255', new CaseInsensitiveUnique('categories', 'name', $categoryId)],
             'description' => ['nullable', 'string', 'max:1000'],
             'is_active' => ['nullable', 'boolean'],
         ];
