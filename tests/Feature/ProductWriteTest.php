@@ -74,6 +74,51 @@ class ProductWriteTest extends TestCase
         ])->assertSessionHasErrors('sku');
     }
 
+    public function test_skus_that_differ_only_by_case_are_rejected_as_duplicates(): void
+    {
+        // Stored already-uppercased, as any product created through this same
+        // endpoint would be - matching how a real duplicate attempt looks.
+        Product::factory()->create(['sku' => 'SKU-100']);
+
+        $this->post(route('products.store'), [
+            'name' => 'Other',
+            'sku' => 'sku-100',
+            'price' => 1,
+            'stock_quantity' => 1,
+            'status' => Product::STATUS_ACTIVE,
+        ])->assertSessionHasErrors('sku');
+
+        $this->assertSame(1, Product::count());
+    }
+
+    public function test_a_new_products_sku_is_stored_uppercased(): void
+    {
+        $this->post(route('products.store'), [
+            'name' => 'Widget',
+            'sku' => '  sku-200  ',
+            'price' => 1,
+            'stock_quantity' => 1,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->assertDatabaseHas('products', ['sku' => 'SKU-200']);
+    }
+
+    public function test_updating_a_product_still_allows_keeping_its_own_sku(): void
+    {
+        $product = Product::factory()->create(['sku' => 'SKU-300']);
+
+        $this->put(route('products.update', $product), [
+            'name' => 'Renamed',
+            'sku' => 'sku-300',
+            'price' => 1,
+            'stock_quantity' => 1,
+            'status' => Product::STATUS_ACTIVE,
+        ])->assertSessionHasNoErrors();
+
+        $this->assertSame('SKU-300', $product->fresh()->sku);
+    }
+
     public function test_it_refuses_to_delete_a_product_with_sales(): void
     {
         $product = Product::factory()->create(['stock_quantity' => 5, 'status' => Product::STATUS_ACTIVE]);
