@@ -88,7 +88,7 @@
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Date of Joining</p>
                 <p class="text-2xl font-bold text-slate-900 mt-1">
-                    {{ optional($employee->hire_date)->format('M d, Y') ?? 'N/A' }}
+                    {{ $employee->hire_date?->format('M d, Y') ?? 'N/A' }}
                 </p>
                 <p class="text-xs text-slate-500 mt-0.5">{{ $employee->tenure }} in service</p>
             </div>

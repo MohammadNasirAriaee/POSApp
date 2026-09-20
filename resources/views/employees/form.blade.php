@@ -97,7 +97,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="hire_date">
                     Hire Date
                 </label>
-                <input id="hire_date" name="hire_date" type="date" value="{{ old('hire_date', optional($employee ?? null)->hire_date ? optional($employee->hire_date)->format('Y-m-d') : '') }}" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
+                <input id="hire_date" name="hire_date" type="date" value="{{ old('hire_date', $employee?->hire_date?->format('Y-m-d')) }}" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
                 @error('hire_date')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -107,7 +107,7 @@
                 </label>
                 <select id="status" name="status" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs">
                     @foreach ($statuses as $val => $label)
-                        <option value="{{ $val }}" {{ old('status', $employee->status ?? 'active') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                        <option value="{{ $val }}" {{ old('status', $employee->status ?? \App\Models\Employee::STATUS_ACTIVE) === $val ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
                 </select>
                 @error('status')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror

@@ -156,6 +156,22 @@ class EmployeeTest extends TestCase
         ]);
     }
 
+    public function test_edit_form_prefills_the_existing_hire_date(): void
+    {
+        $employee = Employee::factory()->create(['hire_date' => '2024-03-15']);
+
+        $this->get(route('employees.edit', $employee))
+            ->assertOk()
+            ->assertSee('value="2024-03-15"', false);
+    }
+
+    public function test_create_form_leaves_the_hire_date_blank(): void
+    {
+        $this->get(route('employees.create'))
+            ->assertOk()
+            ->assertSee('id="hire_date" name="hire_date" type="date" value=""', false);
+    }
+
     public function test_can_toggle_employee_status(): void
     {
         $employee = Employee::factory()->create([
