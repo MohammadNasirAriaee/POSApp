@@ -28,6 +28,15 @@ class EmployeeTest extends TestCase
         $response->assertSee('Store Manager');
     }
 
+    public function test_the_status_filter_marks_the_active_selection(): void
+    {
+        $this->get(route('employees.index', ['status' => Employee::STATUS_ON_LEAVE]))
+            ->assertOk()
+            ->assertSee('value="on_leave" selected', false)
+            ->assertDontSee('value="active" selected', false)
+            ->assertDontSee('value="inactive" selected', false);
+    }
+
     public function test_the_layout_renders_an_error_flash_alongside_success(): void
     {
         // The employee pages render through resources/views/layouts/app.blade.php
