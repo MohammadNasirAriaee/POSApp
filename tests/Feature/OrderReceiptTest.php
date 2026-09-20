@@ -85,4 +85,22 @@ class OrderReceiptTest extends TestCase
         $order = Order::latest('id')->firstOrFail();
         $this->assertSame('0.00', $order->change);
     }
+
+    public function test_the_receipt_does_not_eager_load_the_live_product(): void
+    {
+        // Items snapshot name/price at sale time precisely so a receipt never
+        // has to reach for the live product - loading it would be wasted work.
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->checkout($product, ['tendered' => 11]);
+        $order = Order::latest('id')->firstOrFail();
+
+        $this->get(route('orders.show', $order))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->missing('order.items.0.product'));
+    }
 }

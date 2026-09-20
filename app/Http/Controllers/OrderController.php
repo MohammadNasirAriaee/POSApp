@@ -30,9 +30,12 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show(Order $order) // function to show order details
+    public function show(Order $order)
     {
-        $order->load(['customer', 'employee', 'items.product']);
+        // The receipt only ever reads the name/price/quantity/subtotal
+        // snapshotted on each order item at sale time - never the live
+        // product - so there is no need to eager-load that relation here.
+        $order->load(['customer', 'employee', 'items']);
 
         return Inertia::render('Orders/Show', compact('order'));
     }
