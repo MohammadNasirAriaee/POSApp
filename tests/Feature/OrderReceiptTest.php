@@ -86,6 +86,22 @@ class OrderReceiptTest extends TestCase
         $this->assertSame('0.00', $order->change);
     }
 
+    public function test_the_receipt_receives_the_payment_method_used(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->checkout($product, ['payment_method' => 'card', 'tendered' => null]);
+        $order = Order::latest('id')->firstOrFail();
+
+        $this->get(route('orders.show', $order))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('order.payment_method', 'card'));
+    }
+
     public function test_the_receipt_does_not_eager_load_the_live_product(): void
     {
         // Items snapshot name/price at sale time precisely so a receipt never

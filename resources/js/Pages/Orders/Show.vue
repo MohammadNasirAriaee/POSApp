@@ -7,6 +7,7 @@ import { computed } from 'vue';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
 import { formatMoney } from '../../Support/money';
 import { cashierName } from '../../Support/orderLabels';
+import { paymentMethodLabel } from '../../Support/paymentMethods';
 
 defineProps({
     order: Object,
@@ -58,6 +59,7 @@ const store = computed(() => page.props.config?.store ?? {});
                         <p class="text-surface-500 font-semibold mb-1">Order Details:</p>
                         <p><span class="text-surface-500">Receipt:</span> <span class="font-mono text-surface-900 font-bold">#{{ String(order.id).padStart(5, '0') }}</span></p>
                         <p><span class="text-surface-500">Cashier:</span> <span class="text-surface-900 font-bold">{{ cashierName(order) }}</span></p>
+                        <p><span class="text-surface-500">Payment:</span> <span class="text-surface-900 font-bold">{{ paymentMethodLabel(order.payment_method) }}</span></p>
                         <p><span class="text-surface-500">Status:</span> 
                             <OrderStatusBadge
                                 :status="order.status"

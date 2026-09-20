@@ -13,6 +13,7 @@ import {
     Loader2,
 } from "lucide-vue-next";
 import { formatMoney } from "../../Support/money";
+import { PAYMENT_METHODS } from "../../Support/paymentMethods";
 
 const props = defineProps({
     products: Array,
@@ -33,11 +34,6 @@ const activeCategory = ref(props.categoryId ?? "");
 const selectedCustomer = ref("");
 const tenderedAmount = ref("");
 const discountInput = ref("");
-const PAYMENT_METHODS = [
-    { value: "cash", label: "Cash" },
-    { value: "card", label: "Card" },
-    { value: "bank_transfer", label: "Bank Transfer" },
-];
 const paymentMethod = ref("cash");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
