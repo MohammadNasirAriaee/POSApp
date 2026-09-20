@@ -5,6 +5,7 @@ import StatCard from '../Components/StatCard.vue';
 import OrderStatusBadge from '../Components/OrderStatusBadge.vue';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 import { formatMoney } from '../Support/money';
+import { customerName, cashierName } from '../Support/orderLabels';
 
 defineProps({
     stats: Object,
@@ -70,8 +71,8 @@ defineProps({
                                 #{{ String(order.id).padStart(5, '0') }}
                             </div>
                             <div>
-                                <p class="font-bold text-surface-900">{{ order.customer ? order.customer.name : 'Walk-in Customer' }}</p>
-                                <p class="text-xs text-surface-500 mt-0.5">{{ new Date(order.created_at).toLocaleString() }} &middot; Cashier: {{ order.employee ? order.employee.name : 'Admin' }}</p>
+                                <p class="font-bold text-surface-900">{{ customerName(order) }}</p>
+                                <p class="text-xs text-surface-500 mt-0.5">{{ new Date(order.created_at).toLocaleString() }} &middot; Cashier: {{ cashierName(order) }}</p>
                             </div>
                         </div>
                         <div class="text-right">

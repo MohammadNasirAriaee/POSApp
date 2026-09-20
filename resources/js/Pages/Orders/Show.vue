@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
 import { formatMoney } from '../../Support/money';
+import { cashierName } from '../../Support/orderLabels';
 
 defineProps({
     order: Object,
@@ -47,16 +48,16 @@ const store = computed(() => page.props.config?.store ?? {});
                     <div>
                         <p class="text-surface-500 font-semibold mb-1">Billed To:</p>
                         <template v-if="order.customer">
-                            <p class="font-bold text-surface-900">{{ order.customer?.name || 'Walk-in customer' }}</p>
-                            <p v-if="order.customer?.email" class="text-surface-600">{{ order.customer.email }}</p>
-                            <p v-if="order.customer?.phone" class="text-surface-600">{{ order.customer.phone }}</p>
+                            <p class="font-bold text-surface-900">{{ order.customer.name }}</p>
+                            <p v-if="order.customer.email" class="text-surface-600">{{ order.customer.email }}</p>
+                            <p v-if="order.customer.phone" class="text-surface-600">{{ order.customer.phone }}</p>
                         </template>
                         <p v-else class="font-bold text-surface-900">Walk-in Customer</p>
                     </div>
                     <div class="text-right">
                         <p class="text-surface-500 font-semibold mb-1">Order Details:</p>
                         <p><span class="text-surface-500">Receipt:</span> <span class="font-mono text-surface-900 font-bold">#{{ String(order.id).padStart(5, '0') }}</span></p>
-                        <p><span class="text-surface-500">Cashier:</span> <span class="text-surface-900 font-bold">{{ order.employee ? order.employee.name : 'Admin' }}</span></p>
+                        <p><span class="text-surface-500">Cashier:</span> <span class="text-surface-900 font-bold">{{ cashierName(order) }}</span></p>
                         <p><span class="text-surface-500">Status:</span> 
                             <OrderStatusBadge
                                 :status="order.status"

@@ -8,6 +8,7 @@ import { Link, useForm, router } from '@inertiajs/vue3';
 import { Eye, Ban } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 import { formatMoney } from '../../Support/money';
+import { customerName, cashierName } from '../../Support/orderLabels';
 
 const props = defineProps({
     orders: Object,
@@ -75,10 +76,10 @@ const cancelOrder = (id) => {
                             {{ new Date(order.created_at).toLocaleString() }}
                         </td>
                         <td class="py-4 px-6 font-medium text-surface-900">
-                            {{ order.customer ? order.customer.name : 'Walk-in Customer' }}
+                            {{ customerName(order) }}
                         </td>
                         <td class="py-4 px-6 text-surface-600">
-                            {{ order.employee ? order.employee.name : 'Admin' }}
+                            {{ cashierName(order) }}
                         </td>
                         <td class="py-4 px-6 font-bold text-primary-600">
                             {{ formatMoney(order.total) }}
