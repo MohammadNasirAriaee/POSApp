@@ -32,6 +32,7 @@ const searchQuery = ref(props.search || "");
 const activeCategory = ref(props.categoryId ?? "");
 const selectedCustomer = ref("");
 const tenderedAmount = ref("");
+const discountInput = ref("");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
 
@@ -58,7 +59,16 @@ const cartSubtotal = computed(() => {
     );
 });
 const cartTax = computed(() => cartSubtotal.value * (TAX_RATE_PERCENT / 100));
-const cartTotal = computed(() => cartSubtotal.value + cartTax.value);
+// Mirrors the server's own clamp (PosController never lets a discount push
+// the total below zero), so what the cashier sees here matches what gets
+// charged.
+const cartDiscount = computed(() => {
+    const requested = parseFloat(discountInput.value) || 0;
+    return Math.min(Math.max(requested, 0), cartSubtotal.value + cartTax.value);
+});
+const cartTotal = computed(
+    () => cartSubtotal.value + cartTax.value - cartDiscount.value,
+);
 const cartItemCount = computed(() =>
     cart.value.reduce((count, item) => count + item.quantity, 0),
 );
@@ -99,6 +109,7 @@ const clearCart = () => {
         cart.value = [];
         selectedCustomer.value = "";
         tenderedAmount.value = "";
+        discountInput.value = "";
     }
 };
 
@@ -130,6 +141,7 @@ const processCheckout = () => {
     }));
     checkoutForm.customer_id = selectedCustomer.value;
     checkoutForm.tendered = tendered;
+    checkoutForm.discount = cartDiscount.value;
 
     checkoutForm.post(route("pos.checkout"), {
         preserveScroll: true,
@@ -147,6 +159,7 @@ const processCheckout = () => {
             cart.value = [];
             selectedCustomer.value = "";
             tenderedAmount.value = "";
+            discountInput.value = "";
             showCheckoutModal.value = false;
         },
         onError: () => {
@@ -375,6 +388,22 @@ const processCheckout = () => {
                         <span class="text-surface-900 font-bold">{{
                             formatMoney(cartTax)
                         }}</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <label
+                            for="pos-discount"
+                            class="text-surface-500 font-medium"
+                            >Discount ($)</label
+                        >
+                        <input
+                            id="pos-discount"
+                            v-model="discountInput"
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                            class="w-24 text-right text-sm font-bold text-surface-900 rounded-lg border border-surface-200 bg-white px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
+                        />
                     </div>
                     <div
                         class="pt-3 border-t border-surface-200 flex justify-between items-center"
