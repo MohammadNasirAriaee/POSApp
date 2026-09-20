@@ -1,16 +1,34 @@
 @import 'tailwindcss';
 
+/*
+ * `primary` mirrors Tailwind's stock `blue` scale and `surface` mirrors
+ * `slate` (the hex values below are taken straight from Tailwind's palette),
+ * kept as named tokens so the app's look can be retuned from one place. Every
+ * step must stay defined: Tailwind only generates a utility for a step that
+ * exists here, so a missing one (previously 300-700 on `surface` and 200-400
+ * and 800 on `primary`) silently drops classes like `text-surface-500` with
+ * no error - the element just renders with no color at all.
+ */
 @theme {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
   --color-primary-500: #3b82f6;
   --color-primary-600: #2563eb;
   --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
-  
+
   --color-surface-50: #f8fafc;
   --color-surface-100: #f1f5f9;
   --color-surface-200: #e2e8f0;
+  --color-surface-300: #cbd5e1;
+  --color-surface-400: #94a3b8;
+  --color-surface-500: #64748b;
+  --color-surface-600: #475569;
+  --color-surface-700: #334155;
   --color-surface-800: #1e293b;
   --color-surface-900: #0f172a;
 }
