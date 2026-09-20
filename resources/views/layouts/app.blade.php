@@ -70,8 +70,8 @@
                         </div>
                         <p class="text-sm font-medium text-emerald-900">{{ session('success') }}</p>
                     </div>
-                    <button onclick="document.getElementById('flash-success-banner').remove()" class="text-emerald-700 hover:text-emerald-900 p-1 rounded-lg hover:bg-emerald-100/60">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button type="button" onclick="document.getElementById('flash-success-banner').remove()" aria-label="Dismiss" class="text-emerald-700 hover:text-emerald-900 p-1 rounded-lg hover:bg-emerald-100/60">
+                        <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -88,8 +88,8 @@
                         </div>
                         <p class="text-sm font-medium text-rose-900">{{ session('error') }}</p>
                     </div>
-                    <button onclick="document.getElementById('flash-error-banner').remove()" class="text-rose-700 hover:text-rose-900 p-1 rounded-lg hover:bg-rose-100/60">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button type="button" onclick="document.getElementById('flash-error-banner').remove()" aria-label="Dismiss" class="text-rose-700 hover:text-rose-900 p-1 rounded-lg hover:bg-rose-100/60">
+                        <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>

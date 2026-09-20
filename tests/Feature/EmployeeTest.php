@@ -89,6 +89,19 @@ class EmployeeTest extends TestCase
             ->assertSee('Something went wrong.');
     }
 
+    public function test_flash_banner_dismiss_buttons_carry_accessible_names(): void
+    {
+        $this->withSession(['success' => 'Saved.', 'error' => 'Failed.'])
+            ->get(route('employees.index'))
+            ->assertOk()
+            ->assertSeeInOrder([
+                'id="flash-success-banner"',
+                'aria-label="Dismiss"',
+                'id="flash-error-banner"',
+                'aria-label="Dismiss"',
+            ], false);
+    }
+
     public function test_row_actions_carry_accessible_names(): void
     {
         Employee::factory()->create([
@@ -103,6 +116,15 @@ class EmployeeTest extends TestCase
             ->assertSee('aria-label="Edit Alice Smith"', false)
             ->assertSee('aria-label="Delete Alice Smith"', false)
             ->assertSee('aria-label="Change status for Alice Smith, currently Active"', false);
+    }
+
+    public function test_the_profile_pages_delete_button_carries_an_accessible_name(): void
+    {
+        $employee = Employee::factory()->create(['first_name' => 'Alice', 'last_name' => 'Smith']);
+
+        $this->get(route('employees.show', $employee))
+            ->assertOk()
+            ->assertSee('aria-label="Delete Alice Smith"', false);
     }
 
     public function test_can_search_employees_by_keyword(): void

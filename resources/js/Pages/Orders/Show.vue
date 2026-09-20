@@ -21,8 +21,8 @@ const store = computed(() => page.props.config?.store ?? {});
     <AppLayout>
         <div class="mb-6 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <Link :href="route('orders.index')" class="p-2 rounded-lg hover:bg-surface-200 text-surface-500 hover:text-surface-900 transition-colors">
-                    <ArrowLeft class="w-5 h-5" />
+                <Link :href="route('orders.index')" aria-label="Back to orders" class="p-2 rounded-lg hover:bg-surface-200 text-surface-500 hover:text-surface-900 transition-colors">
+                    <ArrowLeft class="w-5 h-5" aria-hidden="true" />
                 </Link>
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight text-surface-900">Order #{{ String(order.id).padStart(5, '0') }}</h1>
