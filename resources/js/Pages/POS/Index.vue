@@ -365,6 +365,14 @@ const processCheckout = () => {
                                     <Plus class="w-3 h-3" />
                                 </button>
                             </div>
+
+                            <button
+                                @click="removeFromCart(item.id)"
+                                :aria-label="`Remove ${item.name} from cart`"
+                                class="w-6 h-6 flex items-center justify-center rounded text-surface-400 hover:text-rose-600 transition-colors shrink-0 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                            >
+                                <Trash2 class="w-3.5 h-3.5" />
+                            </button>
                         </div>
                     </div>
                 </div>
