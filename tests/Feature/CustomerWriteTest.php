@@ -48,4 +48,39 @@ class CustomerWriteTest extends TestCase
             'email' => 'taken@example.com',
         ])->assertSessionHasErrors('email');
     }
+
+    public function test_emails_that_differ_only_by_case_are_rejected_as_duplicates(): void
+    {
+        Customer::factory()->create(['email' => 'ada@example.com']);
+
+        $this->post(route('customers.store'), [
+            'first_name' => 'Someone',
+            'last_name' => 'Else',
+            'email' => 'ADA@EXAMPLE.COM',
+        ])->assertSessionHasErrors('email');
+
+        $this->assertSame(1, Customer::count());
+    }
+
+    public function test_a_new_customer_email_is_stored_lowercased(): void
+    {
+        $this->post(route('customers.store'), [
+            'first_name' => 'Grace',
+            'last_name' => 'Hopper',
+            'email' => 'Grace.Hopper@Example.COM',
+        ]);
+
+        $this->assertDatabaseHas('customers', ['email' => 'grace.hopper@example.com']);
+    }
+
+    public function test_a_blank_email_is_still_accepted_since_it_is_optional(): void
+    {
+        $this->post(route('customers.store'), [
+            'first_name' => 'Walk',
+            'last_name' => 'In',
+            'email' => '',
+        ])->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('customers', ['first_name' => 'Walk', 'email' => null]);
+    }
 }

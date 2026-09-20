@@ -67,6 +67,47 @@ class EmployeeTest extends TestCase
             );
     }
 
+    public function test_emails_that_differ_only_by_case_are_rejected_as_duplicates(): void
+    {
+        Employee::factory()->create(['email' => 'ada@example.com']);
+
+        $this->post(route('employees.store'), [
+            'first_name' => 'Someone',
+            'last_name' => 'Else',
+            'email' => 'ADA@EXAMPLE.COM',
+            'position' => 'Cashier',
+        ])->assertSessionHasErrors('email');
+
+        $this->assertSame(1, Employee::count());
+    }
+
+    public function test_a_new_employee_email_is_stored_lowercased(): void
+    {
+        $this->post(route('employees.store'), [
+            'first_name' => 'Grace',
+            'last_name' => 'Hopper',
+            'email' => 'Grace.Hopper@Example.COM',
+            'position' => 'Cashier',
+        ]);
+
+        $this->assertDatabaseHas('employees', ['email' => 'grace.hopper@example.com']);
+        $this->assertDatabaseMissing('employees', ['email' => 'Grace.Hopper@Example.COM']);
+    }
+
+    public function test_updating_an_employee_still_allows_keeping_its_own_email(): void
+    {
+        $employee = Employee::factory()->create(['email' => 'ada@example.com']);
+
+        $this->put(route('employees.update', $employee), [
+            'first_name' => 'Ada',
+            'last_name' => 'Lovelace',
+            'email' => 'ADA@EXAMPLE.COM',
+            'position' => $employee->position,
+        ])->assertSessionHasNoErrors();
+
+        $this->assertSame('ada@example.com', $employee->fresh()->email);
+    }
+
     public function test_the_status_filter_marks_the_active_selection(): void
     {
         $this->get(route('employees.index', ['status' => Employee::STATUS_ON_LEAVE]))
