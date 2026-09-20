@@ -110,4 +110,39 @@ class PosCheckoutTest extends TestCase
 
         $this->assertSame('10.00', Order::latest('id')->first()->subtotal);
     }
+
+    public function test_a_card_sale_is_recorded_with_no_tender_or_change(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->post(route('pos.checkout'), $this->payload(
+            [['id' => $product->id, 'quantity' => 1]],
+            ['payment_method' => 'card', 'tendered' => null]
+        ))->assertSessionHas('success');
+
+        $order = Order::latest('id')->firstOrFail();
+        $this->assertSame('card', $order->payment_method);
+        $this->assertNull($order->tendered);
+        $this->assertSame('0.00', $order->change);
+    }
+
+    public function test_a_bank_transfer_sale_is_accepted(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->post(route('pos.checkout'), $this->payload(
+            [['id' => $product->id, 'quantity' => 1]],
+            ['payment_method' => 'bank_transfer', 'tendered' => null]
+        ))->assertSessionHas('success');
+
+        $this->assertSame('bank_transfer', Order::latest('id')->firstOrFail()->payment_method);
+    }
 }

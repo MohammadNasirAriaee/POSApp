@@ -33,6 +33,12 @@ const activeCategory = ref(props.categoryId ?? "");
 const selectedCustomer = ref("");
 const tenderedAmount = ref("");
 const discountInput = ref("");
+const PAYMENT_METHODS = [
+    { value: "cash", label: "Cash" },
+    { value: "card", label: "Card" },
+    { value: "bank_transfer", label: "Bank Transfer" },
+];
+const paymentMethod = ref("cash");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
 
@@ -110,6 +116,7 @@ const clearCart = () => {
         selectedCustomer.value = "";
         tenderedAmount.value = "";
         discountInput.value = "";
+        paymentMethod.value = "cash";
     }
 };
 
@@ -123,11 +130,18 @@ const checkoutForm = useForm({
     tendered: null,
 });
 
+// Only a cash sale involves a physical tender and change; card and bank
+// transfer are settled outside the register.
+const isCashPayment = computed(() => paymentMethod.value === "cash");
+
 const processCheckout = () => {
     if (cart.value.length === 0) return;
 
-    const tendered = parseFloat(tenderedAmount.value) || 0;
-    if (tendered < cartTotal.value) {
+    const tendered = isCashPayment.value
+        ? parseFloat(tenderedAmount.value) || 0
+        : null;
+
+    if (isCashPayment.value && tendered < cartTotal.value) {
         alert("Tendered amount must be greater than or equal to total amount.");
         return;
     }
@@ -140,6 +154,7 @@ const processCheckout = () => {
         price: i.price,
     }));
     checkoutForm.customer_id = selectedCustomer.value;
+    checkoutForm.payment_method = paymentMethod.value;
     checkoutForm.tendered = tendered;
     checkoutForm.discount = cartDiscount.value;
 
@@ -160,10 +175,19 @@ const processCheckout = () => {
             selectedCustomer.value = "";
             tenderedAmount.value = "";
             discountInput.value = "";
+            paymentMethod.value = "cash";
             showCheckoutModal.value = false;
         },
         onError: () => {
             processingCheckout.value = false;
+            // Validation errors (e.g. a cart line whose product was deleted
+            // by another session) previously vanished silently here - nothing
+            // told the cashier the sale did not go through.
+            alert(
+                "Checkout could not be completed: " +
+                    (Object.values(checkoutForm.errors)[0] ||
+                        "please review the order and try again."),
+            );
         },
     });
 };
@@ -458,7 +482,7 @@ const processCheckout = () => {
                         Complete Payment
                     </h3>
                     <p class="text-sm text-surface-500 mt-1">
-                        Enter tendered amount to process checkout.
+                        Choose a payment method to complete checkout.
                     </p>
                 </div>
 
@@ -475,6 +499,30 @@ const processCheckout = () => {
                     </div>
 
                     <div>
+                        <label class="block text-sm font-semibold text-surface-700 mb-2"
+                            >Payment Method</label
+                        >
+                        <div class="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Payment method">
+                            <button
+                                v-for="method in PAYMENT_METHODS"
+                                :key="method.value"
+                                type="button"
+                                role="radio"
+                                :aria-checked="paymentMethod === method.value"
+                                @click="paymentMethod = method.value"
+                                :class="[
+                                    'rounded-lg px-2 py-2 text-sm font-semibold border transition-colors',
+                                    paymentMethod === method.value
+                                        ? 'bg-primary-600 border-primary-600 text-white'
+                                        : 'bg-white border-surface-200 text-surface-600 hover:border-primary-300',
+                                ]"
+                            >
+                                {{ method.label }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div v-if="isCashPayment">
                         <label
                             class="block text-sm font-semibold text-surface-700 mb-2"
                             >Tendered Amount ($)</label
@@ -525,9 +573,10 @@ const processCheckout = () => {
                     <button
                         @click="processCheckout"
                         :disabled="
-                            !tenderedAmount ||
-                            parseFloat(tenderedAmount) < cartTotal ||
-                            processingCheckout
+                            processingCheckout ||
+                            (isCashPayment &&
+                                (!tenderedAmount ||
+                                    parseFloat(tenderedAmount) < cartTotal))
                         "
                         class="metronic-btn metronic-btn-primary flex-1 disabled:opacity-50"
                     >
