@@ -28,6 +28,19 @@ class EmployeeTest extends TestCase
         $response->assertSee('Store Manager');
     }
 
+    public function test_the_layout_renders_an_error_flash_alongside_success(): void
+    {
+        // The employee pages render through resources/views/layouts/app.blade.php
+        // (Blade, not Inertia), which only ever displayed session('success').
+        // Every controller that flashes 'error' elsewhere in the app (category,
+        // customer, product, order, POS) would have that message silently
+        // dropped here.
+        $this->withSession(['error' => 'Something went wrong.'])
+            ->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('Something went wrong.');
+    }
+
     public function test_row_actions_carry_accessible_names(): void
     {
         Employee::factory()->create([

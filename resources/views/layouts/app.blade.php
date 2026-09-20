@@ -61,7 +61,7 @@
         <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <!-- Flash Notification Messages -->
             @if (session('success'))
-                <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-banner">
+                <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-success-banner">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-700 flex items-center justify-center shrink-0">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,25 @@
                         </div>
                         <p class="text-sm font-medium text-emerald-900">{{ session('success') }}</p>
                     </div>
-                    <button onclick="document.getElementById('flash-banner').remove()" class="text-emerald-700 hover:text-emerald-900 p-1 rounded-lg hover:bg-emerald-100/60">
+                    <button onclick="document.getElementById('flash-success-banner').remove()" class="text-emerald-700 hover:text-emerald-900 p-1 rounded-lg hover:bg-emerald-100/60">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-6 rounded-xl border border-rose-200 bg-rose-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-error-banner">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-700 flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <p class="text-sm font-medium text-rose-900">{{ session('error') }}</p>
+                    </div>
+                    <button onclick="document.getElementById('flash-error-banner').remove()" class="text-rose-700 hover:text-rose-900 p-1 rounded-lg hover:bg-rose-100/60">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
