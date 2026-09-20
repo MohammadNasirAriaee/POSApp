@@ -28,6 +28,45 @@ class EmployeeTest extends TestCase
         $response->assertSee('Store Manager');
     }
 
+    /**
+     * The blade template echoes these links through {{ }}, which HTML-escapes
+     * the "&" between query params, so a raw route() call won't match.
+     */
+    private function sortHref(array $params): string
+    {
+        return 'href="'.e(route('employees.index', $params)).'"';
+    }
+
+    public function test_sortable_column_headers_link_to_the_field_and_toggle_direction(): void
+    {
+        Employee::factory()->create();
+
+        // EmployeeController already validates and applies ?sort=&direction=;
+        // the headers just need a way to reach it while carrying the current
+        // sort's opposite direction (a second click un-sorts back).
+        $this->get(route('employees.index', ['sort' => 'position', 'direction' => 'asc']))
+            ->assertOk()
+            ->assertSee($this->sortHref(['sort' => 'position', 'direction' => 'desc']), false)
+            ->assertSee('Role / Position &uarr;', false);
+
+        $this->get(route('employees.index', ['sort' => 'salary', 'direction' => 'desc']))
+            ->assertOk()
+            ->assertSee($this->sortHref(['sort' => 'salary', 'direction' => 'asc']), false)
+            ->assertSee('Monthly Salary &darr;', false);
+    }
+
+    public function test_sort_links_preserve_the_active_search_and_filters(): void
+    {
+        Employee::factory()->create(['position' => 'Cashier']);
+
+        $this->get(route('employees.index', ['position' => 'Cashier', 'sort' => 'first_name']))
+            ->assertOk()
+            ->assertSee(
+                $this->sortHref(['position' => 'Cashier', 'sort' => 'status', 'direction' => 'asc']),
+                false
+            );
+    }
+
     public function test_the_status_filter_marks_the_active_selection(): void
     {
         $this->get(route('employees.index', ['status' => Employee::STATUS_ON_LEAVE]))

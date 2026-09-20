@@ -155,14 +155,38 @@
                 </div>
             @else
                 <div class="overflow-x-auto">
+                    @php
+                        // EmployeeController already whitelists and applies these
+                        // sort fields; this just gives the table headers a way to
+                        // reach them, carrying the active search/filters along.
+                        $sortLink = fn (string $field) => route('employees.index', array_filter([
+                            'search' => $filters['search'] ?? null,
+                            'position' => $filters['position'] ?? null,
+                            'status' => $filters['status'] ?? null,
+                            'sort' => $field,
+                            'direction' => ($filters['sort'] ?? null) === $field && ($filters['direction'] ?? 'asc') === 'asc' ? 'desc' : 'asc',
+                        ], fn ($value) => $value !== null && $value !== ''));
+
+                        $sortIndicator = fn (string $field) => ($filters['sort'] ?? null) === $field
+                            ? (($filters['direction'] ?? 'asc') === 'asc' ? ' &uarr;' : ' &darr;')
+                            : '';
+                    @endphp
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="border-b border-slate-100 bg-slate-50/70 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                                <th class="py-3.5 px-6">Employee</th>
+                                <th class="py-3.5 px-6">
+                                    <a href="{{ $sortLink('first_name') }}" class="hover:text-slate-900">Employee{!! $sortIndicator('first_name') !!}</a>
+                                </th>
                                 <th class="py-3.5 px-6">Contact Info</th>
-                                <th class="py-3.5 px-6">Role / Position</th>
-                                <th class="py-3.5 px-6">Monthly Salary</th>
-                                <th class="py-3.5 px-6">Status</th>
+                                <th class="py-3.5 px-6">
+                                    <a href="{{ $sortLink('position') }}" class="hover:text-slate-900">Role / Position{!! $sortIndicator('position') !!}</a>
+                                </th>
+                                <th class="py-3.5 px-6">
+                                    <a href="{{ $sortLink('salary') }}" class="hover:text-slate-900">Monthly Salary{!! $sortIndicator('salary') !!}</a>
+                                </th>
+                                <th class="py-3.5 px-6">
+                                    <a href="{{ $sortLink('status') }}" class="hover:text-slate-900">Status{!! $sortIndicator('status') !!}</a>
+                                </th>
                                 <th class="py-3.5 px-6 text-right">Actions</th>
                             </tr>
                         </thead>
