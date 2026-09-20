@@ -35,6 +35,12 @@ class ProductSeeder extends Seeder
             ['name' => 'Vanilla Ice Cream 1L', 'category' => 'Frozen Foods', 'price' => 5.50, 'cost' => 3.00],
         ];
 
+        // A couple of items are deliberately seeded at or below
+        // Product::LOW_STOCK_THRESHOLD (and one at zero) so the Inventory
+        // Alerts page and the dashboard's low-stock count have something to
+        // show out of the box, instead of only ever landing on rand(10, 100).
+        $lowStockIndexes = [2 => 3, 9 => 5, 15 => 0];
+
         foreach ($products as $index => $prodData) {
             $category = $categories->where('name', $prodData['category'])->first();
 
@@ -45,8 +51,8 @@ class ProductSeeder extends Seeder
                     'sku' => 'SKU'.str_pad($index + 1, 5, '0', STR_PAD_LEFT),
                     'price' => $prodData['price'],
                     'cost' => $prodData['cost'],
-                    'stock_quantity' => rand(10, 100),
-                    'status' => 'active',
+                    'stock_quantity' => $lowStockIndexes[$index] ?? rand(10, 100),
+                    'status' => Product::STATUS_ACTIVE,
                 ]);
             }
         }
