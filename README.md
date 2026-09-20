@@ -1,5 +1,7 @@
 # POSApp
 
+[![Tests](https://github.com/MohammadNasirAriaee/POSApp/actions/workflows/tests.yml/badge.svg)](https://github.com/MohammadNasirAriaee/POSApp/actions/workflows/tests.yml)
+
 POSApp is a Laravel and Inertia point-of-sale application for managing products,
 categories, customers, employees, orders, and checkout activity from one
 dashboard.
