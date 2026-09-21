@@ -130,6 +130,17 @@ class EmployeeTest extends TestCase
             ->assertSee('Something went wrong.');
     }
 
+    public function test_filter_controls_carry_accessible_names(): void
+    {
+        // All three previously relied on a placeholder alone (search) or
+        // nothing at all (the two selects) for their accessible name.
+        $this->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('aria-label="Search employees"', false)
+            ->assertSee('aria-label="Filter by role"', false)
+            ->assertSee('aria-label="Filter by status"', false);
+    }
+
     public function test_flash_banner_dismiss_buttons_carry_accessible_names(): void
     {
         $this->withSession(['success' => 'Saved.', 'error' => 'Failed.'])
