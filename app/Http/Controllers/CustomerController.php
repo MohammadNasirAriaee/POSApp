@@ -15,6 +15,7 @@ class CustomerController extends Controller
         $search = $request->string('search')->trim()->value();
 
         $customers = Customer::search($search)
+            ->withCount('orders')
             ->latest()
             ->paginate(12)
             ->withQueryString();

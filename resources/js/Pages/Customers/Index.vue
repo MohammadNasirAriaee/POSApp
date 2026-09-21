@@ -76,7 +76,7 @@ const deleteCustomer = (id) => {
             </template>
 
             <DataTable
-                :headers="['Name', 'Contact Info', 'Joined Date', 'Actions']"
+                :headers="['Name', 'Contact Info', 'Orders', 'Joined Date', 'Actions']"
                 :items="customers.data"
                 emptyMessage="No customers found matching your criteria."
             >
@@ -116,6 +116,9 @@ const deleteCustomer = (id) => {
                                     >{{ customer.phone }}</a
                                 >
                             </div>
+                        </td>
+                        <td class="py-4 px-6 text-surface-600 font-semibold">
+                            {{ customer.orders_count || 0 }}
                         </td>
                         <td class="py-4 px-6 text-surface-500">
                             {{

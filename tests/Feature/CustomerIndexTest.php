@@ -3,12 +3,28 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CustomerIndexTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_it_reports_how_many_orders_each_customer_has(): void
+    {
+        $repeat = Customer::factory()->create();
+        Order::factory()->count(3)->create(['customer_id' => $repeat->id]);
+
+        $new = Customer::factory()->create();
+
+        $response = $this->get(route('customers.index'))->assertOk();
+
+        $customers = collect($response->viewData('page')['props']['customers']['data']);
+
+        $this->assertSame(3, $customers->firstWhere('id', $repeat->id)['orders_count']);
+        $this->assertSame(0, $customers->firstWhere('id', $new->id)['orders_count']);
+    }
 
     public function test_it_searches_across_name_email_and_phone(): void
     {
