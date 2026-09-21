@@ -51,6 +51,20 @@ const STATUS_BADGE_CLASSES = {
 const statusBadgeClass = (status) =>
     STATUS_BADGE_CLASSES[status] ?? "bg-surface-100 text-surface-600";
 
+// Cost is collected on the create/edit form but was never shown anywhere -
+// this is the only place a cashier or manager can see how thin a product's
+// margin actually is. Returns null (rendered as "-") when no cost was set.
+const marginPercent = (product) => {
+    const price = Number(product.price) || 0;
+    const cost = Number(product.cost);
+
+    if (price <= 0 || product.cost === null || Number.isNaN(cost)) {
+        return null;
+    }
+
+    return ((price - cost) / price) * 100;
+};
+
 const deleteProduct = (id) => {
     if (confirm("Are you sure you want to delete this product?")) {
         form.delete(route("products.destroy", id));
@@ -134,6 +148,7 @@ const deleteProduct = (id) => {
                     'SKU',
                     'Category',
                     'Price',
+                    'Margin',
                     'Stock',
                     'Status',
                     'Actions',
@@ -164,6 +179,20 @@ const deleteProduct = (id) => {
                         </td>
                         <td class="py-4 px-6 font-bold text-surface-900">
                             {{ formatMoney(product.price) }}
+                        </td>
+                        <td class="py-4 px-6">
+                            <span
+                                v-if="marginPercent(product) !== null"
+                                :class="[
+                                    'font-semibold',
+                                    marginPercent(product) < 10
+                                        ? 'text-rose-600'
+                                        : 'text-surface-600',
+                                ]"
+                            >
+                                {{ marginPercent(product).toFixed(0) }}%
+                            </span>
+                            <span v-else class="text-surface-400">&mdash;</span>
                         </td>
                         <td class="py-4 px-6">
                             <span

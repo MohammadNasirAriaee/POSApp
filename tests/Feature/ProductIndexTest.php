@@ -10,6 +10,20 @@ class ProductIndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_listing_includes_cost_so_margin_can_be_shown(): void
+    {
+        // The products table now shows a Margin column computed client-side
+        // from price and cost; that only works if cost actually reaches the
+        // page instead of being select()-restricted out of the query.
+        $product = Product::factory()->create(['price' => 10.00, 'cost' => 6.00]);
+
+        $this->get(route('products.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('products.data.0.cost', '6.00')
+                ->where('products.data.0.price', '10.00'));
+    }
+
     public function test_it_shares_the_low_stock_threshold(): void
     {
         Product::factory()->create();
