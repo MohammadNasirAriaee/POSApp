@@ -17,6 +17,7 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    customerFilter: Object,
 });
 
 const form = useForm({});
@@ -28,7 +29,10 @@ const statusLabel = (value) =>
 watch(statusFilter, (value) => {
     router.get(
         route('orders.index'),
-        value ? { status: value } : {},
+        {
+            ...(value ? { status: value } : {}),
+            ...(props.customerFilter ? { customer_id: props.customerFilter.id } : {}),
+        },
         { preserveState: true, replace: true },
     );
 });
@@ -59,6 +63,22 @@ const cancelOrder = (id) => {
                     {{ statusLabel(value) }}
                 </option>
             </select>
+        </div>
+
+        <div
+            v-if="customerFilter"
+            class="mb-6 flex items-center justify-between gap-3 rounded-xl border border-primary-200 bg-primary-50 px-4 py-3 text-sm"
+        >
+            <span class="text-primary-800">
+                Showing orders for
+                <span class="font-bold">{{ customerFilter.name }}</span>
+            </span>
+            <Link
+                :href="route('orders.index', statusFilter ? { status: statusFilter } : {})"
+                class="font-semibold text-primary-700 hover:text-primary-900 hover:underline"
+            >
+                Clear
+            </Link>
         </div>
 
         <Card>

@@ -117,8 +117,15 @@ const deleteCustomer = (id) => {
                                 >
                             </div>
                         </td>
-                        <td class="py-4 px-6 text-surface-600 font-semibold">
-                            {{ customer.orders_count || 0 }}
+                        <td class="py-4 px-6">
+                            <Link
+                                v-if="customer.orders_count"
+                                :href="route('orders.index', { customer_id: customer.id })"
+                                class="text-surface-600 font-semibold hover:text-primary-600 hover:underline"
+                            >
+                                {{ customer.orders_count }}
+                            </Link>
+                            <span v-else class="text-surface-400">0</span>
                         </td>
                         <td class="py-4 px-6 text-surface-500">
                             {{

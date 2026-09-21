@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $status = $request->string('status')->trim()->value();
+        $customerId = $request->integer('customer_id');
 
         $query = Order::with(['customer', 'employee'])->latest();
 
@@ -21,12 +23,22 @@ class OrderController extends Controller
             $status = null;
         }
 
+        // There is no customer picker in the UI - too many customers for a
+        // plain select - so this is reachable only by drilling down from a
+        // customer's order count. Load the customer for that banner's name.
+        $customerFilter = $customerId > 0 ? Customer::find($customerId) : null;
+
+        if ($customerFilter) {
+            $query->where('customer_id', $customerFilter->id);
+        }
+
         $orders = $query->paginate(15)->withQueryString();
 
         return Inertia::render('Orders/Index', [
             'orders' => $orders,
             'status' => $status,
             'statuses' => Order::statuses(),
+            'customerFilter' => $customerFilter,
         ]);
     }
 
