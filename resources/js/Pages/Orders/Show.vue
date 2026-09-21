@@ -109,14 +109,16 @@ const store = computed(() => page.props.config?.store ?? {});
                             <span>Total</span>
                             <span class="text-primary-600">{{ formatMoney(order.total) }}</span>
                         </div>
-                        <div class="flex justify-between py-3 text-sm font-bold text-surface-600">
-                            <span>Amount Tendered</span>
-                            <span>{{ formatMoney(order.tendered) }}</span>
-                        </div>
-                        <div class="flex justify-between py-2 text-sm font-bold text-surface-600">
-                            <span>Change Due</span>
-                            <span>{{ formatMoney(order.change) }}</span>
-                        </div>
+                        <template v-if="order.tendered !== null">
+                            <div class="flex justify-between py-3 text-sm font-bold text-surface-600">
+                                <span>Amount Tendered</span>
+                                <span>{{ formatMoney(order.tendered) }}</span>
+                            </div>
+                            <div class="flex justify-between py-2 text-sm font-bold text-surface-600">
+                                <span>Change Due</span>
+                                <span>{{ formatMoney(order.change) }}</span>
+                            </div>
+                        </template>
                     </div>
                 </div>
 
