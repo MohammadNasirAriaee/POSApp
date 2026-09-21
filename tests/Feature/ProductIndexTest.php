@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -9,6 +10,42 @@ use Tests\TestCase;
 class ProductIndexTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_it_filters_by_category(): void
+    {
+        $beverages = Category::factory()->create();
+        $snacks = Category::factory()->create();
+
+        $cola = Product::factory()->create(['category_id' => $beverages->id]);
+        Product::factory()->create(['category_id' => $snacks->id]);
+
+        $this->get(route('products.index', ['category_id' => $beverages->id]))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('categoryId', $beverages->id)
+                ->has('products.data', 1)
+                ->where('products.data.0.id', $cola->id));
+    }
+
+    public function test_it_shares_every_category_for_the_filter_dropdown(): void
+    {
+        Category::factory()->count(3)->create();
+
+        $this->get(route('products.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('categoryId', null)
+                ->has('categories', 3));
+    }
+
+    public function test_it_ignores_an_unknown_category_id(): void
+    {
+        Product::factory()->count(2)->create();
+
+        $this->get(route('products.index', ['category_id' => 999999]))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->has('products.data', 0));
+    }
 
     public function test_the_listing_includes_cost_so_margin_can_be_shown(): void
     {

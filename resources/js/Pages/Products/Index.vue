@@ -13,6 +13,11 @@ const props = defineProps({
     products: Object,
     search: String,
     status: String,
+    categoryId: Number,
+    categories: {
+        type: Array,
+        default: () => [],
+    },
     lowStockThreshold: {
         type: Number,
         required: true,
@@ -25,19 +30,21 @@ const props = defineProps({
 
 const form = useForm({});
 const statusFilter = ref(props.status || "");
+const categoryFilter = ref(props.categoryId ?? "");
 
 const { searchQuery, clearSearch } = useDebouncedSearch(
     "products.index",
     props.search,
-    () => ({ status: statusFilter.value }),
+    () => ({ status: statusFilter.value, category_id: categoryFilter.value }),
 );
 
-watch(statusFilter, (value) => {
+watch([statusFilter, categoryFilter], ([status, categoryId]) => {
     router.get(
         route("products.index"),
         {
             search: searchQuery.value,
-            status: value,
+            status,
+            category_id: categoryId,
         },
         { preserveState: true, replace: true },
     );
@@ -122,6 +129,23 @@ const deleteProduct = (id) => {
                             <X class="w-4 h-4" />
                         </button>
                     </div>
+                    <label for="product-category" class="sr-only"
+                        >Filter products by category</label
+                    >
+                    <select
+                        id="product-category"
+                        v-model="categoryFilter"
+                        class="metronic-input w-full sm:w-44"
+                    >
+                        <option value="">All categories</option>
+                        <option
+                            v-for="category in categories"
+                            :key="category.id"
+                            :value="category.id"
+                        >
+                            {{ category.name }}
+                        </option>
+                    </select>
                     <label for="product-status" class="sr-only"
                         >Filter products by status</label
                     >

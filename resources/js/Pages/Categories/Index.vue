@@ -106,8 +106,13 @@ const deleteCategory = (id) => {
                                 {{ category.is_active ? "Active" : "Inactive" }}
                             </span>
                         </td>
-                        <td class="py-4 px-6 text-surface-600 font-semibold">
-                            {{ category.products_count || 0 }}
+                        <td class="py-4 px-6">
+                            <Link
+                                :href="route('products.index', { category_id: category.id })"
+                                class="text-surface-600 font-semibold hover:text-primary-600 hover:underline"
+                            >
+                                {{ category.products_count || 0 }}
+                            </Link>
                         </td>
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-2">

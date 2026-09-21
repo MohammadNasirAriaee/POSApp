@@ -15,6 +15,7 @@ class ProductController extends Controller
     {
         $search = $request->string('search')->trim()->value();
         $status = $request->string('status')->trim()->value();
+        $categoryId = $request->integer('category_id');
 
         $query = Product::with('category')->latest();
 
@@ -22,6 +23,12 @@ class ProductController extends Controller
             $query->where('status', $status);
         } else {
             $status = null;
+        }
+
+        if ($categoryId > 0) {
+            $query->where('category_id', $categoryId);
+        } else {
+            $categoryId = null;
         }
 
         $query->search($search);
@@ -32,6 +39,8 @@ class ProductController extends Controller
             'products' => $products,
             'search' => $search,
             'status' => $status,
+            'categoryId' => $categoryId,
+            'categories' => Category::orderBy('name')->get(['id', 'name']),
             'lowStockThreshold' => Product::LOW_STOCK_THRESHOLD,
             'statusLabels' => Product::statusLabels(),
         ]);
