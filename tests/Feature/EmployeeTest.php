@@ -10,6 +10,22 @@ class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_position_filter_options_are_alphabetized(): void
+    {
+        Employee::factory()->create(['position' => 'Store Manager']);
+        Employee::factory()->create(['position' => 'Assistant Manager']);
+        Employee::factory()->create(['position' => 'Cashier']);
+
+        $positions = $this->get(route('employees.index'))
+            ->assertOk()
+            ->viewData('positions');
+
+        $this->assertSame(
+            ['Assistant Manager', 'Cashier', 'Store Manager'],
+            $positions
+        );
+    }
+
     public function test_can_display_employee_index_page_with_stats(): void
     {
         Employee::factory()->create([

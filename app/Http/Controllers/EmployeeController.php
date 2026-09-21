@@ -59,6 +59,7 @@ class EmployeeController extends Controller
         $positions = Employee::query()
             ->whereNotNull('position')
             ->distinct()
+            ->orderBy('position')
             ->pluck('position')
             ->toArray();
 
