@@ -13,7 +13,10 @@ class InventoryAlertsController extends Controller
             ->with('category')
             ->lowStock()
             ->orderBy('stock_quantity')
-            ->orderBy('name')
+            // orderBy('name') sorts case-sensitively on SQLite (uppercase
+            // before any lowercase letter), unlike MySQL's default
+            // case-insensitive collation; LOWER() keeps this consistent.
+            ->orderByRaw('LOWER(name)')
             ->get();
 
         return Inertia::render('InventoryAlerts/Index', [

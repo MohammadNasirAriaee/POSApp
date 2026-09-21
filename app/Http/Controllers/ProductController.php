@@ -40,7 +40,7 @@ class ProductController extends Controller
             'search' => $search,
             'status' => $status,
             'categoryId' => $categoryId,
-            'categories' => Category::orderBy('name')->get(['id', 'name']),
+            'categories' => Category::orderByRaw('LOWER(name)')->get(['id', 'name']),
             'lowStockThreshold' => Product::LOW_STOCK_THRESHOLD,
             'statusLabels' => Product::statusLabels(),
         ]);
@@ -48,7 +48,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::active()->orderBy('name')->get();
+        $categories = Category::active()->orderByRaw('LOWER(name)')->get();
 
         return Inertia::render('Products/Create', [
             'categories' => $categories,
@@ -72,7 +72,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::active()->orderBy('name')->get();
+        $categories = Category::active()->orderByRaw('LOWER(name)')->get();
 
         return Inertia::render('Products/Edit', [
             'product' => $product,

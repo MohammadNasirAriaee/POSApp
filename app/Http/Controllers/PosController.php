@@ -19,7 +19,10 @@ class PosController extends Controller
     {
         $categoryId = $request->integer('category_id');
         $search = $request->string('search')->trim()->value();
-        $categories = Category::active()->orderBy('name')->get();
+        // orderByRaw('LOWER(...)') rather than orderBy() throughout this
+        // method: plain orderBy sorts case-sensitively on SQLite (uppercase
+        // before any lowercase letter), unlike MySQL's default collation.
+        $categories = Category::active()->orderByRaw('LOWER(name)')->get();
 
         $query = Product::active()
             ->inStock()
@@ -33,10 +36,12 @@ class PosController extends Controller
         }
 
         $products = $query->search($search)
-            ->orderBy('name')
+            ->orderByRaw('LOWER(name)')
             ->get(['id', 'category_id', 'name', 'sku', 'price', 'stock_quantity']);
 
-        $customers = Customer::orderBy('first_name')->orderBy('last_name')->get(['id', 'first_name', 'last_name']);
+        $customers = Customer::orderByRaw('LOWER(first_name)')
+            ->orderByRaw('LOWER(last_name)')
+            ->get(['id', 'first_name', 'last_name']);
 
         // The page filters the loaded set as the cashier types; these echo any
         // query string back so a linked-to filter is visible in the controls.

@@ -11,6 +11,20 @@ class ProductIndexTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_category_dropdown_is_ordered_case_insensitively(): void
+    {
+        // A plain orderBy('name') sorts case-sensitively on SQLite, wrongly
+        // putting "Cherry" before "banana".
+        Category::factory()->create(['name' => 'banana category']);
+        Category::factory()->create(['name' => 'Cherry category']);
+
+        $this->get(route('products.index'))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->where('categories.0.name', 'banana category')
+                ->where('categories.1.name', 'Cherry category'));
+    }
+
     public function test_it_filters_by_category(): void
     {
         $beverages = Category::factory()->create();
