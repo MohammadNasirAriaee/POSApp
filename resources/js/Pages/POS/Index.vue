@@ -520,10 +520,12 @@ const processCheckout = () => {
 
                     <div v-if="isCashPayment">
                         <label
+                            for="pos-tendered-amount"
                             class="block text-sm font-semibold text-surface-700 mb-2"
                             >Tendered Amount ($)</label
                         >
                         <input
+                            id="pos-tendered-amount"
                             v-model="tenderedAmount"
                             type="number"
                             step="0.01"
