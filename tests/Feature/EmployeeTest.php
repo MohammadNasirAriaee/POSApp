@@ -55,6 +55,21 @@ class EmployeeTest extends TestCase
             ->assertSee('Monthly Salary &darr;', false);
     }
 
+    public function test_the_reset_link_appears_once_the_table_is_sorted(): void
+    {
+        Employee::factory()->create();
+
+        // A non-default sort changes the view just as much as a filter does,
+        // but sorting alone previously left no way back to the default view.
+        // (The link's text sits on its own line in the template, so the
+        // assertion can't require a bare '>Reset<' with no whitespace.)
+        $this->get(route('employees.index'))
+            ->assertDontSee('Reset');
+
+        $this->get(route('employees.index', ['sort' => 'salary', 'direction' => 'desc']))
+            ->assertSee('Reset');
+    }
+
     public function test_sort_links_preserve_the_active_search_and_filters(): void
     {
         Employee::factory()->create(['position' => 'Cashier']);
