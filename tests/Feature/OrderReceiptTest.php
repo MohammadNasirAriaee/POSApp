@@ -86,6 +86,37 @@ class OrderReceiptTest extends TestCase
         $this->assertSame('0.00', $order->change);
     }
 
+    public function test_checkout_notes_are_stored_and_reach_the_receipt(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->checkout($product, ['notes' => 'Gift wrap requested.']);
+        $order = Order::latest('id')->firstOrFail();
+
+        $this->assertSame('Gift wrap requested.', $order->notes);
+
+        $this->get(route('orders.show', $order))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page->where('order.notes', 'Gift wrap requested.'));
+    }
+
+    public function test_checkout_works_without_any_notes(): void
+    {
+        $product = Product::factory()->create([
+            'price' => 10.00,
+            'stock_quantity' => 5,
+            'status' => Product::STATUS_ACTIVE,
+        ]);
+
+        $this->checkout($product)->assertSessionHas('success');
+
+        $this->assertNull(Order::latest('id')->firstOrFail()->notes);
+    }
+
     public function test_the_receipt_receives_the_payment_method_used(): void
     {
         $product = Product::factory()->create([

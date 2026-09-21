@@ -34,6 +34,7 @@ const activeCategory = ref(props.categoryId ?? "");
 const selectedCustomer = ref("");
 const tenderedAmount = ref("");
 const discountInput = ref("");
+const orderNotes = ref("");
 const paymentMethod = ref("cash");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
@@ -112,6 +113,7 @@ const clearCart = () => {
         selectedCustomer.value = "";
         tenderedAmount.value = "";
         discountInput.value = "";
+        orderNotes.value = "";
         paymentMethod.value = "cash";
     }
 };
@@ -124,6 +126,7 @@ const checkoutForm = useForm({
     tax_rate: TAX_RATE_PERCENT,
     discount: 0,
     tendered: null,
+    notes: "",
 });
 
 // Only a cash sale involves a physical tender and change; card and bank
@@ -153,6 +156,7 @@ const processCheckout = () => {
     checkoutForm.payment_method = paymentMethod.value;
     checkoutForm.tendered = tendered;
     checkoutForm.discount = cartDiscount.value;
+    checkoutForm.notes = orderNotes.value;
 
     checkoutForm.post(route("pos.checkout"), {
         preserveScroll: true,
@@ -171,6 +175,7 @@ const processCheckout = () => {
             selectedCustomer.value = "";
             tenderedAmount.value = "";
             discountInput.value = "";
+            orderNotes.value = "";
             paymentMethod.value = "cash";
             showCheckoutModal.value = false;
         },
@@ -556,6 +561,22 @@ const processCheckout = () => {
                         >
                             Amount must cover the total due.
                         </div>
+                    </div>
+
+                    <div>
+                        <label
+                            for="pos-order-notes"
+                            class="block text-sm font-semibold text-surface-700 mb-2"
+                            >Order Notes (optional)</label
+                        >
+                        <textarea
+                            id="pos-order-notes"
+                            v-model="orderNotes"
+                            rows="2"
+                            maxlength="1000"
+                            class="metronic-input text-sm"
+                            placeholder="e.g. gift wrap, no receipt needed"
+                        ></textarea>
                     </div>
                 </div>
 

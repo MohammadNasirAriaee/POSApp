@@ -116,6 +116,7 @@ class PosController extends Controller
                     'tendered' => $tendered,
                     'payment_method' => $data['payment_method'],
                     'status' => Order::STATUS_COMPLETED,
+                    'notes' => $data['notes'] ?? null,
                 ]);
 
                 foreach ($quantities as $productId => $quantity) {

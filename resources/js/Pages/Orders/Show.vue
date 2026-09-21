@@ -122,6 +122,11 @@ const store = computed(() => page.props.config?.store ?? {});
                     </div>
                 </div>
 
+                <div v-if="order.notes" class="mt-8 pt-6 border-t border-surface-200">
+                    <p class="text-surface-500 font-semibold mb-1 text-sm">Notes:</p>
+                    <p class="text-sm text-surface-700 whitespace-pre-line">{{ order.notes }}</p>
+                </div>
+
                 <!-- Footer -->
                 <div class="text-center mt-12 text-sm text-surface-500 print:mb-0 mb-4">
                     <p class="font-semibold text-surface-700">Thank you for your business!</p>

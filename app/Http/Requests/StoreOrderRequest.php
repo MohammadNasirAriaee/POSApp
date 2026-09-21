@@ -22,6 +22,7 @@ class StoreOrderRequest extends FormRequest
             'tax_rate' => ['required', 'numeric', 'min:0', 'max:100'],
             'discount' => ['required', 'numeric', 'min:0'],
             'tendered' => ['nullable', 'numeric', 'min:0'],
+            'notes' => ['nullable', 'string', 'max:1000'],
         ];
     }
 }
