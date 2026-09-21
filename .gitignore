@@ -26,3 +26,9 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# The sqlite connection falls back to env('DB_DATABASE', ...) same as the
+# mysql connection; running an artisan command with --database=sqlite while
+# .env's DB_DATABASE is set to the mysql database name (pos_db) creates a
+# stray file by that name in the project root instead of database.sqlite.
+/pos_db
