@@ -49,12 +49,16 @@ const deleteCustomer = (id) => {
         <Card>
             <template #header>
                 <div class="relative w-full max-w-sm">
+                    <label for="customer-search" class="sr-only"
+                        >Search customers</label
+                    >
                     <div
                         class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-surface-400"
                     >
                         <Search class="w-4 h-4" />
                     </div>
                     <input
+                        id="customer-search"
                         v-model="searchQuery"
                         type="text"
                         placeholder="Search by name, email, or phone..."
