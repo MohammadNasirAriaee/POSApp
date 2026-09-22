@@ -18,9 +18,9 @@ const { searchQuery, clearSearch } = useDebouncedSearch(
     props.search,
 );
 
-const deleteCategory = (id) => {
-    if (confirm("Are you sure you want to delete this category?")) {
-        form.delete(route("categories.destroy", id));
+const deleteCategory = (category) => {
+    if (confirm(`Delete ${category.name}?`)) {
+        form.delete(route("categories.destroy", category.id));
     }
 };
 </script>
@@ -126,7 +126,7 @@ const deleteCategory = (id) => {
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button
-                                    @click="deleteCategory(category.id)"
+                                    @click="deleteCategory(category)"
                                     class="text-rose-500 hover:text-rose-700 p-1"
                                 >
                                     <span class="sr-only">Delete category</span>

@@ -72,9 +72,9 @@ const marginPercent = (product) => {
     return ((price - cost) / price) * 100;
 };
 
-const deleteProduct = (id) => {
-    if (confirm("Are you sure you want to delete this product?")) {
-        form.delete(route("products.destroy", id));
+const deleteProduct = (product) => {
+    if (confirm(`Delete ${product.name}?`)) {
+        form.delete(route("products.destroy", product.id));
     }
 };
 
@@ -251,7 +251,7 @@ const deleteProduct = (id) => {
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button
-                                    @click="deleteProduct(product.id)"
+                                    @click="deleteProduct(product)"
                                     :aria-label="`Delete ${product.name}`"
                                     :disabled="form.processing"
                                     class="text-rose-500 hover:text-rose-700 p-1"

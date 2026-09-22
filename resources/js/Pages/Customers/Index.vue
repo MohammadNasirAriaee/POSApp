@@ -18,9 +18,9 @@ const { searchQuery, clearSearch } = useDebouncedSearch(
     props.search,
 );
 
-const deleteCustomer = (id) => {
-    if (confirm("Are you sure you want to delete this customer?")) {
-        form.delete(route("customers.destroy", id));
+const deleteCustomer = (customer) => {
+    if (confirm(`Delete ${customer.name}?`)) {
+        form.delete(route("customers.destroy", customer.id));
     }
 };
 </script>
@@ -144,7 +144,7 @@ const deleteCustomer = (id) => {
                                     <Edit2 class="w-4 h-4" />
                                 </Link>
                                 <button
-                                    @click="deleteCustomer(customer.id)"
+                                    @click="deleteCustomer(customer)"
                                     class="text-rose-500 hover:text-rose-700 p-1"
                                 >
                                     <span class="sr-only">Delete customer</span>
