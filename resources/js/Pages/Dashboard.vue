@@ -3,6 +3,7 @@ import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
 import StatCard from '../Components/StatCard.vue';
 import OrderStatusBadge from '../Components/OrderStatusBadge.vue';
+import { Head } from '@inertiajs/vue3';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 import { formatMoney } from '../Support/money';
 import { customerName, cashierName } from '../Support/orderLabels';
@@ -15,6 +16,7 @@ defineProps({
 </script>
 
 <template>
+    <Head title="Dashboard" />
     <AppLayout>
         <div class="mb-6 flex items-center justify-between">
             <div>

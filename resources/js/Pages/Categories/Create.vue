@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import CategoryForm from './Partials/CategoryForm.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: '',
@@ -15,6 +15,7 @@ const submit = () => {
 </script>
 
 <template>
+    <Head title="Add Category" />
     <AppLayout>
         <div class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight text-surface-900">Add Category</h1>

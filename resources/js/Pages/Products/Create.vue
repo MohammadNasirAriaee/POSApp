@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import ProductForm from './Partials/ProductForm.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps({
     categories: Array,
@@ -28,6 +28,7 @@ const submit = () => {
 </script>
 
 <template>
+    <Head title="Add Product" />
     <AppLayout>
         <div class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight text-surface-900">Add Product</h1>

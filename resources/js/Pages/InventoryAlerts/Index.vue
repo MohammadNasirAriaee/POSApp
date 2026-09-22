@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
-import { Link } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import { computed } from "vue";
 import { AlertTriangle, ArrowRight, PackageSearch } from "lucide-vue-next";
 
@@ -31,6 +31,7 @@ const formatStockStatus = (quantity) => {
 </script>
 
 <template>
+    <Head title="Inventory Alerts" />
     <AppLayout>
         <div class="mb-6 flex items-center justify-between gap-4">
             <div>

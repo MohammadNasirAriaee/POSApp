@@ -2,7 +2,7 @@
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/Card.vue';
 import OrderStatusBadge from '../../Components/OrderStatusBadge.vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { ArrowLeft, Printer } from 'lucide-vue-next';
 import { formatMoney } from '../../Support/money';
@@ -19,6 +19,7 @@ const store = computed(() => page.props.config?.store ?? {});
 </script>
 
 <template>
+    <Head :title="`Order #${String(order.id).padStart(5, '0')}`" />
     <AppLayout>
         <div class="mb-6 flex items-center justify-between">
             <div class="flex items-center gap-4">

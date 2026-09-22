@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import CategoryForm from './Partials/CategoryForm.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     category: Object,
@@ -19,6 +19,7 @@ const submit = () => {
 </script>
 
 <template>
+    <Head :title="`Edit ${category.name}`" />
     <AppLayout>
         <div class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight text-surface-900">Edit Category</h1>

@@ -4,7 +4,7 @@ import Card from '../../Components/Card.vue';
 import DataTable from '../../Components/DataTable.vue';
 import Pagination from "../../Components/Pagination.vue";
 import OrderStatusBadge from '../../Components/OrderStatusBadge.vue';
-import { Link, useForm, router } from '@inertiajs/vue3';
+import { Head, Link, useForm, router } from '@inertiajs/vue3';
 import { Eye, Ban } from 'lucide-vue-next';
 import { ref, watch } from 'vue';
 import { formatMoney } from '../../Support/money';
@@ -47,6 +47,7 @@ const cancelOrder = (id) => {
 </script>
 
 <template>
+    <Head title="Orders" />
     <AppLayout>
         <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>

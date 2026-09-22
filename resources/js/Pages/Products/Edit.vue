@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import ProductForm from './Partials/ProductForm.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     product: Object,
@@ -29,6 +29,7 @@ const submit = () => {
 </script>
 
 <template>
+    <Head :title="`Edit ${product.name}`" />
     <AppLayout>
         <div class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight text-surface-900">Edit Product</h1>

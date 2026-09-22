@@ -1,7 +1,7 @@
 <script setup>
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
-import { useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import { ref, computed } from "vue";
 import {
     ShoppingCart,
@@ -196,6 +196,7 @@ const processCheckout = () => {
 </script>
 
 <template>
+    <Head title="POS Terminal" />
     <AppLayout>
         <div class="h-[calc(100vh-8rem)] flex flex-col lg:flex-row gap-6">
             <!-- Left Side: Products Grid -->

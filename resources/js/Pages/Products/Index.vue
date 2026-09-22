@@ -3,7 +3,7 @@ import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
 import DataTable from "../../Components/DataTable.vue";
 import Pagination from "../../Components/Pagination.vue";
-import { Link, useForm, router } from "@inertiajs/vue3";
+import { Head, Link, useForm, router } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
 import { ref, watch } from "vue";
 import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
@@ -81,6 +81,7 @@ const deleteProduct = (product) => {
 </script>
 
 <template>
+    <Head title="Products" />
     <AppLayout>
         <div
             class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
