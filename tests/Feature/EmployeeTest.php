@@ -295,6 +295,26 @@ class EmployeeTest extends TestCase
         $response->assertSee('Assistant Manager');
     }
 
+    public function test_edit_form_includes_a_custom_position_not_on_the_standard_list(): void
+    {
+        // position has no Rule::in constraining it to Employee::POSITIONS,
+        // so an employee can genuinely have a role outside that fixed list.
+        $employee = Employee::factory()->create(['position' => 'Regional Director']);
+
+        $this->get(route('employees.edit', $employee))
+            ->assertOk()
+            ->assertSee('Regional Director');
+    }
+
+    public function test_edit_form_does_not_duplicate_a_standard_position(): void
+    {
+        $employee = Employee::factory()->create(['position' => 'Cashier']);
+
+        $response = $this->get(route('employees.edit', $employee))->assertOk();
+
+        $this->assertSame(1, substr_count($response->getContent(), '>Cashier<'));
+    }
+
     public function test_can_update_employee_details(): void
     {
         $employee = Employee::factory()->create([

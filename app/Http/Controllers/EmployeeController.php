@@ -118,9 +118,19 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee): View
     {
+        // position is free text (no Rule::in constraining it), so an
+        // employee's current role may not be one of the standard POSITIONS -
+        // without adding it here, the select would show "Select a Role"
+        // instead of their actual, unchanged position.
+        $positions = Employee::POSITIONS;
+
+        if ($employee->position && ! in_array($employee->position, $positions, true)) {
+            $positions[] = $employee->position;
+        }
+
         return view('employees.edit', [
             'employee' => $employee,
-            'positions' => Employee::POSITIONS,
+            'positions' => $positions,
         ]);
     }
 
