@@ -24,9 +24,13 @@ class OrderCancelPendingTest extends TestCase
         $order = Order::factory()->create(['status' => Order::STATUS_PENDING]);
         OrderItem::factory()->forProduct($product, 4)->create(['order_id' => $order->id]);
 
-        $this->delete(route('orders.cancel', $order));
+        $response = $this->delete(route('orders.cancel', $order));
 
         $this->assertSame(Order::STATUS_CANCELLED, $order->fresh()->status);
         $this->assertSame(10, $product->fresh()->stock_quantity);
+
+        // Nothing was put back into stock, so the flash message must not
+        // claim that it was.
+        $response->assertSessionHas('success', 'Order cancelled successfully.');
     }
 }

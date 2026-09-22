@@ -30,7 +30,8 @@ class OrderCancelTest extends TestCase
         $order = Order::latest('id')->firstOrFail();
         $this->assertSame(7, $product->fresh()->stock_quantity);
 
-        $this->delete(route('orders.cancel', $order))->assertSessionHas('success');
+        $this->delete(route('orders.cancel', $order))
+            ->assertSessionHas('success', 'Order cancelled and stock returned successfully.');
 
         $this->assertSame(Order::STATUS_CANCELLED, $order->fresh()->status);
         $this->assertSame(10, $product->fresh()->stock_quantity);

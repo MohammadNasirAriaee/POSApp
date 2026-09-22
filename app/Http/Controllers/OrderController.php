@@ -58,11 +58,11 @@ class OrderController extends Controller
      */
     public function cancel(Order $order)
     {
-        $cancelled = DB::transaction(function () use ($order) {
+        $result = DB::transaction(function () use ($order) {
             $order = Order::lockForUpdate()->findOrFail($order->id);
 
             if ($order->status === Order::STATUS_CANCELLED) {
-                return false;
+                return null;
             }
 
             // Only a completed sale took stock out, so only a completed sale
@@ -77,13 +77,17 @@ class OrderController extends Controller
                 }
             }
 
-            return true;
+            return $returnsStock;
         });
 
-        if (! $cancelled) {
+        if ($result === null) {
             return redirect()->back()->with('error', 'Order is already cancelled.');
         }
 
-        return redirect()->back()->with('success', 'Order cancelled and stock returned successfully.');
+        $message = $result
+            ? 'Order cancelled and stock returned successfully.'
+            : 'Order cancelled successfully.';
+
+        return redirect()->back()->with('success', $message);
     }
 }
