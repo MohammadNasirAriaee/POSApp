@@ -26,6 +26,20 @@ class EmployeeTest extends TestCase
         );
     }
 
+    public function test_the_position_filter_options_are_alphabetized_case_insensitively(): void
+    {
+        // A plain orderBy('position') sorts case-sensitively on SQLite, wrongly
+        // putting "Cashier" before "banager".
+        Employee::factory()->create(['position' => 'banager']);
+        Employee::factory()->create(['position' => 'Cashier']);
+
+        $positions = $this->get(route('employees.index'))
+            ->assertOk()
+            ->viewData('positions');
+
+        $this->assertSame(['banager', 'Cashier'], $positions);
+    }
+
     public function test_can_display_employee_index_page_with_stats(): void
     {
         Employee::factory()->create([

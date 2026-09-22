@@ -55,11 +55,13 @@ class EmployeeController extends Controller
             'avg_salary' => $activeCount > 0 ? $activePayroll / $activeCount : 0,
         ];
 
-        // Available position options for filtering dropdown
+        // Available position options for filtering dropdown. orderByRaw('LOWER(...)')
+        // rather than orderBy(): plain orderBy sorts case-sensitively on SQLite
+        // (uppercase before any lowercase letter), unlike MySQL's default collation.
         $positions = Employee::query()
             ->whereNotNull('position')
             ->distinct()
-            ->orderBy('position')
+            ->orderByRaw('LOWER(position)')
             ->pluck('position')
             ->toArray();
 
