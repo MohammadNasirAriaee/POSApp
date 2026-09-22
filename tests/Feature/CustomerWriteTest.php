@@ -84,6 +84,32 @@ class CustomerWriteTest extends TestCase
         $this->assertDatabaseHas('customers', ['email' => 'grace.hopper@example.com']);
     }
 
+    public function test_phone_numbers_that_differ_only_by_punctuation_are_rejected_as_duplicates(): void
+    {
+        Customer::factory()->create(['phone' => '555-0100']);
+
+        $this->post(route('customers.store'), [
+            'first_name' => 'Someone',
+            'last_name' => 'Else',
+            'phone' => '(555) 0100',
+        ])->assertSessionHasErrors('phone');
+
+        $this->assertSame(1, Customer::count());
+    }
+
+    public function test_it_updates_a_customer_without_tripping_its_own_unique_phone(): void
+    {
+        $customer = Customer::factory()->create(['phone' => '555-0100']);
+
+        $this->put(route('customers.update', $customer), [
+            'first_name' => 'Grace',
+            'last_name' => 'Hopper',
+            'phone' => '555-0100',
+        ])->assertRedirect(route('customers.index'));
+
+        $this->assertSame('Grace', $customer->fresh()->first_name);
+    }
+
     public function test_a_blank_email_is_still_accepted_since_it_is_optional(): void
     {
         $this->post(route('customers.store'), [
