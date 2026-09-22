@@ -61,6 +61,28 @@ class ProductWriteTest extends TestCase
         $this->assertSame(Product::STATUS_ACTIVE, $product->status);
     }
 
+    public function test_editing_a_product_still_offers_its_own_deactivated_category(): void
+    {
+        // Deactivating a category doesn't strip it from products already
+        // assigned to it, so the edit form must still be able to show it -
+        // Category::active() alone would silently drop it from the options.
+        $category = Category::factory()->create(['is_active' => false]);
+        $product = Product::factory()->create(['category_id' => $category->id]);
+
+        $response = $this->get(route('products.edit', $product))->assertOk();
+
+        $categoryIds = collect($response->viewData('page')['props']['categories'])->pluck('id');
+
+        $this->assertTrue($categoryIds->contains($category->id));
+    }
+
+    public function test_editing_a_product_with_no_category_does_not_error(): void
+    {
+        $product = Product::factory()->create(['category_id' => null]);
+
+        $this->get(route('products.edit', $product))->assertOk();
+    }
+
     public function test_it_rejects_a_duplicate_sku(): void
     {
         Product::factory()->create(['sku' => 'DUP-1']);

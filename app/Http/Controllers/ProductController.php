@@ -72,7 +72,18 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Category::active()->orderByRaw('LOWER(name)')->get();
+        // A category can be deactivated after products were assigned to it;
+        // Category::active() alone would then omit the product's own
+        // category entirely, making the select look empty/unselected even
+        // though the product is still assigned to it.
+        $categories = Category::query()
+            ->where('is_active', true)
+            ->when(
+                $product->category_id,
+                fn ($query) => $query->orWhere('id', $product->category_id)
+            )
+            ->orderByRaw('LOWER(name)')
+            ->get();
 
         return Inertia::render('Products/Edit', [
             'product' => $product,
