@@ -328,6 +328,25 @@ class EmployeeTest extends TestCase
             ->assertDontSee('href="tel:', false);
     }
 
+    public function test_the_directory_table_links_the_phone_number_like_the_email(): void
+    {
+        Employee::factory()->create(['phone' => '555-0100']);
+
+        $this->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('href="tel:555-0100"', false);
+    }
+
+    public function test_the_directory_table_falls_back_to_plain_text_without_a_phone(): void
+    {
+        Employee::factory()->create(['phone' => null]);
+
+        $this->get(route('employees.index'))
+            ->assertOk()
+            ->assertSee('No phone')
+            ->assertDontSee('href="tel:', false);
+    }
+
     public function test_edit_form_includes_a_custom_position_not_on_the_standard_list(): void
     {
         // position has no Rule::in constraining it to Employee::POSITIONS,

@@ -216,9 +216,13 @@
                                             <a href="mailto:{{ $employee->email }}" class="text-slate-700 hover:text-indigo-600 font-medium block">
                                                 {{ $employee->email }}
                                             </a>
-                                            <span class="text-slate-400 block">
-                                                {{ $employee->phone ?: 'No phone' }}
-                                            </span>
+                                            @if ($employee->phone)
+                                                <a href="tel:{{ $employee->phone }}" class="text-slate-400 hover:text-indigo-600 block">
+                                                    {{ $employee->phone }}
+                                                </a>
+                                            @else
+                                                <span class="text-slate-400 block">No phone</span>
+                                            @endif
                                         </div>
                                     </td>
 
