@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\EscapesLikeTerm;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    use EscapesLikeTerm;
+
     /** @use HasFactory<ProductFactory> */
     use HasFactory;
 
@@ -83,9 +86,11 @@ class Product extends Model
             return $query;
         }
 
+        $term = static::escapeLikeTerm($term);
+
         return $query->where(function (Builder $q) use ($term) {
-            $q->where('name', 'like', "%{$term}%")
-                ->orWhere('sku', 'like', "%{$term}%");
+            $q->whereRaw("name LIKE ? ESCAPE '\\'", ["%{$term}%"])
+                ->orWhereRaw("sku LIKE ? ESCAPE '\\'", ["%{$term}%"]);
         });
     }
 

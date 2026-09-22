@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\EscapesLikeTerm;
 use App\Models\Concerns\HasFullName;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    use HasFactory, HasFullName;
+    use EscapesLikeTerm, HasFactory, HasFullName;
 
     public const STATUS_ACTIVE = 'active';
 
@@ -145,12 +146,14 @@ class Employee extends Model
             return $query;
         }
 
+        $term = static::escapeLikeTerm($term);
+
         return $query->where(function (Builder $q) use ($term) {
-            $q->where('first_name', 'like', "%{$term}%")
-                ->orWhere('last_name', 'like', "%{$term}%")
-                ->orWhere('email', 'like', "%{$term}%")
-                ->orWhere('phone', 'like', "%{$term}%")
-                ->orWhere('position', 'like', "%{$term}%");
+            $q->whereRaw("first_name LIKE ? ESCAPE '\\'", ["%{$term}%"])
+                ->orWhereRaw("last_name LIKE ? ESCAPE '\\'", ["%{$term}%"])
+                ->orWhereRaw("email LIKE ? ESCAPE '\\'", ["%{$term}%"])
+                ->orWhereRaw("phone LIKE ? ESCAPE '\\'", ["%{$term}%"])
+                ->orWhereRaw("position LIKE ? ESCAPE '\\'", ["%{$term}%"]);
         });
     }
 

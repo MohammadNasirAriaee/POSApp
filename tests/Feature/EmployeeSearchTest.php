@@ -27,6 +27,19 @@ class EmployeeSearchTest extends TestCase
         $this->assertSame('Ada', $employees->first()->first_name);
     }
 
+    public function test_a_literal_underscore_in_the_search_term_does_not_match_as_a_wildcard(): void
+    {
+        Employee::factory()->create(['first_name' => 'Ann_Marie']);
+        Employee::factory()->create(['first_name' => 'AnnXMarie']);
+
+        $employees = $this->get(route('employees.index', ['search' => 'Ann_Marie']))
+            ->assertOk()
+            ->viewData('employees');
+
+        $this->assertCount(1, $employees);
+        $this->assertSame('Ann_Marie', $employees->first()->first_name);
+    }
+
     public function test_a_blank_search_returns_everyone(): void
     {
         Employee::factory()->count(3)->create();

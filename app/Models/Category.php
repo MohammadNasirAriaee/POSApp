@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\EscapesLikeTerm;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,8 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
+    use EscapesLikeTerm;
+
     /** @use HasFactory<CategoryFactory> */
     use HasFactory;
 
@@ -41,7 +44,9 @@ class Category extends Model
             return $query;
         }
 
-        return $query->where('name', 'like', "%{$term}%");
+        $term = static::escapeLikeTerm($term);
+
+        return $query->whereRaw("name LIKE ? ESCAPE '\\'", ["%{$term}%"]);
     }
 
     /**

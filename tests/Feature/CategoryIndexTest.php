@@ -32,4 +32,16 @@ class CategoryIndexTest extends TestCase
             ->assertOk()
             ->assertInertia(fn ($page) => $page->has('categories.data', 3));
     }
+
+    public function test_a_literal_underscore_in_the_search_term_does_not_match_as_a_wildcard(): void
+    {
+        $match = Category::factory()->create(['name' => 'AB_Widgets', 'slug' => 'ab-widgets']);
+        Category::factory()->create(['name' => 'ABXWidgets', 'slug' => 'abxwidgets']);
+
+        $this->get(route('categories.index', ['search' => 'AB_Widgets']))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('categories.data', 1)
+                ->where('categories.data.0.id', $match->id));
+    }
 }

@@ -25,6 +25,19 @@ class ProductIndexTest extends TestCase
                 ->where('categories.1.name', 'Cherry category'));
     }
 
+    public function test_a_literal_underscore_in_the_search_term_does_not_match_as_a_wildcard(): void
+    {
+        $category = Category::factory()->create();
+        $match = Product::factory()->create(['sku' => 'AB_1', 'category_id' => $category->id]);
+        Product::factory()->create(['sku' => 'ABX1', 'category_id' => $category->id]);
+
+        $this->get(route('products.index', ['search' => 'AB_1']))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('products.data', 1)
+                ->where('products.data.0.id', $match->id));
+    }
+
     public function test_it_filters_by_category(): void
     {
         $beverages = Category::factory()->create();

@@ -26,6 +26,18 @@ class CustomerIndexTest extends TestCase
         $this->assertSame(0, $customers->firstWhere('id', $new->id)['orders_count']);
     }
 
+    public function test_a_literal_underscore_in_the_search_term_does_not_match_as_a_wildcard(): void
+    {
+        $match = Customer::factory()->create(['first_name' => 'Ann_Marie']);
+        Customer::factory()->create(['first_name' => 'AnnXMarie']);
+
+        $this->get(route('customers.index', ['search' => 'Ann_Marie']))
+            ->assertOk()
+            ->assertInertia(fn ($page) => $page
+                ->has('customers.data', 1)
+                ->where('customers.data.0.id', $match->id));
+    }
+
     public function test_it_searches_across_name_email_and_phone(): void
     {
         $byLastName = Customer::factory()->create(['first_name' => 'Ada', 'last_name' => 'Zephyr']);
