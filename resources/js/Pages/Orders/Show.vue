@@ -50,8 +50,12 @@ const store = computed(() => page.props.config?.store ?? {});
                         <p class="text-surface-500 font-semibold mb-1">Billed To:</p>
                         <template v-if="order.customer">
                             <p class="font-bold text-surface-900">{{ order.customer.name }}</p>
-                            <p v-if="order.customer.email" class="text-surface-600">{{ order.customer.email }}</p>
-                            <p v-if="order.customer.phone" class="text-surface-600">{{ order.customer.phone }}</p>
+                            <p v-if="order.customer.email" class="text-surface-600">
+                                <a :href="'mailto:' + order.customer.email" class="hover:text-primary-600">{{ order.customer.email }}</a>
+                            </p>
+                            <p v-if="order.customer.phone" class="text-surface-600">
+                                <a :href="'tel:' + order.customer.phone" class="hover:text-primary-600">{{ order.customer.phone }}</a>
+                            </p>
                         </template>
                         <p v-else class="font-bold text-surface-900">Walk-in Customer</p>
                     </div>
