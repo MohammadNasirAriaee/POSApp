@@ -115,7 +115,8 @@ const cancelOrder = (id) => {
                                 <button
                                     v-if="order.status !== 'cancelled'"
                                     @click="cancelOrder(order.id)"
-                                    class="text-rose-500 hover:text-rose-700 p-1"
+                                    :disabled="form.processing"
+                                    class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                     title="Cancel Order"
                                 >
                                     <span class="sr-only">Cancel order</span>

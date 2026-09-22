@@ -254,7 +254,7 @@ const deleteProduct = (product) => {
                                     @click="deleteProduct(product)"
                                     :aria-label="`Delete ${product.name}`"
                                     :disabled="form.processing"
-                                    class="text-rose-500 hover:text-rose-700 p-1"
+                                    class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                 >
                                     <Trash2 class="w-4 h-4" />
                                 </button>

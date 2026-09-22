@@ -145,7 +145,8 @@ const deleteCustomer = (customer) => {
                                 </Link>
                                 <button
                                     @click="deleteCustomer(customer)"
-                                    class="text-rose-500 hover:text-rose-700 p-1"
+                                    :disabled="form.processing"
+                                    class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                 >
                                     <span class="sr-only">Delete customer</span>
                                     <Trash2 class="w-4 h-4" />
