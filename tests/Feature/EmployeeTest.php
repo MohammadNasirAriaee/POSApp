@@ -295,6 +295,25 @@ class EmployeeTest extends TestCase
         $response->assertSee('Assistant Manager');
     }
 
+    public function test_the_profile_page_links_the_phone_number_like_the_email(): void
+    {
+        $employee = Employee::factory()->create(['phone' => '555-0100']);
+
+        $this->get(route('employees.show', $employee))
+            ->assertOk()
+            ->assertSee('href="tel:555-0100"', false);
+    }
+
+    public function test_a_missing_phone_number_falls_back_to_plain_text(): void
+    {
+        $employee = Employee::factory()->create(['phone' => null]);
+
+        $this->get(route('employees.show', $employee))
+            ->assertOk()
+            ->assertSee('Not provided')
+            ->assertDontSee('href="tel:', false);
+    }
+
     public function test_edit_form_includes_a_custom_position_not_on_the_standard_list(): void
     {
         // position has no Rule::in constraining it to Employee::POSITIONS,

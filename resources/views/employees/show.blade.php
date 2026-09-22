@@ -122,9 +122,13 @@
 
                     <div>
                         <span class="block text-xs font-semibold text-slate-400">Phone Number</span>
-                        <p class="text-sm font-medium text-slate-800">
-                            {{ $employee->phone ?: 'Not provided' }}
-                        </p>
+                        @if ($employee->phone)
+                            <a href="tel:{{ $employee->phone }}" class="text-sm font-semibold text-indigo-600 hover:underline">
+                                {{ $employee->phone }}
+                            </a>
+                        @else
+                            <p class="text-sm font-medium text-slate-800">Not provided</p>
+                        @endif
                     </div>
 
                     <div>
