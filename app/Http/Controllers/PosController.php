@@ -54,6 +54,10 @@ class PosController extends Controller
         ]);
     }
 
+    /**
+     * Complete a sale: validate stock/price against the DB (never the cart
+     * payload), create the order and its items, and decrement stock.
+     */
     public function checkout(StoreOrderRequest $request)
     {
         $data = $request->validated();
