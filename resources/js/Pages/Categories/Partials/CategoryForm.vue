@@ -27,6 +27,7 @@ const emit = defineEmits(['submit']);
                 v-model="form.name"
                 :error="form.errors.name"
                 placeholder="e.g. Beverages"
+                maxlength="255"
                 required
             />
 
