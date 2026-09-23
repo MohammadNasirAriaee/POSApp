@@ -40,11 +40,14 @@ const emit = defineEmits(['submit']);
                 <TextInput
                     label="Email Address"
                     type="email"
+                    autocomplete="email"
                     v-model="form.email"
                     :error="form.errors.email"
                 />
                 <TextInput
                     label="Phone Number"
+                    type="tel"
+                    autocomplete="tel"
                     v-model="form.phone"
                     :error="form.errors.phone"
                 />
