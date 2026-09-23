@@ -35,12 +35,14 @@ const emit = defineEmits(['submit']);
                     label="Product Name"
                     v-model="form.name"
                     :error="form.errors.name"
+                    maxlength="255"
                     required
                 />
                 <TextInput
                     label="SKU / Barcode"
                     v-model="form.sku"
                     :error="form.errors.sku"
+                    maxlength="100"
                     required
                 />
             </div>
