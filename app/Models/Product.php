@@ -23,6 +23,7 @@ class Product extends Model
 
     public const STATUS_OUT_OF_STOCK = 'out_of_stock';
 
+    // Stock at or below this triggers the low-stock badge and inventory alert.
     public const LOW_STOCK_THRESHOLD = 5;
 
     protected $fillable = [ // fillable attributes for mass assignment
