@@ -11,6 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Only completed sales count toward today's totals - pending and
+        // cancelled orders never took money or stock.
         $today = Order::completed()
             ->where('created_at', '>=', now()->startOfDay())
             ->selectRaw('coalesce(sum(total), 0) as sales, count(*) as orders')
