@@ -14,8 +14,10 @@ class Order extends Model
     /** @use HasFactory<OrderFactory> */
     use HasFactory;
 
+    // Created but not yet paid; does not affect stock.
     public const STATUS_PENDING = 'pending';
 
+    // Paid and stocked out; the only status that returns stock on cancel.
     public const STATUS_COMPLETED = 'completed';
 
     public const STATUS_CANCELLED = 'cancelled';
