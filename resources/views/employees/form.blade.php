@@ -44,7 +44,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="phone">
                     Phone Number
                 </label>
-                <input id="phone" name="phone" type="text" value="{{ old('phone', $employee->phone ?? '') }}" placeholder="+1 (555) 000-0000" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
+                <input id="phone" name="phone" type="tel" value="{{ old('phone', $employee->phone ?? '') }}" placeholder="+1 (555) 000-0000" maxlength="30" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
                 @error('phone')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
