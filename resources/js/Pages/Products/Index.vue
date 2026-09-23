@@ -125,6 +125,7 @@ const deleteProduct = (product) => {
                             v-if="searchQuery"
                             @click="clearSearch"
                             aria-label="Clear product search"
+                            title="Clear search"
                             class="absolute inset-y-0 right-0 flex items-center pr-3 text-surface-400 hover:text-surface-600"
                         >
                             <X class="w-4 h-4" />
