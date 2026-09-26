@@ -88,7 +88,7 @@
                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-sm">
                         $
                     </div>
-                    <input id="salary" name="salary" type="number" step="0.01" min="0" value="{{ old('salary', $employee->salary ?? '') }}" placeholder="3500.00" class="w-full rounded-xl border border-slate-300 bg-white pl-8 pr-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                    <input id="salary" name="salary" type="number" step="0.01" min="0" inputmode="decimal" value="{{ old('salary', $employee->salary ?? '') }}" placeholder="3500.00" class="w-full rounded-xl border border-slate-300 bg-white pl-8 pr-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
                 </div>
                 @error('salary')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
