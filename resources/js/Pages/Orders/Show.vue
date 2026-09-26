@@ -31,7 +31,7 @@ const store = computed(() => page.props.config?.store ?? {});
                     <p class="text-sm text-surface-500 mt-1">{{ new Date(order.created_at).toLocaleString() }}</p>
                 </div>
             </div>
-            <button onclick="window.print()" class="metronic-btn metronic-btn-primary shrink-0 hidden sm:flex">
+            <button type="button" onclick="window.print()" class="metronic-btn metronic-btn-primary shrink-0 hidden sm:flex">
                 <Printer class="w-4 h-4" /> Print Receipt
             </button>
         </div>
@@ -140,7 +140,7 @@ const store = computed(() => page.props.config?.store ?? {});
             </Card>
 
             <div class="mt-6 sm:hidden">
-                <button onclick="window.print()" class="metronic-btn metronic-btn-primary w-full">
+                <button type="button" onclick="window.print()" class="metronic-btn metronic-btn-primary w-full">
                     <Printer class="w-4 h-4" /> Print Receipt
                 </button>
             </div>
