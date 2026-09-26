@@ -9,6 +9,8 @@ class InventoryAlertsController extends Controller
 {
     public function index()
     {
+        // Lowest stock first, so the products closest to selling out surface
+        // at the top of the list.
         $alerts = Product::query()
             ->with('category')
             ->lowStock()
