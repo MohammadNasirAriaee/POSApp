@@ -120,7 +120,7 @@ const cancelOrder = (id) => {
                                     class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                     title="Cancel Order"
                                 >
-                                    <span class="sr-only">Cancel order</span>
+                                    <span class="sr-only">Cancel order #{{ String(order.id).padStart(5, '0') }}</span>
                                     <Ban class="w-4 h-4" />
                                 </button>
                             </div>
