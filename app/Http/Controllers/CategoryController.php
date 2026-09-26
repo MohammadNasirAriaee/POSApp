@@ -33,6 +33,8 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Category::uniqueSlug($data['name']);
+        // An unchecked checkbox is simply absent from the request, not sent
+        // as false; boolean() gives the correct default for that case.
         $data['is_active'] = $request->boolean('is_active');
 
         Category::create($data);
