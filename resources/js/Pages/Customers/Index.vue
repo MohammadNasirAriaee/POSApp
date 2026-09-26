@@ -123,6 +123,7 @@ const deleteCustomer = (customer) => {
                             <Link
                                 v-if="customer.orders_count"
                                 :href="route('orders.index', { customer_id: customer.id })"
+                                :aria-label="`View ${customer.orders_count} orders for ${customer.name}`"
                                 class="text-surface-600 font-semibold hover:text-primary-600 hover:underline"
                             >
                                 {{ customer.orders_count }}
