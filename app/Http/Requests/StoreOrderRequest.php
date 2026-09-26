@@ -14,6 +14,8 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // Only shape is validated here - PosController::checkout re-derives
+            // price/stock/subtotal from the DB and never trusts these values.
             'cart' => ['required', 'array', 'min:1'],
             'cart.*.id' => ['required', 'integer', 'exists:products,id'],
             'cart.*.quantity' => ['required', 'integer', 'min:1'],
