@@ -101,6 +101,7 @@ const formatStockStatus = (quantity) => {
                             </span>
                             <Link
                                 :href="route('products.edit', product.id)"
+                                :aria-label="`Reorder ${product.name}`"
                                 class="inline-flex items-center gap-1 text-sm font-semibold text-primary-600 hover:text-primary-800"
                             >
                                 Reorder
