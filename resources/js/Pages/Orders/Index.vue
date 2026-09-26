@@ -110,7 +110,7 @@ const cancelOrder = (id) => {
                         </td>
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-2">
-                                <Link :href="route('orders.show', order.id)" class="text-surface-600 hover:text-primary-600 p-1" title="View Receipt" aria-label="View receipt">
+                                <Link :href="route('orders.show', order.id)" class="text-surface-600 hover:text-primary-600 p-1" title="View Receipt" :aria-label="`View receipt for order #${String(order.id).padStart(5, '0')}`">
                                     <Eye class="w-4 h-4" />
                                 </Link>
                                 <button
