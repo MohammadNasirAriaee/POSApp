@@ -63,6 +63,7 @@ const emit = defineEmits(['submit']);
                     id="customer-address"
                     v-model="form.address"
                     rows="3"
+                    autocomplete="street-address"
                     class="metronic-input"
                     :class="[form.errors.address ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                     :aria-invalid="form.errors.address ? 'true' : 'false'"
