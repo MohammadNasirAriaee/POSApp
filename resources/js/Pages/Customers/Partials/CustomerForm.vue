@@ -43,6 +43,7 @@ const emit = defineEmits(['submit']);
                     label="Email Address"
                     type="email"
                     autocomplete="email"
+                    maxlength="255"
                     v-model="form.email"
                     :error="form.errors.email"
                 />
@@ -50,6 +51,7 @@ const emit = defineEmits(['submit']);
                     label="Phone Number"
                     type="tel"
                     autocomplete="tel"
+                    maxlength="20"
                     v-model="form.phone"
                     :error="form.errors.phone"
                 />
