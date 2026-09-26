@@ -151,7 +151,7 @@ const deleteCustomer = (customer) => {
                                     :disabled="form.processing"
                                     class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                 >
-                                    <span class="sr-only">Delete customer</span>
+                                    <span class="sr-only">Delete {{ customer.name }}</span>
                                     <Trash2 class="w-4 h-4" />
                                 </button>
                             </div>

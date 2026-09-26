@@ -132,7 +132,7 @@ const deleteCategory = (category) => {
                                     :disabled="form.processing"
                                     class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                 >
-                                    <span class="sr-only">Delete category</span>
+                                    <span class="sr-only">Delete {{ category.name }}</span>
                                     <Trash2 class="w-4 h-4" />
                                 </button>
                             </div>
