@@ -18,6 +18,8 @@ class Employee extends Model
 
     public const STATUS_ON_LEAVE = 'on_leave';
 
+    // Suggested roles for the create/edit form. position itself is free text
+    // (no Rule::in), so an employee can hold a title outside this list.
     public const POSITIONS = [
         'Store Manager',
         'Assistant Manager',
