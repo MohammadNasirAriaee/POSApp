@@ -140,7 +140,8 @@ class Employee extends Model
     }
 
     /**
-     * Scope query to search by term.
+     * Scope query to search by term. Matches name, email, phone, or position -
+     * the search box's own placeholder lists all four.
      */
     public function scopeSearch(Builder $query, ?string $term): Builder
     {
