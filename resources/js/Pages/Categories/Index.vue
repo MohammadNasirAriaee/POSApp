@@ -122,7 +122,7 @@ const deleteCategory = (category) => {
                                     :href="
                                         route('categories.edit', category.id)
                                     "
-                                    aria-label="Edit category"
+                                    :aria-label="`Edit ${category.name}`"
                                     class="text-primary-600 hover:text-primary-800 p-1"
                                 >
                                     <Edit2 class="w-4 h-4" />

@@ -141,7 +141,7 @@ const deleteCustomer = (customer) => {
                             <div class="flex items-center gap-2">
                                 <Link
                                     :href="route('customers.edit', customer.id)"
-                                    aria-label="Edit customer"
+                                    :aria-label="`Edit ${customer.name}`"
                                     class="text-primary-600 hover:text-primary-800 p-1"
                                 >
                                     <Edit2 class="w-4 h-4" />
