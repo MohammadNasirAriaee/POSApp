@@ -27,6 +27,7 @@ const emit = defineEmits(['submit']);
                     label="First Name"
                     v-model="form.first_name"
                     :error="form.errors.first_name"
+                    autocomplete="given-name"
                     maxlength="255"
                     required
                 />
@@ -34,6 +35,7 @@ const emit = defineEmits(['submit']);
                     label="Last Name"
                     v-model="form.last_name"
                     :error="form.errors.last_name"
+                    autocomplete="family-name"
                     maxlength="255"
                 />
             </div>
