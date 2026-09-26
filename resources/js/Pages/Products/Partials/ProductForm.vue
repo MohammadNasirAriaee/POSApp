@@ -112,6 +112,7 @@ const emit = defineEmits(['submit']);
                     label="Stock Quantity"
                     type="number"
                     min="0"
+                    inputmode="numeric"
                     v-model="form.stock_quantity"
                     :error="form.errors.stock_quantity"
                     required
