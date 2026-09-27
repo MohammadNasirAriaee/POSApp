@@ -38,7 +38,9 @@ class Product extends Model
         'status',
     ];
 
-    protected $casts = [ // cast attributes to specific data types
+    // decimal:2 returns price/cost as fixed-precision strings, not floats -
+    // resources/js/Support/money.js coerces them back to a number for display.
+    protected $casts = [
         'price' => 'decimal:2',
         'cost' => 'decimal:2',
         'stock_quantity' => 'integer',
