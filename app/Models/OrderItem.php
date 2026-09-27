@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * name and price are snapshotted from the product at sale time, not read
+ * live from it - a later price change or rename must never rewrite a
+ * historical receipt.
+ */
 class OrderItem extends Model
 {
     /** @use HasFactory<OrderItemFactory> */
