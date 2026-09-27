@@ -20,6 +20,8 @@ class CustomerFactory extends Factory
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
+            // Both columns carry a unique DB index, so factory-generated test
+            // data must not collide across rows either.
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->numerify('07########'),
             'address' => fake()->address(),
