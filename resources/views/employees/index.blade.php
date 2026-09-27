@@ -117,7 +117,7 @@
                     </button>
 
                     @if (!empty($filters['search']) || !empty($filters['position']) || !empty($filters['status']) || ($filters['sort'] ?? 'first_name') !== 'first_name' || ($filters['direction'] ?? 'asc') !== 'asc')
-                        <a href="{{ route('employees.index') }}" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-100 transition-all flex items-center justify-center">
+                        <a href="{{ route('employees.index') }}" title="Clear all search, filters, and sorting" class="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-100 transition-all flex items-center justify-center">
                             Reset
                         </a>
                     @endif
