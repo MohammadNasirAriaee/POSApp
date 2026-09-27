@@ -21,6 +21,8 @@ class ProductFactory extends Factory
 
         return [
             'category_id' => null,
+            // sku carries a unique DB index; ->unique() keeps factory-generated
+            // rows from colliding with each other across a test/seed run.
             'name' => ucwords(fake()->unique()->words(2, true)),
             'sku' => strtoupper(fake()->unique()->bothify('SKU-####-??')),
             'description' => fake()->sentence(),
