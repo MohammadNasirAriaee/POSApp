@@ -42,6 +42,8 @@ class Employee extends Model
         'status',
     ];
 
+    // decimal:2 returns salary as a fixed-precision string, not a float -
+    // formatted_salary below handles the conversion for display.
     protected $casts = [
         'hire_date' => 'date',
         'salary' => 'decimal:2',
