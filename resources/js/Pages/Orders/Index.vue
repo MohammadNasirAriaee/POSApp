@@ -76,6 +76,7 @@ const cancelOrder = (id) => {
             </span>
             <Link
                 :href="route('orders.index', statusFilter ? { status: statusFilter } : {})"
+                :aria-label="`Stop filtering by ${customerFilter.name}`"
                 class="font-semibold text-primary-700 hover:text-primary-900 hover:underline"
             >
                 Clear
