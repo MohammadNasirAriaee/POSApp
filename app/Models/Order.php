@@ -35,6 +35,8 @@ class Order extends Model
         'notes',
     ];
 
+    // decimal:2 returns these as fixed-precision strings, not floats -
+    // resources/js/Support/money.js coerces them back to a number for display.
     protected $casts = [
         'subtotal' => 'decimal:2',
         'tax' => 'decimal:2',
