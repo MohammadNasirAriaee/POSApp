@@ -44,7 +44,7 @@ const isLink = computed(() => Boolean(props.href));
                     class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                     :class="tone"
                 >
-                    <component :is="icon" v-if="icon" class="w-6 h-6" />
+                    <component :is="icon" v-if="icon" class="w-6 h-6" aria-hidden="true" />
                 </div>
                 <div>
                     <p class="text-sm font-semibold text-surface-500 uppercase tracking-wider">{{ label }}</p>
