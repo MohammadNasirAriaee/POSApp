@@ -435,6 +435,7 @@ const processCheckout = () => {
                             type="number"
                             min="0"
                             step="0.01"
+                            inputmode="decimal"
                             placeholder="0.00"
                             class="w-24 text-right text-sm font-bold text-surface-900 rounded-lg border border-surface-200 bg-white px-2 py-1 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
                         />
@@ -535,6 +536,7 @@ const processCheckout = () => {
                             v-model="tenderedAmount"
                             type="number"
                             step="0.01"
+                            inputmode="decimal"
                             class="metronic-input text-lg font-bold"
                             placeholder="0.00"
                             autofocus
