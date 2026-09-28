@@ -36,7 +36,10 @@ class EmployeeController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        // Overview stats/KPIs, gathered in a single pass over the table.
+        // Overview stats/KPIs, gathered in a single pass over the whole table -
+        // deliberately unaffected by the search/position/status filters above,
+        // so the cards always reflect the entire directory, not just the
+        // currently filtered view.
         $counts = Employee::query()
             ->selectRaw('status, count(*) as total, sum(salary) as payroll')
             ->groupBy('status')
