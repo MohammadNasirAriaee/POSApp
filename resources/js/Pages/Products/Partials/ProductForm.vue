@@ -35,6 +35,7 @@ const emit = defineEmits(['submit']);
                     label="Product Name"
                     v-model="form.name"
                     :error="form.errors.name"
+                    placeholder="e.g. Espresso Beans 1kg"
                     maxlength="255"
                     required
                 />
@@ -42,6 +43,7 @@ const emit = defineEmits(['submit']);
                     label="SKU / Barcode"
                     v-model="form.sku"
                     :error="form.errors.sku"
+                    placeholder="e.g. SKU-1234-AB"
                     maxlength="100"
                     required
                 />
