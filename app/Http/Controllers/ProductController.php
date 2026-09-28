@@ -19,6 +19,9 @@ class ProductController extends Controller
 
         $query = Product::with('category')->latest();
 
+        // An invalid/absent value is normalized to null (not just skipped) so
+        // the prop sent back to the page reflects what was actually applied,
+        // not whatever garbage was in the query string.
         if (in_array($status, Product::statuses(), true)) {
             $query->where('status', $status);
         } else {
