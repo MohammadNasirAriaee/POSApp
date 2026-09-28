@@ -103,6 +103,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        // OrderItem snapshots name/price rather than referencing the product
+        // live, but deleting it anyway would still break the product_id FK on
+        // historical order items, so past sales block deletion instead.
         if ($product->orderItems()->exists()) {
             return redirect()->route('products.index')->with('error', 'Cannot delete a product with recorded sales.');
         }
