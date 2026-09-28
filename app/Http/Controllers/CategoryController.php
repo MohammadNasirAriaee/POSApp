@@ -65,6 +65,9 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        // Deleting a category still assigned to products would either break
+        // the category_id FK or silently orphan them; block it instead and
+        // let the user reassign or deactivate the category first.
         if ($category->products()->exists()) {
             return redirect()->route('categories.index')->with('error', 'Cannot delete category with associated products.');
         }
