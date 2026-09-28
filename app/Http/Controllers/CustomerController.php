@@ -58,6 +58,8 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
+        // Deleting a customer with past orders would break the customer_id FK
+        // on those records and erase their purchase history; block it instead.
         if ($customer->orders()->exists()) {
             return redirect()->route('customers.index')->with('error', 'Cannot delete a customer with recorded orders.');
         }
