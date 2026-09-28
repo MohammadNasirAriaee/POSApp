@@ -11,6 +11,17 @@ class ProductWriteTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_show_route_redirects_to_edit_instead_of_crashing(): void
+    {
+        // Route::resource registers products.show (GET /products/{product})
+        // whether or not there is a dedicated detail page; without a show()
+        // method visiting that URL is a fatal error, not a 404.
+        $product = Product::factory()->create();
+
+        $this->get(route('products.show', $product))
+            ->assertRedirect(route('products.edit', $product));
+    }
+
     public function test_it_creates_a_product(): void
     {
         $category = Category::factory()->create();
