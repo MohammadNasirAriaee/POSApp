@@ -68,6 +68,9 @@ class EmployeeController extends Controller
             ->pluck('position')
             ->toArray();
 
+        // An empty directory (no employees yet) would otherwise leave the
+        // filter dropdown with no options at all; fall back to the standard
+        // list so there is still something to filter by.
         if (empty($positions)) {
             $positions = Employee::POSITIONS;
         }
