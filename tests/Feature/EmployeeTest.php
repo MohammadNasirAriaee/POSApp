@@ -58,6 +58,20 @@ class EmployeeTest extends TestCase
         $response->assertSee('Store Manager');
     }
 
+    public function test_the_kpi_cards_are_not_affected_by_the_active_filters(): void
+    {
+        Employee::factory()->create(['position' => 'Cashier', 'status' => Employee::STATUS_ACTIVE]);
+        Employee::factory()->create(['position' => 'Store Manager', 'status' => Employee::STATUS_ACTIVE]);
+
+        $response = $this->get(route('employees.index', ['position' => 'Cashier']))
+            ->assertOk();
+
+        // Only one employee matches the filter, but the "Total Staff" KPI
+        // must still count both.
+        $this->assertSame(2, $response->viewData('stats')['total']);
+        $this->assertCount(1, $response->viewData('employees'));
+    }
+
     /**
      * The blade template echoes these links through {{ }}, which HTML-escapes
      * the "&" between query params, so a raw route() call won't match.
