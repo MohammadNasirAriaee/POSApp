@@ -10,6 +10,17 @@ class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_position_filter_falls_back_to_the_standard_list_when_empty(): void
+    {
+        // No employees at all means no real position values to pull from the
+        // DB; the dropdown should still offer the standard list.
+        $positions = $this->get(route('employees.index'))
+            ->assertOk()
+            ->viewData('positions');
+
+        $this->assertSame(Employee::POSITIONS, $positions);
+    }
+
     public function test_the_position_filter_options_are_alphabetized(): void
     {
         Employee::factory()->create(['position' => 'Store Manager']);
