@@ -24,6 +24,9 @@ class PosController extends Controller
         // before any lowercase letter), unlike MySQL's default collation.
         $categories = Category::active()->orderByRaw('LOWER(name)')->get();
 
+        // A product assigned to a since-deactivated category would otherwise
+        // still ring up in the terminal under a category cashiers can no
+        // longer see or filter by; uncategorized products are unaffected.
         $query = Product::active()
             ->inStock()
             ->where(function ($query) {
