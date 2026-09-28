@@ -149,7 +149,8 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Quickly toggle employee status.
+     * Quickly toggle employee status. With no explicit new_status, cycles
+     * active -> on_leave -> inactive -> active on each click.
      */
     public function toggleStatus(Request $request, Employee $employee): RedirectResponse
     {
