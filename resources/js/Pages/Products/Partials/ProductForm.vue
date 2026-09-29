@@ -59,6 +59,7 @@ const emit = defineEmits(['submit']);
                         </option>
                     </select>
                     <p v-if="form.errors.category_id" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.category_id }}</p>
+                    <p v-else-if="!categories.length" class="mt-1.5 text-xs text-surface-500">No active categories yet - products can still be saved uncategorized.</p>
                 </div>
                 <div>
                     <label for="product-status" class="block text-sm font-semibold text-surface-700 mb-1.5">Status</label>
