@@ -478,10 +478,13 @@ const processCheckout = () => {
             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-900/60 backdrop-blur-sm"
         >
             <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="checkout-modal-title"
                 class="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-200"
             >
                 <div class="p-6 border-b border-surface-200">
-                    <h3 class="text-xl font-bold text-surface-900">
+                    <h3 id="checkout-modal-title" class="text-xl font-bold text-surface-900">
                         Complete Payment
                     </h3>
                     <p class="text-sm text-surface-500 mt-1">
