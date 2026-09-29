@@ -16,6 +16,8 @@ const form = useForm({
     name: props.product.name,
     sku: props.product.sku,
     description: props.product.description || '',
+    // A null category_id must become '' to match the select's "no category"
+    // option value, or Vue would leave the dropdown showing nothing selected.
     category_id: props.product.category_id || '',
     price: props.product.price,
     cost: props.product.cost,
