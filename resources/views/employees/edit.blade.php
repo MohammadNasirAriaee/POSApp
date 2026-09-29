@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit '.$employee->name)
+
 @section('content')
     <div class="max-w-3xl mx-auto space-y-6">
         <!-- Header -->

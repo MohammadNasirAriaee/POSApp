@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Employee Directory')
+
 @section('content')
     <div class="space-y-6">
         <!-- Dashboard Page Header -->

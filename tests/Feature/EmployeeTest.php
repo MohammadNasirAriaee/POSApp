@@ -10,6 +10,17 @@ class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_each_employee_page_has_its_own_browser_title(): void
+    {
+        $employee = Employee::factory()->create(['first_name' => 'Ada', 'last_name' => 'Lovelace']);
+        $appName = config('app.name');
+
+        $this->get(route('employees.index'))->assertSee("<title>Employee Directory - {$appName}</title>", false);
+        $this->get(route('employees.create'))->assertSee("<title>Add Employee - {$appName}</title>", false);
+        $this->get(route('employees.edit', $employee))->assertSee("<title>Edit Ada Lovelace - {$appName}</title>", false);
+        $this->get(route('employees.show', $employee))->assertSee("<title>Ada Lovelace - {$appName}</title>", false);
+    }
+
     public function test_the_position_filter_falls_back_to_the_standard_list_when_empty(): void
     {
         // No employees at all means no real position values to pull from the

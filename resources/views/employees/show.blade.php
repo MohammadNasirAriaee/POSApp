@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $employee->name)
+
 @section('content')
     <div class="max-w-4xl mx-auto space-y-6">
         <!-- Top Back Navigation -->
