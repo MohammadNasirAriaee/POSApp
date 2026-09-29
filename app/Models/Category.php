@@ -58,6 +58,8 @@ class Category extends Model
      */
     public static function uniqueSlug(string $name, ?int $ignoreId = null): string
     {
+        // A name with no ASCII letters or digits (e.g. "!!!" or emoji-only)
+        // slugifies to an empty string; fall back to a generic base instead.
         $base = Str::slug($name) ?: 'category';
         $slug = $base;
         $suffix = 2;
