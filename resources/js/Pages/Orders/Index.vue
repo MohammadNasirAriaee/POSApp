@@ -87,7 +87,11 @@ const cancelOrder = (id) => {
             <DataTable 
                 :headers="['Order ID', 'Date', 'Customer', 'Cashier', 'Total', 'Status', 'Actions']"
                 :items="orders.data"
-                emptyMessage="No orders have been placed yet."
+                :emptyMessage="
+                    statusFilter || customerFilter
+                        ? 'No orders found matching your criteria.'
+                        : 'No orders have been placed yet.'
+                "
             >
                 <template #rows="{ items }">
                     <tr v-for="order in items" :key="order.id" class="hover:bg-surface-50/50 transition-colors">
