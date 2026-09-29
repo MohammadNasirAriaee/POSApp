@@ -80,7 +80,11 @@ const deleteCategory = (category) => {
             <DataTable
                 :headers="['Name', 'Slug', 'Status', 'Products', 'Actions']"
                 :items="categories.data"
-                emptyMessage="No categories found. Create one to get started."
+                :emptyMessage="
+                    props.search
+                        ? 'No categories found matching your criteria.'
+                        : 'No categories found. Create one to get started.'
+                "
             >
                 <template #rows="{ items }">
                     <tr
