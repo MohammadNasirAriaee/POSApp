@@ -152,6 +152,6 @@ class PosController extends Controller
             return back()->with('error', 'Checkout failed: '.$e->getMessage());
         }
 
-        return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully!');
+        return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully.');
     }
 }
