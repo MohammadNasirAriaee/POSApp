@@ -8,6 +8,8 @@ defineProps({
         type: Array,
         default: () => [],
     },
+    // Callers should vary this by whether a search/filter is active, so it
+    // doesn't suggest creating a record while the user is just searching.
     emptyMessage: {
         type: String,
         default: 'No records found.'
