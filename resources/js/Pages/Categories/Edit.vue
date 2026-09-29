@@ -10,6 +10,8 @@ const props = defineProps({
 const form = useForm({
     name: props.category.name,
     description: props.category.description || '',
+    // The model already casts this to a real boolean, so Boolean() here is
+    // just a defensive guard against it ever arriving as 0/1 or a string.
     is_active: Boolean(props.category.is_active),
 });
 
