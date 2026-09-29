@@ -64,7 +64,7 @@
                     </a>
 
                     <!-- Delete Employee -->
-                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete {{ addslashes($employee->name) }}?');">
+                    <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="inline" onsubmit="return confirm('Delete {{ addslashes($employee->name) }}?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="p-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 hover:text-rose-700 transition-all" title="Delete Employee" aria-label="Delete {{ $employee->name }}">
