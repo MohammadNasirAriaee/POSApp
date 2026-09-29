@@ -177,17 +177,17 @@
                         <thead>
                             <tr class="border-b border-slate-100 bg-slate-50/70 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                                 <th class="py-3.5 px-6">
-                                    <a href="{{ $sortLink('first_name') }}" class="hover:text-slate-900">Employee{!! $sortIndicator('first_name') !!}</a>
+                                    <a href="{{ $sortLink('first_name') }}" title="Sort by employee name" class="hover:text-slate-900">Employee{!! $sortIndicator('first_name') !!}</a>
                                 </th>
                                 <th class="py-3.5 px-6">Contact Info</th>
                                 <th class="py-3.5 px-6">
-                                    <a href="{{ $sortLink('position') }}" class="hover:text-slate-900">Role / Position{!! $sortIndicator('position') !!}</a>
+                                    <a href="{{ $sortLink('position') }}" title="Sort by role" class="hover:text-slate-900">Role / Position{!! $sortIndicator('position') !!}</a>
                                 </th>
                                 <th class="py-3.5 px-6">
-                                    <a href="{{ $sortLink('salary') }}" class="hover:text-slate-900">Monthly Salary{!! $sortIndicator('salary') !!}</a>
+                                    <a href="{{ $sortLink('salary') }}" title="Sort by salary" class="hover:text-slate-900">Monthly Salary{!! $sortIndicator('salary') !!}</a>
                                 </th>
                                 <th class="py-3.5 px-6">
-                                    <a href="{{ $sortLink('status') }}" class="hover:text-slate-900">Status{!! $sortIndicator('status') !!}</a>
+                                    <a href="{{ $sortLink('status') }}" title="Sort by status" class="hover:text-slate-900">Status{!! $sortIndicator('status') !!}</a>
                                 </th>
                                 <th class="py-3.5 px-6 text-right">Actions</th>
                             </tr>
