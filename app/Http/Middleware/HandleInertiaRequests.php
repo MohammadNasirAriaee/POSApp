@@ -35,6 +35,8 @@ class HandleInertiaRequests extends Middleware
                     'phone' => config('store.phone'),
                 ],
             ],
+            // Only these two keys are ever flashed by the controllers, so the
+            // layout only needs to watch for these two - not the whole session.
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
