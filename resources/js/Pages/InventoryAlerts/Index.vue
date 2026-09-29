@@ -52,7 +52,7 @@ const formatStockStatus = (quantity) => {
 
         <Card
             title="Low stock items"
-            :description="`${sortedAlerts.length} product(s) below ${lowStockThreshold} units need restocking.`"
+            :description="`${sortedAlerts.length} product(s) at or below ${lowStockThreshold} units need restocking.`"
         >
             <div v-if="sortedAlerts.length" class="space-y-4">
                 <div
