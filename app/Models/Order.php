@@ -20,6 +20,7 @@ class Order extends Model
     // Paid and stocked out; the only status that returns stock on cancel.
     public const STATUS_COMPLETED = 'completed';
 
+    // Terminal state; a cancelled order can never be cancelled again.
     public const STATUS_CANCELLED = 'cancelled';
 
     protected $fillable = [
