@@ -115,6 +115,7 @@ const deleteCategory = (category) => {
                         <td class="py-4 px-6">
                             <Link
                                 :href="route('products.index', { category_id: category.id })"
+                                :aria-label="`View ${category.products_count || 0} products in ${category.name}`"
                                 class="text-surface-600 font-semibold hover:text-primary-600 hover:underline"
                             >
                                 {{ category.products_count || 0 }}
