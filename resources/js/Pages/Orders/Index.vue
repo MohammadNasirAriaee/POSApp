@@ -37,10 +37,17 @@ watch(statusFilter, (value) => {
     );
 });
 
-// The server cancels the order and returns its items to stock; nothing is deleted.
-const cancelOrder = (id) => {
-    if (confirm('Cancel this order? Its items will be returned to stock.')) {
-        form.delete(route('orders.cancel', id));
+// The server cancels the order and, only for a completed sale, returns its
+// items to stock (a pending order never took stock out in the first place);
+// nothing is ever deleted.
+const cancelOrder = (order) => {
+    const message =
+        order.status === 'completed'
+            ? 'Cancel this order? Its items will be returned to stock.'
+            : 'Cancel this order?';
+
+    if (confirm(message)) {
+        form.delete(route('orders.cancel', order.id));
     }
 };
 
@@ -120,7 +127,7 @@ const cancelOrder = (id) => {
                                 </Link>
                                 <button
                                     v-if="order.status !== 'cancelled'"
-                                    @click="cancelOrder(order.id)"
+                                    @click="cancelOrder(order)"
                                     :disabled="form.processing"
                                     class="text-rose-500 hover:text-rose-700 p-1 disabled:opacity-50"
                                     title="Cancel Order"
