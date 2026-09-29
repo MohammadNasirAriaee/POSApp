@@ -67,7 +67,7 @@ class PosController extends Controller
         $cart = $data['cart'];
 
         if (empty($cart)) {
-            return back()->with('error', 'Cart is empty!');
+            return back()->with('error', 'Cart is empty.');
         }
 
         try {
