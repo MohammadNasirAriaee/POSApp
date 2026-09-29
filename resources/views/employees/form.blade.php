@@ -1,6 +1,8 @@
 @php
     $statuses = \App\Models\Employee::statusLabels();
 
+    // Both create() and edit() always pass 'positions'; this fallback just
+    // keeps the partial safe to render if a future caller forgets to.
     $positionList = $positions ?? \App\Models\Employee::POSITIONS;
 @endphp
 
