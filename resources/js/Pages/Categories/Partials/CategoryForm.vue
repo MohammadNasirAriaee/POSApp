@@ -28,6 +28,7 @@ const emit = defineEmits(['submit']);
                 :error="form.errors.name"
                 placeholder="e.g. Beverages"
                 maxlength="255"
+                autofocus
                 required
             />
 
