@@ -13,7 +13,7 @@
                     </svg>
                     Back to Employee Directory
                 </a>
-                <h1 class="text-2xl font-bold tracking-tight text-slate-900">Add New Employee</h1>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-900">Add Employee</h1>
                 <p class="text-sm text-slate-500 mt-0.5">Register a new team member to your POS system.</p>
             </div>
         </div>
