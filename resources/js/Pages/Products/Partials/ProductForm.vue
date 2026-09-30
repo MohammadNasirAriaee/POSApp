@@ -98,6 +98,7 @@ const emit = defineEmits(['submit']);
                     step="0.01"
                     min="0"
                     inputmode="decimal"
+                    placeholder="0.00"
                     v-model="form.price"
                     :error="form.errors.price"
                     required
@@ -108,6 +109,7 @@ const emit = defineEmits(['submit']);
                     step="0.01"
                     min="0"
                     inputmode="decimal"
+                    placeholder="0.00"
                     v-model="form.cost"
                     :error="form.errors.cost"
                 />
