@@ -37,6 +37,7 @@ const emit = defineEmits(['submit']);
                     :error="form.errors.name"
                     placeholder="e.g. Espresso Beans 1kg"
                     maxlength="255"
+                    autofocus
                     required
                 />
                 <TextInput
