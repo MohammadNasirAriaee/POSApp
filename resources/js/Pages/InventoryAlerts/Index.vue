@@ -23,6 +23,9 @@ const sortedAlerts = computed(() => {
     );
 });
 
+// 2 is a purely presentational cutoff for this badge's wording, unrelated to
+// Product::LOW_STOCK_THRESHOLD (which gates whether a product appears on
+// this page at all).
 const formatStockStatus = (quantity) => {
     if (quantity === 0) return "Out of stock";
     if (quantity <= 2) return "Critical";
