@@ -30,6 +30,7 @@ const emit = defineEmits(['submit']);
                     autocomplete="given-name"
                     placeholder="e.g. Ada"
                     maxlength="255"
+                    autofocus
                     required
                 />
                 <TextInput
