@@ -17,10 +17,14 @@ class Product extends Model
     /** @use HasFactory<ProductFactory> */
     use HasFactory;
 
+    // Sellable in the POS terminal (subject to inStock() too - see below).
     public const STATUS_ACTIVE = 'active';
 
+    // Not yet ready to sell; hidden from the POS terminal and inventory alerts.
     public const STATUS_DRAFT = 'draft';
 
+    // A manual merchandising flag, independent of stock_quantity - it is
+    // never set automatically when stock reaches zero.
     public const STATUS_OUT_OF_STOCK = 'out_of_stock';
 
     // Stock at or below this triggers the low-stock badge and inventory alert.
