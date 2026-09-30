@@ -79,10 +79,10 @@ const store = computed(() => page.props.config?.store ?? {});
                 <table class="w-full text-sm mb-8">
                     <thead>
                         <tr class="border-b-2 border-surface-200">
-                            <th class="text-left py-2 text-surface-500 font-bold uppercase text-xs">Item</th>
-                            <th class="text-center py-2 text-surface-500 font-bold uppercase text-xs">Qty</th>
-                            <th class="text-right py-2 text-surface-500 font-bold uppercase text-xs">Price</th>
-                            <th class="text-right py-2 text-surface-500 font-bold uppercase text-xs">Total</th>
+                            <th scope="col" class="text-left py-2 text-surface-500 font-bold uppercase text-xs">Item</th>
+                            <th scope="col" class="text-center py-2 text-surface-500 font-bold uppercase text-xs">Qty</th>
+                            <th scope="col" class="text-right py-2 text-surface-500 font-bold uppercase text-xs">Price</th>
+                            <th scope="col" class="text-right py-2 text-surface-500 font-bold uppercase text-xs">Total</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-surface-100">
