@@ -192,6 +192,7 @@ const navigation = [
                 <!-- Flash Messages -->
                 <div
                     v-if="$page.props.flash?.success"
+                    role="status"
                     class="mb-6 bg-emerald-50 text-emerald-800 p-4 rounded-xl border border-emerald-200/60 shadow-sm flex items-start gap-3"
                 >
                     <svg
@@ -217,6 +218,7 @@ const navigation = [
                 </div>
                 <div
                     v-if="$page.props.flash?.error"
+                    role="alert"
                     class="mb-6 bg-rose-50 text-rose-800 p-4 rounded-xl border border-rose-200/60 shadow-sm flex items-start gap-3"
                 >
                     <svg
