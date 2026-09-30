@@ -10,6 +10,8 @@ import { customerName, cashierName } from '../Support/orderLabels';
 
 defineProps({
     stats: Object,
+    // The 5 most recent orders of any status; DashboardController caps this
+    // server-side, so there is no pagination or "load more" here by design.
     recentOrders: Array,
 });
 
