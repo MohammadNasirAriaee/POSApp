@@ -61,7 +61,7 @@
         <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <!-- Flash Notification Messages -->
             @if (session('success'))
-                <div class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-success-banner">
+                <div role="status" class="mb-6 rounded-xl border border-emerald-200 bg-emerald-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-success-banner">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-700 flex items-center justify-center shrink-0">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@
             @endif
 
             @if (session('error'))
-                <div class="mb-6 rounded-xl border border-rose-200 bg-rose-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-error-banner">
+                <div role="alert" class="mb-6 rounded-xl border border-rose-200 bg-rose-50/90 p-4 shadow-xs flex items-center justify-between transition-all" id="flash-error-banner">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-700 flex items-center justify-center shrink-0">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
