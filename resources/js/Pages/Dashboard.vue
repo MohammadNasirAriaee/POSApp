@@ -3,7 +3,7 @@ import AppLayout from '../Layouts/AppLayout.vue';
 import Card from '../Components/Card.vue';
 import StatCard from '../Components/StatCard.vue';
 import OrderStatusBadge from '../Components/OrderStatusBadge.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { DollarSign, ShoppingBag, Package, Users, AlertTriangle } from 'lucide-vue-next';
 import { formatMoney } from '../Support/money';
 import { customerName, cashierName } from '../Support/orderLabels';
@@ -67,7 +67,13 @@ defineProps({
         <Card title="Recent Transactions" description="The latest orders processed through the POS.">
             <template v-if="recentOrders.length > 0">
                 <div class="divide-y divide-surface-100 -mx-6 -my-6">
-                    <div v-for="order in recentOrders" :key="order.id" class="px-6 py-4 flex items-center justify-between hover:bg-surface-50/50 transition-colors">
+                    <Link
+                        v-for="order in recentOrders"
+                        :key="order.id"
+                        :href="route('orders.show', order.id)"
+                        :aria-label="`View receipt for order #${String(order.id).padStart(5, '0')}`"
+                        class="px-6 py-4 flex items-center justify-between hover:bg-surface-50/50 transition-colors"
+                    >
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 rounded-full bg-surface-100 text-surface-600 flex items-center justify-center font-bold text-xs shrink-0">
                                 #{{ String(order.id).padStart(5, '0') }}
@@ -81,7 +87,7 @@ defineProps({
                             <p class="font-black text-primary-600 text-lg">{{ formatMoney(order.total) }}</p>
                             <OrderStatusBadge :status="order.status" class="mt-1" />
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </template>
             <template v-else>
