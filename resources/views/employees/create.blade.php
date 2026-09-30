@@ -11,7 +11,7 @@
                     <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
-                    Back to Staff Directory
+                    Back to Employee Directory
                 </a>
                 <h1 class="text-2xl font-bold tracking-tight text-slate-900">Add New Employee</h1>
                 <p class="text-sm text-slate-500 mt-0.5">Register a new team member to your POS system.</p>
