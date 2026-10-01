@@ -46,6 +46,9 @@
                         <a href="{{ route('products.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('products.*', 'categories.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Inventory
                         </a>
+                        <a href="{{ route('inventory-alerts.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('inventory-alerts.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                            Alerts
+                        </a>
                         <a href="{{ route('customers.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('customers.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Customers
                         </a>
