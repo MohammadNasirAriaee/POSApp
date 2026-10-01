@@ -6,6 +6,7 @@ import {
     Tags,
     Package,
     Users,
+    UserCog,
     ClipboardList,
     Calculator,
     AlertTriangle,
@@ -43,6 +44,10 @@ const navigation = [
         route: "inventory-alerts.index",
         icon: AlertTriangle,
     },
+    // The employee section is still plain Blade, not Inertia; Inertia's
+    // <Link> falls back to a full page visit for a non-Inertia response, so
+    // this just works like a normal link.
+    { name: "Employees", route: "employees.index", icon: UserCog },
 ];
 </script>
 
