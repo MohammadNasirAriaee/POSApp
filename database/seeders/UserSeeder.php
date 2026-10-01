@@ -10,6 +10,9 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * The app has no login or authorization wired up yet - these accounts
+     * exist for a future auth feature and aren't read anywhere currently.
      */
     public function run(): void
     {
