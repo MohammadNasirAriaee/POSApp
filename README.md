@@ -26,6 +26,15 @@ dashboard.
 
 ## Local Setup
 
+The steps below can be run individually, or in one shot via:
+
+```bash
+composer run setup
+```
+
+(this covers everything except seeding - run `php artisan db:seed` afterward
+if you want demo data).
+
 Install PHP and JavaScript dependencies:
 
 ```bash
