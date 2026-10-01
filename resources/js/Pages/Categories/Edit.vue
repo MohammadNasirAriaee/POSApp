@@ -25,7 +25,7 @@ const submit = () => {
     <AppLayout>
         <div class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight text-surface-900">Edit Category</h1>
-            <p class="text-sm text-surface-500 mt-1">Update existing category details.</p>
+            <p class="text-sm text-surface-500 mt-1">Update details for {{ category.name }}.</p>
         </div>
 
         <div class="max-w-2xl">
