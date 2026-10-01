@@ -10,6 +10,20 @@ class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_layout_nav_links_to_every_main_section(): void
+    {
+        // The Blade layout's top nav is the only way to leave the employee
+        // section, so every route it should reach must actually be present.
+        $response = $this->get(route('employees.index'))->assertOk();
+
+        $response->assertSee('href="'.route('dashboard').'"', false);
+        $response->assertSee('href="'.route('pos.index').'"', false);
+        $response->assertSee('href="'.route('orders.index').'"', false);
+        $response->assertSee('href="'.route('products.index').'"', false);
+        $response->assertSee('href="'.route('inventory-alerts.index').'"', false);
+        $response->assertSee('href="'.route('customers.index').'"', false);
+    }
+
     public function test_each_employee_page_has_its_own_browser_title(): void
     {
         $employee = Employee::factory()->create(['first_name' => 'Ada', 'last_name' => 'Lovelace']);
