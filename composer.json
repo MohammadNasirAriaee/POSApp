@@ -1,11 +1,12 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "posapp/posapp",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A point-of-sale and staff management system built on Laravel and Inertia.",
     "keywords": [
         "laravel",
-        "framework"
+        "pos",
+        "inertia"
     ],
     "license": "MIT",
     "require": {
