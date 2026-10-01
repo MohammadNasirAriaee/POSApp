@@ -99,7 +99,7 @@ class EmployeeSeeder extends Seeder
             );
         }
 
-        // Add 5 more random staff using factory if fewer than 10
+        // Add 5 more random staff using factory if fewer than 12
         if (Employee::count() < 12) {
             Employee::factory(5)->create();
         }
