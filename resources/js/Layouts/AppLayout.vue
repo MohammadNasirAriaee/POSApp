@@ -110,6 +110,8 @@ const navigation = [
                 </Link>
             </nav>
 
+            <!-- Static placeholder, not a real session: the app has no login
+                 or auth system yet, so this always shows the same identity. -->
             <div class="p-4 border-t border-surface-800">
                 <div
                     class="flex items-center gap-3 px-4 py-3 bg-surface-800/50 rounded-xl"
