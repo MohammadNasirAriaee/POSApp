@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Order matters: ProductSeeder assigns categories, and OrderSeeder
+        // needs both customers and products to already exist to attach to.
         $this->call([
             UserSeeder::class,
             EmployeeSeeder::class,
