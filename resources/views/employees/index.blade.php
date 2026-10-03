@@ -201,7 +201,7 @@
                                     <!-- Employee Avatar & Name -->
                                     <td class="py-4 px-6">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white font-bold text-sm flex items-center justify-center shadow-xs shrink-0">
+                                            <div class="w-10 h-10 rounded-xl bg-linear-to-tr from-indigo-600 to-violet-500 text-white font-bold text-sm flex items-center justify-center shadow-xs shrink-0">
                                                 {{ $employee->initials }}
                                             </div>
                                             <div>

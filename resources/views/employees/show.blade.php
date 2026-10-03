@@ -17,12 +17,12 @@
         <!-- Employee Profile Header Card -->
         <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs relative overflow-hidden">
             <!-- Decorative Subtle Accent Gradient -->
-            <div class="absolute top-0 right-0 h-32 w-32 bg-gradient-to-bl from-indigo-500/10 via-violet-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
+            <div class="absolute top-0 right-0 h-32 w-32 bg-linear-to-bl from-indigo-500/10 via-violet-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
 
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 relative z-10">
                 <!-- Avatar & Identity -->
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white font-bold text-xl sm:text-2xl flex items-center justify-center shadow-lg shadow-indigo-500/25 shrink-0">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-linear-to-tr from-indigo-600 to-violet-500 text-white font-bold text-xl sm:text-2xl flex items-center justify-center shadow-lg shadow-indigo-500/25 shrink-0">
                         {{ $employee->initials }}
                     </div>
 

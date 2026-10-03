@@ -23,7 +23,7 @@
                     <!-- Brand Logo -->
                     <div class="flex items-center space-x-3">
                         <a href="{{ route('employees.index') }}" class="flex items-center space-x-2.5">
-                            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 font-bold text-lg">
+                            <div class="w-9 h-9 rounded-xl bg-linear-to-tr from-indigo-600 via-indigo-700 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 font-bold text-lg">
                                 P
                             </div>
                             <div>
