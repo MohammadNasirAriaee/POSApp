@@ -74,6 +74,7 @@ const emit = defineEmits(['submit']);
                         </option>
                     </select>
                     <p v-if="form.errors.status" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.status }}</p>
+                    <p v-else class="mt-1.5 text-xs text-surface-500">Only "Active" products appear in the POS terminal and count toward low-stock alerts.</p>
                 </div>
             </div>
 
