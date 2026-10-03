@@ -110,6 +110,7 @@ const isNavItemActive = (item) => {
                     v-for="item in navigation"
                     :key="item.name"
                     :href="route(item.route)"
+                    :aria-current="isNavItemActive(item) ? 'page' : undefined"
                     :class="[
                         'flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200',
                         isNavItemActive(item)

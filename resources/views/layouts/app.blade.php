@@ -35,25 +35,25 @@
 
                     <!-- Navigation Links -->
                     <nav class="flex items-center space-x-1 sm:space-x-2 overflow-x-auto">
-                        <a href="{{ route('dashboard') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('dashboard') }}" @if (request()->routeIs('dashboard')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Dashboard
                         </a>
-                        <a href="{{ route('pos.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('pos.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('pos.index') }}" @if (request()->routeIs('pos.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('pos.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             POS
                         </a>
-                        <a href="{{ route('orders.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('orders.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('orders.index') }}" @if (request()->routeIs('orders.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('orders.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Orders
                         </a>
-                        <a href="{{ route('products.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('products.*', 'categories.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('products.index') }}" @if (request()->routeIs('products.*', 'categories.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('products.*', 'categories.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Inventory
                         </a>
-                        <a href="{{ route('inventory-alerts.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('inventory-alerts.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('inventory-alerts.index') }}" @if (request()->routeIs('inventory-alerts.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('inventory-alerts.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Alerts
                         </a>
-                        <a href="{{ route('customers.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('customers.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('customers.index') }}" @if (request()->routeIs('customers.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('customers.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Customers
                         </a>
-                        <a href="{{ route('employees.index') }}" class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('employees.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                        <a href="{{ route('employees.index') }}" @if (request()->routeIs('employees.*')) aria-current="page" @endif class="px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-150 {{ request()->routeIs('employees.*') ? 'bg-indigo-50 text-indigo-700 font-bold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                             Staff
                         </a>
                     </nav>

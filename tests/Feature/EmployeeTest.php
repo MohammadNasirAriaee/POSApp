@@ -24,6 +24,16 @@ class EmployeeTest extends TestCase
         $response->assertSee('href="'.route('customers.index').'"', false);
     }
 
+    public function test_the_layout_nav_marks_the_active_section_for_assistive_tech(): void
+    {
+        $response = $this->get(route('employees.index'))->assertOk();
+
+        $response->assertSeeInOrder(['aria-current="page"', 'Staff'], false);
+
+        // Only the current section's link should carry it.
+        $this->assertSame(1, substr_count($response->getContent(), 'aria-current="page"'));
+    }
+
     public function test_each_employee_page_has_its_own_browser_title(): void
     {
         $employee = Employee::factory()->create(['first_name' => 'Ada', 'last_name' => 'Lovelace']);
