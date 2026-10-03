@@ -47,14 +47,17 @@ const emit = defineEmits(['submit']);
                 <p v-if="form.errors.description" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
             </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-start gap-3">
                 <input
                     type="checkbox"
                     id="is_active"
                     v-model="form.is_active"
-                    class="w-4 h-4 text-primary-600 border-surface-300 rounded focus:ring-primary-500"
+                    class="w-4 h-4 mt-0.5 text-primary-600 border-surface-300 rounded focus:ring-primary-500"
                 />
-                <label for="is_active" class="text-sm font-semibold text-surface-700">Active Category</label>
+                <div>
+                    <label for="is_active" class="text-sm font-semibold text-surface-700">Active Category</label>
+                    <p class="text-xs text-surface-500 mt-0.5">Inactive categories are hidden from the POS terminal and from the picker when adding a new product, but any products already assigned to one stay assigned.</p>
+                </div>
             </div>
 
             <div class="pt-6 border-t border-surface-100 flex items-center justify-end gap-3">
