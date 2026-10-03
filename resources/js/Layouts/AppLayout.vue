@@ -49,6 +49,21 @@ const navigation = [
     // this just works like a normal link.
     { name: "Employees", route: "employees.index", icon: UserCog },
 ];
+
+// An exact match against item.route would only ever highlight the ".index"
+// page itself - visiting Products/Create or Orders/Show would leave every
+// nav item unhighlighted even though you're still within that section. Match
+// the whole resource (e.g. "products.*") instead, falling back to an exact
+// match for a route with no dot, like "dashboard".
+const isNavItemActive = (item) => {
+    if (item.route.endsWith(".index")) {
+        const prefix = item.route.slice(0, -".index".length);
+
+        return route().current(`${prefix}.*`);
+    }
+
+    return route().current(item.route);
+};
 </script>
 
 <template>
@@ -97,7 +112,7 @@ const navigation = [
                     :href="route(item.route)"
                     :class="[
                         'flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200',
-                        route().current(item.route)
+                        isNavItemActive(item)
                             ? 'bg-primary-600/10 text-primary-500'
                             : 'hover:bg-surface-800 hover:text-white',
                     ]"
@@ -106,7 +121,7 @@ const navigation = [
                         :is="item.icon"
                         class="w-5 h-5"
                         :class="
-                            route().current(item.route)
+                            isNavItemActive(item)
                                 ? 'text-primary-500'
                                 : 'text-surface-500'
                         "
