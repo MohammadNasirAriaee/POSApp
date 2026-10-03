@@ -211,6 +211,9 @@ const deleteProduct = (product) => {
                                 v-if="marginPercent(product) !== null"
                                 :class="[
                                     'font-semibold',
+                                    // 10% is a purely presentational cutoff for
+                                    // this warning color, not tied to any
+                                    // backend constant.
                                     marginPercent(product) < 10
                                         ? 'text-rose-600'
                                         : 'text-surface-600',
