@@ -2,7 +2,7 @@
 import AppLayout from "../../Layouts/AppLayout.vue";
 import Card from "../../Components/Card.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-import { ref, computed } from "vue";
+import { ref, computed, watch, onUnmounted } from "vue";
 import {
     ShoppingCart,
     Search,
@@ -38,6 +38,23 @@ const orderNotes = ref("");
 const paymentMethod = ref("cash");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
+
+// Document-level rather than a template @keydown, since focus may still be
+// on the "Proceed to Payment" button (outside the modal) right after it
+// opens - a template listener on the modal itself would miss that case.
+const closeModalOnEscape = (event) => {
+    if (event.key === "Escape") {
+        showCheckoutModal.value = false;
+    }
+};
+watch(showCheckoutModal, (isOpen) => {
+    if (isOpen) {
+        document.addEventListener("keydown", closeModalOnEscape);
+    } else {
+        document.removeEventListener("keydown", closeModalOnEscape);
+    }
+});
+onUnmounted(() => document.removeEventListener("keydown", closeModalOnEscape));
 
 // Filter products based on search and category
 const filteredProducts = computed(() => {
