@@ -1,6 +1,6 @@
 <script setup>
 import { Link, router, usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, ref, watch, onUnmounted } from "vue";
 import {
     LayoutDashboard,
     Tags,
@@ -20,6 +20,20 @@ const page = usePage();
 const appName = computed(() => page.props.config?.appName || "POS System");
 
 const sidebarOpen = ref(false);
+
+const closeSidebarOnEscape = (event) => {
+    if (event.key === "Escape") {
+        sidebarOpen.value = false;
+    }
+};
+watch(sidebarOpen, (isOpen) => {
+    if (isOpen) {
+        document.addEventListener("keydown", closeSidebarOnEscape);
+    } else {
+        document.removeEventListener("keydown", closeSidebarOnEscape);
+    }
+});
+onUnmounted(() => document.removeEventListener("keydown", closeSidebarOnEscape));
 
 // The topbar search has no dedicated results page, so it jumps straight to
 // the product catalog filtered by the term - the most common thing a cashier
