@@ -38,6 +38,7 @@ const orderNotes = ref("");
 const paymentMethod = ref("cash");
 const showCheckoutModal = ref(false);
 const processingCheckout = ref(false);
+const payButtonRef = ref(null);
 
 // Document-level rather than a template @keydown, since focus may still be
 // on the "Proceed to Payment" button (outside the modal) right after it
@@ -52,6 +53,11 @@ watch(showCheckoutModal, (isOpen) => {
         document.addEventListener("keydown", closeModalOnEscape);
     } else {
         document.removeEventListener("keydown", closeModalOnEscape);
+        // Return focus to whatever opened the modal rather than leaving a
+        // keyboard user stranded on the page after it closes. A successful
+        // sale empties the cart and disables this button, in which case the
+        // browser simply ignores the focus() call.
+        payButtonRef.value?.focus();
     }
 });
 onUnmounted(() => document.removeEventListener("keydown", closeModalOnEscape));
@@ -478,6 +484,7 @@ const processCheckout = () => {
                             <Trash2 class="w-4 h-4" /> Clear
                         </button>
                         <button
+                            ref="payButtonRef"
                             @click="showCheckoutModal = true"
                             :disabled="cart.length === 0"
                             class="metronic-btn metronic-btn-primary disabled:opacity-50"
