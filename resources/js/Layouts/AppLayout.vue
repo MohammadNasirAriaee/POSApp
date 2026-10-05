@@ -172,7 +172,7 @@ const isNavItemActive = (item) => {
         <main class="flex-1 flex flex-col min-w-0 overflow-hidden h-screen">
             <!-- Topbar -->
             <header
-                class="bg-white border-b border-surface-200 h-16 flex items-center justify-between px-6 shrink-0 z-10 hidden md:flex"
+                class="bg-white border-b border-surface-200 h-16 items-center justify-between px-6 shrink-0 z-10 hidden md:flex"
             >
                 <div class="flex items-center gap-4">
                     <!-- Jumps to the product catalog filtered by this term -->
