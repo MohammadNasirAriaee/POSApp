@@ -20,6 +20,7 @@ const page = usePage();
 const appName = computed(() => page.props.config?.appName || "POS System");
 
 const sidebarOpen = ref(false);
+const menuButtonRef = ref(null);
 
 const closeSidebarOnEscape = (event) => {
     if (event.key === "Escape") {
@@ -31,6 +32,10 @@ watch(sidebarOpen, (isOpen) => {
         document.addEventListener("keydown", closeSidebarOnEscape);
     } else {
         document.removeEventListener("keydown", closeSidebarOnEscape);
+        // Closing via Escape or the backdrop moves focus nowhere in
+        // particular; send it back to the button that opened the drawer
+        // rather than leaving a keyboard user stranded on the page body.
+        menuButtonRef.value?.focus();
     }
 });
 onUnmounted(() => document.removeEventListener("keydown", closeSidebarOnEscape));
@@ -90,6 +95,7 @@ const isNavItemActive = (item) => {
         >
             <span class="font-bold text-lg tracking-tight">{{ appName }}</span>
             <button
+                ref="menuButtonRef"
                 @click="sidebarOpen = !sidebarOpen"
                 :aria-label="sidebarOpen ? 'Close navigation menu' : 'Open navigation menu'"
                 :aria-expanded="sidebarOpen"
