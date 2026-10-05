@@ -130,7 +130,7 @@ const emit = defineEmits(['submit']);
                 <Link :href="route('products.index')" class="metronic-btn metronic-btn-light">
                     <X class="w-4 h-4" /> Cancel
                 </Link>
-                <button type="submit" class="metronic-btn metronic-btn-primary" :disabled="form.processing">
+                <button type="submit" class="metronic-btn metronic-btn-primary disabled:opacity-50" :disabled="form.processing">
                     <Save class="w-4 h-4" /> {{ submitLabel }}
                 </button>
             </div>
