@@ -3,12 +3,26 @@
 namespace Tests\Feature;
 
 use App\Models\Customer;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CustomerWriteTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_the_phone_column_has_a_database_level_unique_constraint(): void
+    {
+        // NormalizedPhoneUnique only runs at the HTTP validation layer; a
+        // write that bypasses it entirely (a seeder, tinker, a future
+        // import script) had nothing stopping a duplicate phone number
+        // before this constraint existed.
+        Customer::factory()->create(['phone' => '555-9999']);
+
+        $this->expectException(QueryException::class);
+
+        Customer::factory()->create(['phone' => '555-9999']);
+    }
 
     public function test_the_show_route_redirects_to_edit_instead_of_crashing(): void
     {
