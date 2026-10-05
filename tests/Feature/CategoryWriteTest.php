@@ -3,12 +3,26 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CategoryWriteTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_the_name_column_has_a_database_level_unique_constraint(): void
+    {
+        // CaseInsensitiveUnique only runs at the HTTP validation layer; a
+        // write that bypasses it entirely had nothing stopping a duplicate
+        // name before this constraint existed - only the derived slug
+        // column was ever protected at the database level.
+        Category::create(['name' => 'Snacks', 'slug' => 'snacks', 'is_active' => true]);
+
+        $this->expectException(QueryException::class);
+
+        Category::create(['name' => 'Snacks', 'slug' => 'snacks-2', 'is_active' => true]);
+    }
 
     public function test_the_show_route_redirects_to_edit_instead_of_crashing(): void
     {
