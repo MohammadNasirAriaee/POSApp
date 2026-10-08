@@ -24,7 +24,7 @@ const submit = () => {
             <p class="text-sm text-surface-500 mt-1">Create a new customer profile.</p>
         </div>
 
-        <div class="max-w-2xl">
+        <div>
             <CustomerForm :form="form" submit-label="Save Customer" @submit="submit" />
         </div>
     </AppLayout>
