@@ -38,6 +38,9 @@ class Product extends Model
         'price',
         'cost',
         'stock_quantity',
+        // Column exists in the migration and is mass-assignable, but there is
+        // no upload UI, validation rule, or display anywhere yet - storing a
+        // value here currently requires going around the app entirely.
         'image',
         'status',
     ];
