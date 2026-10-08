@@ -22,7 +22,7 @@ const submit = () => {
             <p class="text-sm text-surface-500 mt-1">Create a new product category.</p>
         </div>
 
-        <div class="max-w-2xl">
+        <div>
             <CategoryForm :form="form" submit-label="Save Category" @submit="submit" />
         </div>
     </AppLayout>
