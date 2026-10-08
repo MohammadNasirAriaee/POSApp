@@ -38,7 +38,7 @@ const submit = () => {
             <p class="text-sm text-surface-500 mt-1">Update inventory details for {{ product.name }}.</p>
         </div>
 
-        <div class="max-w-3xl">
+        <div>
             <ProductForm
                 :form="form"
                 :categories="categories"
