@@ -28,7 +28,7 @@ const submit = () => {
             <p class="text-sm text-surface-500 mt-1">Update details for {{ category.name }}.</p>
         </div>
 
-        <div class="max-w-2xl">
+        <div>
             <CategoryForm :form="form" submit-label="Update Category" @submit="submit" />
         </div>
     </AppLayout>
