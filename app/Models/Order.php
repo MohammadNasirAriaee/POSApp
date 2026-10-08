@@ -14,7 +14,9 @@ class Order extends Model
     /** @use HasFactory<OrderFactory> */
     use HasFactory;
 
-    // Created but not yet paid; does not affect stock.
+    // Created but not yet paid; does not affect stock. PosController::checkout
+    // always creates an order as STATUS_COMPLETED directly - this status only
+    // actually appears via OrderSeeder's demo data or tests, not live checkout.
     public const STATUS_PENDING = 'pending';
 
     // Paid and stocked out; the only status that returns stock on cancel.
