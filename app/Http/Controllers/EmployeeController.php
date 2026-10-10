@@ -20,7 +20,9 @@ class EmployeeController extends Controller
         $position = $request->string('position')->trim()->value();
         $status = $request->string('status')->trim()->value();
 
-        // Sorting
+        // Sorting. last_name and hire_date are accepted here but have no
+        // clickable column header in the view yet - reachable today only by
+        // visiting the URL directly with ?sort=last_name or ?sort=hire_date.
         $sortField = $request->query('sort', 'first_name');
         $allowedSorts = ['first_name', 'last_name', 'position', 'salary', 'hire_date', 'status'];
         if (! in_array($sortField, $allowedSorts, true)) {
