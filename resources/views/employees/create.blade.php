@@ -20,7 +20,7 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-            <form action="{{ route('employees.store') }}" method="POST" class="space-y-8">
+            <form action="{{ route('employees.store') }}" method="POST" class="space-y-8" onsubmit="this.querySelector('button[type=submit]').disabled = true; document.getElementById('submit-label').textContent = 'Saving...'">
                 @include('employees.form', ['employee' => null])
 
                 <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
@@ -34,7 +34,7 @@
                         <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
-                        Save Employee
+                        <span id="submit-label">Save Employee</span>
                     </button>
                 </div>
             </form>

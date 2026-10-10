@@ -20,7 +20,7 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-            <form action="{{ route('employees.update', $employee) }}" method="POST" class="space-y-8">
+            <form action="{{ route('employees.update', $employee) }}" method="POST" class="space-y-8" onsubmit="this.querySelector('button[type=submit]').disabled = true; document.getElementById('submit-label').textContent = 'Saving...'">
                 @method('PUT')
                 @include('employees.form', ['employee' => $employee])
 
@@ -35,7 +35,7 @@
                         <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
-                        Update Employee
+                        <span id="submit-label">Update Employee</span>
                     </button>
                 </div>
             </form>
