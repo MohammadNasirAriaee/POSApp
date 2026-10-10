@@ -145,6 +145,22 @@ class EmployeeTest extends TestCase
             ->assertSee('Monthly Salary &darr;', false);
     }
 
+    public function test_last_name_and_hire_date_sort_correctly_despite_having_no_clickable_header(): void
+    {
+        Employee::factory()->create(['first_name' => 'B', 'last_name' => 'Zed', 'hire_date' => '2020-01-01']);
+        Employee::factory()->create(['first_name' => 'A', 'last_name' => 'Able', 'hire_date' => '2024-01-01']);
+
+        $byLastName = $this->get(route('employees.index', ['sort' => 'last_name', 'direction' => 'asc']))
+            ->assertOk()
+            ->viewData('employees');
+        $this->assertSame(['Able', 'Zed'], $byLastName->pluck('last_name')->all());
+
+        $byHireDate = $this->get(route('employees.index', ['sort' => 'hire_date', 'direction' => 'desc']))
+            ->assertOk()
+            ->viewData('employees');
+        $this->assertSame(['A', 'B'], $byHireDate->pluck('first_name')->all());
+    }
+
     public function test_the_reset_link_appears_once_the_table_is_sorted(): void
     {
         Employee::factory()->create();
