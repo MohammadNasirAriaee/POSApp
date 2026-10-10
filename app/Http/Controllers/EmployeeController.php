@@ -166,6 +166,9 @@ class EmployeeController extends Controller
             default => Employee::STATUS_ACTIVE,
         };
 
+        // No form in the UI sends this yet - only EmployeeStatusLabelTest
+        // exercises it directly - but it lets a caller request a specific
+        // status instead of just cycling to the next one.
         if ($request->has('new_status')) {
             $requestedStatus = $request->input('new_status');
             if (in_array($requestedStatus, Employee::statuses(), true)) {
