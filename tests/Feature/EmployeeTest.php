@@ -370,6 +370,16 @@ class EmployeeTest extends TestCase
         ]);
     }
 
+    public function test_invalid_fields_get_an_error_border_and_aria_invalid(): void
+    {
+        $response = $this->from(route('employees.create'))
+            ->followingRedirects()
+            ->post(route('employees.store'), []);
+
+        $response->assertSee('border-rose-300', false);
+        $response->assertSee('aria-invalid="true"', false);
+    }
+
     public function test_can_show_employee_profile(): void
     {
         $employee = Employee::factory()->create([

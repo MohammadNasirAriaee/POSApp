@@ -22,7 +22,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="first_name">
                     First Name <span class="text-rose-500">*</span>
                 </label>
-                <input id="first_name" name="first_name" type="text" value="{{ old('first_name', $employee->first_name ?? '') }}" placeholder="e.g. Sarah" maxlength="100" autocomplete="given-name" autofocus class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" required />
+                <input id="first_name" name="first_name" type="text" value="{{ old('first_name', $employee->first_name ?? '') }}" placeholder="e.g. Sarah" maxlength="100" autocomplete="given-name" autofocus aria-invalid="{{ $errors->has('first_name') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('first_name') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" required />
                 @error('first_name')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -30,7 +30,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="last_name">
                     Last Name <span class="text-rose-500">*</span>
                 </label>
-                <input id="last_name" name="last_name" type="text" value="{{ old('last_name', $employee->last_name ?? '') }}" placeholder="e.g. Connor" maxlength="100" autocomplete="family-name" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" required />
+                <input id="last_name" name="last_name" type="text" value="{{ old('last_name', $employee->last_name ?? '') }}" placeholder="e.g. Connor" maxlength="100" autocomplete="family-name" aria-invalid="{{ $errors->has('last_name') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('last_name') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" required />
                 @error('last_name')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -38,7 +38,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="email">
                     Email Address <span class="text-rose-500">*</span>
                 </label>
-                <input id="email" name="email" type="email" value="{{ old('email', $employee->email ?? '') }}" placeholder="sarah.c@company.com" maxlength="255" autocomplete="email" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" required />
+                <input id="email" name="email" type="email" value="{{ old('email', $employee->email ?? '') }}" placeholder="sarah.c@company.com" maxlength="255" autocomplete="email" aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('email') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" required />
                 @error('email')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -46,7 +46,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="phone">
                     Phone Number
                 </label>
-                <input id="phone" name="phone" type="tel" value="{{ old('phone', $employee->phone ?? '') }}" placeholder="+1 (555) 000-0000" maxlength="30" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
+                <input id="phone" name="phone" type="tel" value="{{ old('phone', $employee->phone ?? '') }}" placeholder="+1 (555) 000-0000" maxlength="30" aria-invalid="{{ $errors->has('phone') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('phone') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" />
                 @error('phone')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -54,7 +54,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="address">
                     Physical Address
                 </label>
-                <textarea id="address" name="address" rows="2" autocomplete="street-address" placeholder="Street, City, State, ZIP Code" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs">{{ old('address', $employee->address ?? '') }}</textarea>
+                <textarea id="address" name="address" rows="2" autocomplete="street-address" placeholder="Street, City, State, ZIP Code" aria-invalid="{{ $errors->has('address') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('address') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}">{{ old('address', $employee->address ?? '') }}</textarea>
                 @error('address')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
         </div>
@@ -73,7 +73,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="position">
                     Role / Position <span class="text-rose-500">*</span>
                 </label>
-                <select id="position" name="position" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" required>
+                <select id="position" name="position" aria-invalid="{{ $errors->has('position') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('position') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" required>
                     <option value="">Select a Role</option>
                     @foreach ($positionList as $pos)
                         <option value="{{ $pos }}" {{ old('position', $employee->position ?? '') === $pos ? 'selected' : '' }}>{{ $pos }}</option>
@@ -90,7 +90,7 @@
                     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-semibold text-sm">
                         $
                     </div>
-                    <input id="salary" name="salary" type="number" step="0.01" min="0" inputmode="decimal" value="{{ old('salary', $employee->salary ?? '') }}" placeholder="3500.00" class="w-full rounded-xl border border-slate-300 bg-white pl-8 pr-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                    <input id="salary" name="salary" type="number" step="0.01" min="0" inputmode="decimal" value="{{ old('salary', $employee->salary ?? '') }}" placeholder="3500.00" aria-invalid="{{ $errors->has('salary') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white pl-8 pr-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 {{ $errors->has('salary') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" />
                 </div>
                 @error('salary')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
@@ -99,7 +99,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="hire_date">
                     Hire Date
                 </label>
-                <input id="hire_date" name="hire_date" type="date" value="{{ old('hire_date', $employee?->hire_date?->format('Y-m-d')) }}" max="{{ now()->format('Y-m-d') }}" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs" />
+                <input id="hire_date" name="hire_date" type="date" value="{{ old('hire_date', $employee?->hire_date?->format('Y-m-d')) }}" max="{{ now()->format('Y-m-d') }}" aria-invalid="{{ $errors->has('hire_date') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('hire_date') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}" />
                 @error('hire_date')<p class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
 
@@ -107,7 +107,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="status">
                     Employment Status
                 </label>
-                <select id="status" name="status" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 shadow-xs">
+                <select id="status" name="status" aria-invalid="{{ $errors->has('status') ? 'true' : 'false' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('status') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}">
                     @foreach ($statuses as $val => $label)
                         <option value="{{ $val }}" {{ old('status', $employee->status ?? \App\Models\Employee::STATUS_ACTIVE) === $val ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
