@@ -54,7 +54,7 @@
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5" for="address">
                     Physical Address
                 </label>
-                <textarea id="address" name="address" rows="2" autocomplete="street-address" placeholder="Street, City, State, ZIP Code" aria-invalid="{{ $errors->has('address') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('address') ? 'address-error' : '' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('address') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}">{{ old('address', $employee->address ?? '') }}</textarea>
+                <textarea id="address" name="address" rows="2" autocomplete="street-address" placeholder="Street, City, State, ZIP Code" maxlength="500" aria-invalid="{{ $errors->has('address') ? 'true' : 'false' }}" aria-describedby="{{ $errors->has('address') ? 'address-error' : '' }}" class="w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 shadow-xs {{ $errors->has('address') ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : 'border-slate-300 focus:border-indigo-500 focus:ring-indigo-500/20' }}">{{ old('address', $employee->address ?? '') }}</textarea>
                 @error('address')<p id="address-error" class="mt-1.5 text-xs text-rose-600 font-medium">{{ $message }}</p>@enderror
             </div>
         </div>
