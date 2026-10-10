@@ -75,8 +75,9 @@ const emit = defineEmits(['submit']);
                     class="metronic-input"
                     :class="[form.errors.address ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                     :aria-invalid="form.errors.address ? 'true' : 'false'"
+                    :aria-describedby="form.errors.address ? 'customer-address-error' : undefined"
                 ></textarea>
-                <p v-if="form.errors.address" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.address }}</p>
+                <p v-if="form.errors.address" id="customer-address-error" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.address }}</p>
             </div>
 
             <div class="pt-6 border-t border-surface-100 flex items-center justify-end gap-3">
