@@ -41,7 +41,7 @@ const errorId = computed(() => `${inputId.value}-error`);
             v-if="label"
             :for="inputId"
             class="block text-sm font-semibold text-surface-700 mb-1.5"
-            >{{ label }}</label
+            >{{ label }} <span v-if="'required' in attrs" class="text-rose-500">*</span></label
         >
         <input
             :id="inputId"

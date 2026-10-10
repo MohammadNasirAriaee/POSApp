@@ -69,10 +69,11 @@ const emit = defineEmits(['submit']);
                     <p v-else-if="!categories.length" class="mt-1.5 text-xs text-surface-500">No active categories yet - products can still be saved uncategorized.</p>
                 </div>
                 <div>
-                    <label for="product-status" class="block text-sm font-semibold text-surface-700 mb-1.5">Status</label>
+                    <label for="product-status" class="block text-sm font-semibold text-surface-700 mb-1.5">Status <span class="text-rose-500">*</span></label>
                     <select
                         id="product-status"
                         v-model="form.status"
+                        required
                         class="metronic-input"
                         :class="[form.errors.status ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                         :aria-invalid="form.errors.status ? 'true' : 'false'"
