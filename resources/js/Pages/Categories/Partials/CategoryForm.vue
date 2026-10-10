@@ -66,7 +66,7 @@ const emit = defineEmits(['submit']);
                     <X class="w-4 h-4" /> Cancel
                 </Link>
                 <button type="submit" class="metronic-btn metronic-btn-primary disabled:opacity-50" :disabled="form.processing">
-                    <Save class="w-4 h-4" /> {{ submitLabel }}
+                    <Save class="w-4 h-4" /> {{ form.processing ? 'Saving...' : submitLabel }}
                 </button>
             </div>
         </form>
