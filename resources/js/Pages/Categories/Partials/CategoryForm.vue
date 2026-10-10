@@ -42,9 +42,10 @@ const emit = defineEmits(['submit']);
                     class="metronic-input"
                     :class="[form.errors.description ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                     :aria-invalid="form.errors.description ? 'true' : 'false'"
+                    :aria-describedby="form.errors.description ? 'category-description-error' : undefined"
                     placeholder="Optional notes about this category"
                 ></textarea>
-                <p v-if="form.errors.description" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
+                <p v-if="form.errors.description" id="category-description-error" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
             </div>
 
             <div class="flex items-start gap-3">
