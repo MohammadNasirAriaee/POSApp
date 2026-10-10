@@ -380,6 +380,16 @@ class EmployeeTest extends TestCase
         $response->assertSee('aria-invalid="true"', false);
     }
 
+    public function test_invalid_fields_link_their_error_message_via_aria_describedby(): void
+    {
+        $response = $this->from(route('employees.create'))
+            ->followingRedirects()
+            ->post(route('employees.store'), []);
+
+        $response->assertSee('aria-describedby="first_name-error"', false);
+        $response->assertSee('id="first_name-error"', false);
+    }
+
     public function test_can_show_employee_profile(): void
     {
         $employee = Employee::factory()->create([
