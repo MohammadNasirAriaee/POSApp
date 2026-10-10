@@ -59,13 +59,14 @@ const emit = defineEmits(['submit']);
                         class="metronic-input"
                         :class="[form.errors.category_id ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                         :aria-invalid="form.errors.category_id ? 'true' : 'false'"
+                        :aria-describedby="form.errors.category_id ? 'product-category-error' : undefined"
                     >
                         <option value="">Select Category...</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">
                             {{ category.name }}
                         </option>
                     </select>
-                    <p v-if="form.errors.category_id" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.category_id }}</p>
+                    <p v-if="form.errors.category_id" id="product-category-error" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.category_id }}</p>
                     <p v-else-if="!categories.length" class="mt-1.5 text-xs text-surface-500">No active categories yet - products can still be saved uncategorized.</p>
                 </div>
                 <div>
@@ -77,6 +78,7 @@ const emit = defineEmits(['submit']);
                         class="metronic-input"
                         :class="[form.errors.status ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                         :aria-invalid="form.errors.status ? 'true' : 'false'"
+                        :aria-describedby="form.errors.status ? 'product-status-error' : undefined"
                     >
                         <option
                             v-for="(label, value) in statusLabels"
@@ -86,7 +88,7 @@ const emit = defineEmits(['submit']);
                             {{ label }}
                         </option>
                     </select>
-                    <p v-if="form.errors.status" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.status }}</p>
+                    <p v-if="form.errors.status" id="product-status-error" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.status }}</p>
                     <p v-else class="mt-1.5 text-xs text-surface-500">Only "Active" products appear in the POS terminal and count toward low-stock alerts.</p>
                 </div>
             </div>
@@ -101,9 +103,10 @@ const emit = defineEmits(['submit']);
                     class="metronic-input"
                     :class="[form.errors.description ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
                     :aria-invalid="form.errors.description ? 'true' : 'false'"
+                    :aria-describedby="form.errors.description ? 'product-description-error' : undefined"
                     placeholder="Optional product details"
                 ></textarea>
-                <p v-if="form.errors.description" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
+                <p v-if="form.errors.description" id="product-description-error" class="mt-1.5 text-xs font-medium text-rose-600">{{ form.errors.description }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
