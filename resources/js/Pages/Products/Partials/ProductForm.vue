@@ -53,7 +53,13 @@ const emit = defineEmits(['submit']);
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="product-category" class="block text-sm font-semibold text-surface-700 mb-1.5">Category</label>
-                    <select id="product-category" v-model="form.category_id" class="metronic-input">
+                    <select
+                        id="product-category"
+                        v-model="form.category_id"
+                        class="metronic-input"
+                        :class="[form.errors.category_id ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/30' : '']"
+                        :aria-invalid="form.errors.category_id ? 'true' : 'false'"
+                    >
                         <option value="">Select Category...</option>
                         <option v-for="category in categories" :key="category.id" :value="category.id">
                             {{ category.name }}
