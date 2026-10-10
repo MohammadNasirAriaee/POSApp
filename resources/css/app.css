@@ -60,8 +60,4 @@
   .metronic-btn-light {
     @apply bg-surface-100 text-surface-800 hover:bg-surface-200 focus:ring-surface-200;
   }
-  
-  .metronic-btn-danger {
-    @apply bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500 shadow-sm hover:shadow-md hover:shadow-rose-500/20;
-  }
 }
