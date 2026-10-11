@@ -66,10 +66,6 @@ class PosController extends Controller
         $data = $request->validated();
         $cart = $data['cart'];
 
-        if (empty($cart)) {
-            return back()->with('error', 'Cart is empty.');
-        }
-
         try {
             $order = DB::transaction(function () use ($data, $cart) {
                 // Collapse duplicate cart lines and lock the rows so two concurrent
