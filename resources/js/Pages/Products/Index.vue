@@ -5,7 +5,7 @@ import DataTable from "../../Components/DataTable.vue";
 import Pagination from "../../Components/Pagination.vue";
 import { Head, Link, useForm, router } from "@inertiajs/vue3";
 import { Plus, Edit2, Trash2, Search, X } from "lucide-vue-next";
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useDebouncedSearch } from "../../Composables/useDebouncedSearch";
 import { formatMoney } from "../../Support/money";
 
@@ -49,6 +49,17 @@ watch([statusFilter, categoryFilter], ([status, categoryId]) => {
         { preserveState: true, replace: true },
     );
 });
+
+const hasActiveFilters = computed(
+    () => searchQuery.value || statusFilter.value || categoryFilter.value,
+);
+
+const clearAllFilters = () => {
+    searchQuery.value = "";
+    statusFilter.value = "";
+    categoryFilter.value = "";
+    router.get(route("products.index"), {}, { preserveState: true, replace: true });
+};
 
 const STATUS_BADGE_CLASSES = {
     active: "bg-emerald-100 text-emerald-700",
@@ -165,6 +176,14 @@ const deleteProduct = (product) => {
                             {{ label }}
                         </option>
                     </select>
+                    <button
+                        v-if="hasActiveFilters"
+                        type="button"
+                        @click="clearAllFilters"
+                        class="metronic-btn metronic-btn-light shrink-0"
+                    >
+                        Clear Filters
+                    </button>
                 </div>
             </template>
 
