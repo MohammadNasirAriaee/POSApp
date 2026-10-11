@@ -168,4 +168,15 @@ class ProductWriteTest extends TestCase
 
         $this->assertDatabaseHas('products', ['id' => $product->id]);
     }
+
+    public function test_deleting_a_product_returns_to_the_filtered_list_it_was_deleted_from(): void
+    {
+        $category = Category::factory()->create();
+        $product = Product::factory()->create(['category_id' => $category->id]);
+        $filteredUrl = route('products.index', ['category_id' => $category->id]);
+
+        $this->from($filteredUrl)
+            ->delete(route('products.destroy', $product))
+            ->assertRedirect($filteredUrl);
+    }
 }
