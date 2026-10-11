@@ -11,6 +11,16 @@ class CategoryWriteTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_deleting_a_category_returns_to_the_search_it_was_deleted_from(): void
+    {
+        $category = Category::factory()->create(['name' => 'Snacks']);
+        $searchedUrl = route('categories.index', ['search' => 'Snacks']);
+
+        $this->from($searchedUrl)
+            ->delete(route('categories.destroy', $category))
+            ->assertRedirect($searchedUrl);
+    }
+
     public function test_the_name_column_has_a_database_level_unique_constraint(): void
     {
         // CaseInsensitiveUnique only runs at the HTTP validation layer; a
