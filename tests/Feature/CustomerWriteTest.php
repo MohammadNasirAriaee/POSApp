@@ -11,6 +11,16 @@ class CustomerWriteTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_deleting_a_customer_returns_to_the_search_it_was_deleted_from(): void
+    {
+        $customer = Customer::factory()->create(['first_name' => 'Ada']);
+        $searchedUrl = route('customers.index', ['search' => 'Ada']);
+
+        $this->from($searchedUrl)
+            ->delete(route('customers.destroy', $customer))
+            ->assertRedirect($searchedUrl);
+    }
+
     public function test_the_phone_column_has_a_database_level_unique_constraint(): void
     {
         // NormalizedPhoneUnique only runs at the HTTP validation layer; a
