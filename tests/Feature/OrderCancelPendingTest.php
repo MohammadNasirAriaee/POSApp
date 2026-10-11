@@ -33,4 +33,15 @@ class OrderCancelPendingTest extends TestCase
         // claim that it was.
         $response->assertSessionHas('success', 'Order cancelled successfully.');
     }
+
+    public function test_cancelling_with_no_referer_falls_back_to_the_orders_list(): void
+    {
+        // back() has nothing to fall back to without a Referer header (a
+        // direct request, not a click from within the app); it must land on
+        // the orders list rather than the bare app root.
+        $order = Order::factory()->create(['status' => Order::STATUS_PENDING]);
+
+        $this->delete(route('orders.cancel', $order))
+            ->assertRedirect(route('orders.index'));
+    }
 }
