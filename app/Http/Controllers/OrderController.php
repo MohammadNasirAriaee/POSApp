@@ -84,13 +84,13 @@ class OrderController extends Controller
         });
 
         if ($result === null) {
-            return redirect()->back()->with('error', 'Order is already cancelled.');
+            return redirect()->back(fallback: route('orders.index'))->with('error', 'Order is already cancelled.');
         }
 
         $message = $result
             ? 'Order cancelled and stock returned successfully.'
             : 'Order cancelled successfully.';
 
-        return redirect()->back()->with('success', $message);
+        return redirect()->back(fallback: route('orders.index'))->with('success', $message);
     }
 }

@@ -180,8 +180,11 @@ class EmployeeController extends Controller
 
         $employee->update(['status' => $nextStatus]);
 
+        // The toggle button appears on both the directory and the profile
+        // page, so back() (using the Referer) returns to whichever one was
+        // used; the fallback only matters with no Referer at all.
         return redirect()
-            ->back()
+            ->back(fallback: route('employees.index'))
             ->with('success', "Status for {$employee->name} changed to {$employee->status_label}.");
     }
 
