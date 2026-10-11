@@ -145,7 +145,7 @@ class PosController extends Controller
                 return $order;
             });
         } catch (CheckoutException $e) {
-            return back()->with('error', 'Checkout failed: '.$e->getMessage());
+            return back(fallback: route('pos.index'))->with('error', 'Checkout failed: '.$e->getMessage());
         }
 
         return redirect()->route('orders.show', $order)->with('success', 'Sale completed successfully.');
