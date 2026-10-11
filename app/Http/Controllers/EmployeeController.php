@@ -193,8 +193,14 @@ class EmployeeController extends Controller
         $name = $employee->name;
         $employee->delete();
 
+        // back() rather than a fixed route redirect, so deleting from a
+        // filtered/sorted directory view returns to that same view instead
+        // of silently resetting to the unfiltered one. A fallback is needed
+        // because back() has no Referer to fall back to outside a browser
+        // (e.g. a direct API-style request) and would otherwise land on the
+        // bare app root instead of the directory.
         return redirect()
-            ->route('employees.index')
+            ->back(fallback: route('employees.index'))
             ->with('success', "Employee {$name} deleted successfully.");
     }
 }

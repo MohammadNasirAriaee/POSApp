@@ -61,7 +61,7 @@ class CustomerController extends Controller
         // Deleting a customer with past orders would break the customer_id FK
         // on those records and erase their purchase history; block it instead.
         if ($customer->orders()->exists()) {
-            return redirect()->back()->with('error', 'Cannot delete a customer with recorded orders.');
+            return redirect()->back(fallback: route('customers.index'))->with('error', 'Cannot delete a customer with recorded orders.');
         }
 
         $customer->delete();
@@ -69,6 +69,6 @@ class CustomerController extends Controller
         // back() rather than a fixed route redirect, so deleting from a
         // searched list returns to that same search instead of silently
         // resetting to the unfiltered one.
-        return redirect()->back()->with('success', 'Customer deleted successfully.');
+        return redirect()->back(fallback: route('customers.index'))->with('success', 'Customer deleted successfully.');
     }
 }

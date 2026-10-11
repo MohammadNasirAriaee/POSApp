@@ -72,7 +72,7 @@ class CategoryController extends Controller
         // the category_id FK or silently orphan them; block it instead and
         // let the user reassign or deactivate the category first.
         if ($category->products()->exists()) {
-            return redirect()->back()->with('error', 'Cannot delete category with associated products.');
+            return redirect()->back(fallback: route('categories.index'))->with('error', 'Cannot delete category with associated products.');
         }
 
         $category->delete();
@@ -80,6 +80,6 @@ class CategoryController extends Controller
         // back() rather than a fixed route redirect, so deleting from a
         // searched list returns to that same search instead of silently
         // resetting to the unfiltered one.
-        return redirect()->back()->with('success', 'Category deleted successfully.');
+        return redirect()->back(fallback: route('categories.index'))->with('success', 'Category deleted successfully.');
     }
 }

@@ -113,7 +113,7 @@ class ProductController extends Controller
         // live, but deleting it anyway would still break the product_id FK on
         // historical order items, so past sales block deletion instead.
         if ($product->orderItems()->exists()) {
-            return redirect()->back()->with('error', 'Cannot delete a product with recorded sales.');
+            return redirect()->back(fallback: route('products.index'))->with('error', 'Cannot delete a product with recorded sales.');
         }
 
         $product->delete();
@@ -121,6 +121,6 @@ class ProductController extends Controller
         // back() rather than a fixed route redirect, so deleting from a
         // filtered/searched list returns to that same filtered view instead
         // of silently resetting to the unfiltered one.
-        return redirect()->back()->with('success', 'Product deleted successfully.');
+        return redirect()->back(fallback: route('products.index'))->with('success', 'Product deleted successfully.');
     }
 }

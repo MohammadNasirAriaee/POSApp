@@ -529,4 +529,14 @@ class EmployeeTest extends TestCase
             'id' => $employee->id,
         ]);
     }
+
+    public function test_deleting_an_employee_returns_to_the_filtered_directory_it_was_deleted_from(): void
+    {
+        $employee = Employee::factory()->create(['position' => 'Cashier']);
+        $filteredUrl = route('employees.index', ['position' => 'Cashier']);
+
+        $this->from($filteredUrl)
+            ->delete(route('employees.destroy', $employee))
+            ->assertRedirect($filteredUrl);
+    }
 }
