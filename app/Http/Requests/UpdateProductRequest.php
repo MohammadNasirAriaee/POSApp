@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Validates input for updating an existing product.
+ */
 class UpdateProductRequest extends FormRequest
 {
     use NormalizesSku;
