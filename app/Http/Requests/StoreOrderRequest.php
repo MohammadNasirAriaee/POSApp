@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Validates a checkout request from the POS terminal.
+ */
 class StoreOrderRequest extends FormRequest
 {
     public function authorize(): bool
