@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
+/**
+ * Listing, viewing, and cancellation of orders.
+ */
 class OrderController extends Controller
 {
     public function index(Request $request)
