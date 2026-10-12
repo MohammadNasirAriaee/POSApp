@@ -7,6 +7,9 @@ use App\Rules\NormalizedPhoneUnique;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Validates input for updating an existing customer.
+ */
 class UpdateCustomerRequest extends FormRequest
 {
     use NormalizesEmail;
