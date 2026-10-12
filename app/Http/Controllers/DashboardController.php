@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\Product;
 use Inertia\Inertia;
 
+/**
+ * Renders the overview dashboard with sales and inventory KPIs.
+ */
 class DashboardController extends Controller
 {
     public function index()
