@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Inertia\Inertia;
 
+/**
+ * Lists products that are low on or out of stock.
+ */
 class InventoryAlertsController extends Controller
 {
     public function index()
