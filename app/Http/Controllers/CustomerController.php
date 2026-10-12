@@ -8,6 +8,9 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+/**
+ * CRUD and listing for customers.
+ */
 class CustomerController extends Controller
 {
     public function index(Request $request)
