@@ -24,7 +24,7 @@ const form = useForm({});
 const statusFilter = ref(props.status || '');
 
 const statusLabel = (value) =>
-    value.replace(/_/g, ' ').replace(/\w/g, (c) => c.toUpperCase());
+    value.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
 watch(statusFilter, (value) => {
     router.get(
