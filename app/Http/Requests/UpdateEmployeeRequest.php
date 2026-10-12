@@ -7,6 +7,9 @@ use App\Models\Employee;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Validates input for updating an existing employee record.
+ */
 class UpdateEmployeeRequest extends FormRequest
 {
     use NormalizesEmail;
