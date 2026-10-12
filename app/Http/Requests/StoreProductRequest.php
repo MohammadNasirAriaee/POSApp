@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Validates input for creating a new product.
+ */
 class StoreProductRequest extends FormRequest
 {
     use NormalizesSku;
