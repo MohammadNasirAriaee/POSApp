@@ -94,8 +94,10 @@ const deleteCustomer = (customer) => {
                                     class="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold text-xs shrink-0"
                                 >
                                     {{
-                                        (customer.first_name?.[0] || "") +
-                                        (customer.last_name?.[0] || "")
+                                        (
+                                            (customer.first_name?.[0] || "") +
+                                            (customer.last_name?.[0] || "")
+                                        ).toUpperCase()
                                     }}
                                 </div>
                                 <span class="font-bold text-surface-900">{{
