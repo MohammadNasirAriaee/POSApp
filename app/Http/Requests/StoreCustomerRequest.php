@@ -6,6 +6,9 @@ use App\Http\Requests\Concerns\NormalizesEmail;
 use App\Rules\NormalizedPhoneUnique;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Validates input for creating a new customer.
+ */
 class StoreCustomerRequest extends FormRequest
 {
     use NormalizesEmail;
