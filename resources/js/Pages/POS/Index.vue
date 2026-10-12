@@ -457,6 +457,7 @@ const processCheckout = () => {
                             v-model="discountInput"
                             type="number"
                             min="0"
+                            :max="cartSubtotal + cartTax"
                             step="0.01"
                             inputmode="decimal"
                             placeholder="0.00"
