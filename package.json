@@ -1,6 +1,7 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
     "name": "posapp",
+    "description": "A point-of-sale and staff management system built on Laravel and Inertia.",
     "private": true,
     "type": "module",
     "engines": {
