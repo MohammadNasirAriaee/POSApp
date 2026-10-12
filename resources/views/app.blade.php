@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A point-of-sale and staff management system.">
         <title inertia>{{ config('app.name', 'POSApp') }}</title>
         <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
         @routes
