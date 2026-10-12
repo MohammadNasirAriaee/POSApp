@@ -5,6 +5,9 @@ namespace App\Http\Requests;
 use App\Rules\CaseInsensitiveUnique;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Validates input for creating a new category.
+ */
 class StoreCategoryRequest extends FormRequest
 {
     public function authorize(): bool
