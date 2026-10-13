@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
+/**
+ * The POS terminal: product/customer lookup and checkout.
+ */
 class PosController extends Controller
 {
     public function index(Request $request)
