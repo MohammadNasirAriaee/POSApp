@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Runs all individual seeders in order.
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
