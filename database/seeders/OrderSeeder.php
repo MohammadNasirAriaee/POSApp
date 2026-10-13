@@ -10,6 +10,9 @@ use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
+/**
+ * Seeds demo orders and order items.
+ */
 class OrderSeeder extends Seeder
 {
     /**
