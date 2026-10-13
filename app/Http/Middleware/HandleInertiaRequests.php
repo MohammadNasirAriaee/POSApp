@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
+/**
+ * Shares default Inertia page props across every request.
+ */
 class HandleInertiaRequests extends Middleware
 {
     /**
