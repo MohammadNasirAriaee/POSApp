@@ -9,6 +9,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * CRUD, directory listing, and status management for employees.
+ */
 class EmployeeController extends Controller
 {
     /**
