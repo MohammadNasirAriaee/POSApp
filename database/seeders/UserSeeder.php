@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Seeds a default demo user account.
+ */
 class UserSeeder extends Seeder
 {
     /**
