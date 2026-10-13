@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
+/**
+ * Seeds demo employees.
+ */
 class EmployeeSeeder extends Seeder
 {
     /**
