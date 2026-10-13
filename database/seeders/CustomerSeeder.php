@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
+/**
+ * Seeds demo customers.
+ */
 class CustomerSeeder extends Seeder
 {
     public function run(): void
