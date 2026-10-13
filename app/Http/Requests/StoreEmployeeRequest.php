@@ -8,6 +8,9 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Validates input for creating a new employee.
+ */
 class StoreEmployeeRequest extends FormRequest
 {
     use NormalizesEmail;
