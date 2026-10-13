@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * A staff member in the employee directory.
+ */
 class Employee extends Model
 {
     use EscapesLikeTerm, HasFactory, HasFullName;
