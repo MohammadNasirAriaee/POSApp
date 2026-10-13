@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * An item sold at the POS terminal and tracked in inventory.
+ */
 class Product extends Model
 {
     use EscapesLikeTerm;
