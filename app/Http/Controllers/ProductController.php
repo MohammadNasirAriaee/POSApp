@@ -9,6 +9,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+/**
+ * CRUD and listing for products.
+ */
 class ProductController extends Controller
 {
     public function index(Request $request)
