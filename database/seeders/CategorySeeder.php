@@ -6,6 +6,9 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
+/**
+ * Seeds demo product categories.
+ */
 class CategorySeeder extends Seeder
 {
     public function run(): void
