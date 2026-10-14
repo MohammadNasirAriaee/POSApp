@@ -14,6 +14,9 @@ use Inertia\Inertia;
  */
 class ProductController extends Controller
 {
+    /**
+     * Display a filterable, searchable, paginated listing of products.
+     */
     public function index(Request $request)
     {
         $search = $request->string('search')->trim()->value();
