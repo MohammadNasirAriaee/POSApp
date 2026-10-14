@@ -88,6 +88,9 @@ class ProductController extends Controller
         return redirect()->route('products.edit', $product);
     }
 
+    /**
+     * Show the form for editing the given product.
+     */
     public function edit(Product $product)
     {
         // A category can be deactivated after products were assigned to it;
