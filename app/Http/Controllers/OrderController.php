@@ -51,6 +51,9 @@ class OrderController extends Controller
         ]);
     }
 
+    /**
+     * Display the receipt for the given order.
+     */
     public function show(Order $order)
     {
         // The receipt only ever reads the name/price/quantity/subtotal
