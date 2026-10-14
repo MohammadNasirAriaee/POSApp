@@ -113,6 +113,9 @@ class ProductController extends Controller
         ]);
     }
 
+    /**
+     * Update the given product.
+     */
     public function update(UpdateProductRequest $request, Product $product)
     {
         $data = $request->validated();
