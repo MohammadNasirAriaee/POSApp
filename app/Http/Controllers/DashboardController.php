@@ -12,6 +12,9 @@ use Inertia\Inertia;
  */
 class DashboardController extends Controller
 {
+    /**
+     * Render the overview dashboard.
+     */
     public function index()
     {
         // Only completed sales count toward today's totals - pending and
