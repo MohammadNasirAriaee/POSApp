@@ -18,6 +18,9 @@ use Inertia\Inertia;
  */
 class PosController extends Controller
 {
+    /**
+     * Render the POS terminal with its filterable product/customer lists.
+     */
     public function index(Request $request)
     {
         $categoryId = $request->integer('category_id');
