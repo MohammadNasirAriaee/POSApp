@@ -38,6 +38,9 @@ class CategoryController extends Controller
         return Inertia::render('Categories/Create');
     }
 
+    /**
+     * Store a newly created category.
+     */
     public function store(StoreCategoryRequest $request)
     {
         $data = $request->validated();
