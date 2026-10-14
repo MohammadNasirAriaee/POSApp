@@ -30,6 +30,9 @@ class CategoryController extends Controller
         return Inertia::render('Categories/Index', compact('categories', 'search'));
     }
 
+    /**
+     * Show the form for creating a new category.
+     */
     public function create()
     {
         return Inertia::render('Categories/Create');
