@@ -13,6 +13,9 @@ use Inertia\Inertia;
  */
 class CategoryController extends Controller
 {
+    /**
+     * Display a searchable, paginated listing of categories.
+     */
     public function index(Request $request)
     {
         $search = $request->string('search')->trim()->value();
