@@ -54,6 +54,9 @@ class CustomerController extends Controller
         return redirect()->route('customers.edit', $customer);
     }
 
+    /**
+     * Show the form for editing the given customer.
+     */
     public function edit(Customer $customer)
     {
         return Inertia::render('Customers/Edit', compact('customer'));
