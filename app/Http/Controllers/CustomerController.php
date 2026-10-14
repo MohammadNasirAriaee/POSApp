@@ -62,6 +62,9 @@ class CustomerController extends Controller
         return Inertia::render('Customers/Edit', compact('customer'));
     }
 
+    /**
+     * Update the given customer.
+     */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         $data = $request->validated();
