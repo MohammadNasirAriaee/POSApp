@@ -37,6 +37,9 @@ class CustomerController extends Controller
         return Inertia::render('Customers/Create');
     }
 
+    /**
+     * Store a newly created customer.
+     */
     public function store(StoreCustomerRequest $request)
     {
         $data = $request->validated();
