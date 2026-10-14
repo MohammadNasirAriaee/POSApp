@@ -13,6 +13,9 @@ use Inertia\Inertia;
  */
 class OrderController extends Controller
 {
+    /**
+     * Display a filterable, paginated listing of orders.
+     */
     public function index(Request $request)
     {
         $status = $request->string('status')->trim()->value();
