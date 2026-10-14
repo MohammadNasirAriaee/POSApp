@@ -13,6 +13,9 @@ use Inertia\Inertia;
  */
 class CustomerController extends Controller
 {
+    /**
+     * Display a searchable, paginated listing of customers.
+     */
     public function index(Request $request)
     {
         $search = $request->string('search')->trim()->value();
