@@ -70,6 +70,9 @@ class CategoryController extends Controller
         return Inertia::render('Categories/Edit', compact('category'));
     }
 
+    /**
+     * Update the given category.
+     */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $data = $request->validated();
