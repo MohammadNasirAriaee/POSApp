@@ -10,6 +10,9 @@ use Inertia\Inertia;
  */
 class InventoryAlertsController extends Controller
 {
+    /**
+     * List products that are low on or out of stock.
+     */
     public function index()
     {
         // Lowest stock first, so the products closest to selling out surface
