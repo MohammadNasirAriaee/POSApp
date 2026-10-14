@@ -62,6 +62,9 @@ class CategoryController extends Controller
         return redirect()->route('categories.edit', $category);
     }
 
+    /**
+     * Show the form for editing the given category.
+     */
     public function edit(Category $category)
     {
         return Inertia::render('Categories/Edit', compact('category'));
