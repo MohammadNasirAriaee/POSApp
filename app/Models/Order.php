@@ -74,6 +74,9 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    /**
+     * The employee who rang up this order, if any.
+     */
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
