@@ -38,8 +38,12 @@ class Customer extends Model
         return $this->hasMany(Order::class);
     }
 
-    // Matches name, phone, or email - the fields a cashier is most likely to
-    // have on hand when looking a customer up.
+    /**
+     * Scope to customers matching the given search term.
+     *
+     * Matches name, phone, or email - the fields a cashier is most likely to
+     * have on hand when looking a customer up.
+     */
     public function scopeSearch(Builder $query, ?string $term): Builder
     {
         if (blank($term)) {
