@@ -31,6 +31,9 @@ class Category extends Model
         'is_active' => 'boolean', // cast is_active to boolean
     ];
 
+    /**
+     * The products assigned to this category.
+     */
     public function products(): HasMany
     {
         return $this->hasMany(Product::class); // a category can have many products
