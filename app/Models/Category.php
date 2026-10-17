@@ -47,8 +47,12 @@ class Category extends Model
         return $query->where('is_active', true);
     }
 
-    // Matches against the category name only; unlike Product/Customer/Employee
-    // there is no second column (SKU, email, etc.) worth searching here.
+    /**
+     * Scope to categories whose name matches the given search term.
+     *
+     * Matches against the category name only; unlike Product/Customer/Employee
+     * there is no second column (SKU, email, etc.) worth searching here.
+     */
     public function scopeSearch(Builder $query, ?string $term): Builder
     {
         if (blank($term)) {
