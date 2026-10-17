@@ -97,6 +97,9 @@ class Product extends Model
             && $this->stock_quantity <= $threshold;
     }
 
+    /**
+     * Scope to only products with stock remaining.
+     */
     public function scopeInStock(Builder $query): Builder
     {
         return $query->where('stock_quantity', '>', 0);
