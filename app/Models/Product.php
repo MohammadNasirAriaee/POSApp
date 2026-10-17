@@ -64,6 +64,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * The order line items this product has been sold in.
+     */
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
