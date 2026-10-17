@@ -54,9 +54,13 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
-    // Route::resource registers categories.show (GET /categories/{category})
-    // whether or not there is a dedicated detail page; without this the URL
-    // would be a fatal error instead of landing somewhere useful.
+    /**
+     * Redirect to the edit form, since there is no dedicated detail page.
+     *
+     * Route::resource registers categories.show (GET /categories/{category})
+     * whether or not there is a dedicated detail page; without this the URL
+     * would be a fatal error instead of landing somewhere useful.
+     */
     public function show(Category $category)
     {
         return redirect()->route('categories.edit', $category);
