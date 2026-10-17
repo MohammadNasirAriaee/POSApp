@@ -77,6 +77,9 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
     }
 
+    /**
+     * Remove the given customer.
+     */
     public function destroy(Customer $customer)
     {
         // Deleting a customer with past orders would break the customer_id FK
