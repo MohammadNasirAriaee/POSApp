@@ -32,6 +32,9 @@ class OrderItem extends Model
         'subtotal' => 'decimal:2',
     ];
 
+    /**
+     * The order this line item belongs to.
+     */
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
