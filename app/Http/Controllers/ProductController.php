@@ -80,9 +80,13 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
-    // Route::resource registers products.show (GET /products/{product}) whether
-    // or not there is a dedicated detail page; without this the URL would be
-    // a fatal error instead of landing somewhere useful.
+    /**
+     * Redirect to the edit form, since there is no dedicated detail page.
+     *
+     * Route::resource registers products.show (GET /products/{product}) whether
+     * or not there is a dedicated detail page; without this the URL would be
+     * a fatal error instead of landing somewhere useful.
+     */
     public function show(Product $product)
     {
         return redirect()->route('products.edit', $product);
