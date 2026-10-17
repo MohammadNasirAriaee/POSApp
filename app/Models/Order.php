@@ -66,6 +66,9 @@ class Order extends Model
         return number_format(max(0, (float) $this->tendered - (float) $this->total), 2, '.', '');
     }
 
+    /**
+     * The customer this order was placed for, if any.
+     */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
