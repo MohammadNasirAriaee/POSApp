@@ -49,6 +49,9 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
 
+    /**
+     * Redirect to the edit form, since there is no dedicated detail page.
+     */
     public function show(Customer $customer)
     {
         return redirect()->route('customers.edit', $customer);
