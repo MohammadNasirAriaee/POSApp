@@ -88,6 +88,9 @@ class CategoryController extends Controller
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
+    /**
+     * Remove the given category.
+     */
     public function destroy(Category $category)
     {
         // Deleting a category still assigned to products would either break
