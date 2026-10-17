@@ -40,6 +40,9 @@ class OrderItem extends Model
         return $this->belongsTo(Order::class);
     }
 
+    /**
+     * The live product this line item snapshot was taken from, if it still exists.
+     */
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
