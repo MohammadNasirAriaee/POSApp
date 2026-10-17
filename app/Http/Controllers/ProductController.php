@@ -129,6 +129,9 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
+    /**
+     * Remove the given product.
+     */
     public function destroy(Product $product)
     {
         // OrderItem snapshots name/price rather than referencing the product
