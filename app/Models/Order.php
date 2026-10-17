@@ -82,6 +82,9 @@ class Order extends Model
         return $this->belongsTo(Employee::class);
     }
 
+    /**
+     * The line items that make up this order.
+     */
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
