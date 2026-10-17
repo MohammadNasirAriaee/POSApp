@@ -39,6 +39,9 @@ class Category extends Model
         return $this->hasMany(Product::class); // a category can have many products
     }
 
+    /**
+     * Scope to only active categories.
+     */
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
