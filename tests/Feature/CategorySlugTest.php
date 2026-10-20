@@ -6,6 +6,9 @@ use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers unique slug generation for categories.
+ */
 class CategorySlugTest extends TestCase
 {
     use RefreshDatabase;
