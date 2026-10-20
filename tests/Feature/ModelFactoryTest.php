@@ -11,6 +11,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
+/**
+ * Covers that every model exposes a working factory.
+ */
 class ModelFactoryTest extends TestCase
 {
     use RefreshDatabase;
