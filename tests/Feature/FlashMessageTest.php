@@ -6,6 +6,9 @@ use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers flash message and app-name sharing with Inertia pages.
+ */
 class FlashMessageTest extends TestCase
 {
     use RefreshDatabase;
