@@ -6,6 +6,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the inventory alerts page listing and ordering.
+ */
 class InventoryAlertPageTest extends TestCase
 {
     use RefreshDatabase;
