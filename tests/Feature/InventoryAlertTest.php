@@ -6,6 +6,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the Product::scopeLowStock low-stock query logic.
+ */
 class InventoryAlertTest extends TestCase
 {
     use RefreshDatabase;
