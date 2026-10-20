@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the order receipt's tendered/change reporting.
+ */
 class OrderReceiptTest extends TestCase
 {
     use RefreshDatabase;
