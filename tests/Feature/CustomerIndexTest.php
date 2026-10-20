@@ -7,6 +7,9 @@ use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers customer listing search behavior.
+ */
 class CustomerIndexTest extends TestCase
 {
     use RefreshDatabase;
