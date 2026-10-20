@@ -8,6 +8,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers cancelling a pending (not yet completed) order.
+ */
 class OrderCancelPendingTest extends TestCase
 {
     use RefreshDatabase;
