@@ -6,6 +6,9 @@ use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers employee directory search behavior.
+ */
 class EmployeeSearchTest extends TestCase
 {
     use RefreshDatabase;
