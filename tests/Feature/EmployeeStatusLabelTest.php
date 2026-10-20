@@ -6,6 +6,9 @@ use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers employee status toggling and its labeling.
+ */
 class EmployeeStatusLabelTest extends TestCase
 {
     use RefreshDatabase;
