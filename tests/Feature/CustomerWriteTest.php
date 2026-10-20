@@ -7,6 +7,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers customer create/update/delete behavior and constraints.
+ */
 class CustomerWriteTest extends TestCase
 {
     use RefreshDatabase;
