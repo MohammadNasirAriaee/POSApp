@@ -7,6 +7,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers category create/update/delete behavior and constraints.
+ */
 class CategoryWriteTest extends TestCase
 {
     use RefreshDatabase;
