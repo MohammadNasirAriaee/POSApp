@@ -7,6 +7,9 @@ use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers order listing filter behavior by customer and status.
+ */
 class OrderIndexTest extends TestCase
 {
     use RefreshDatabase;
