@@ -5,6 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the root URL redirecting into the dashboard.
+ */
 class HomeRedirectTest extends TestCase
 {
     use RefreshDatabase;
