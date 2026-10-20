@@ -6,6 +6,9 @@ use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers employee directory headcount/payroll KPI calculations.
+ */
 class EmployeeStatsTest extends TestCase
 {
     use RefreshDatabase;
