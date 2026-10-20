@@ -6,6 +6,9 @@ use App\Models\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the main app layout nav and employee page accessibility/titles.
+ */
 class EmployeeTest extends TestCase
 {
     use RefreshDatabase;
