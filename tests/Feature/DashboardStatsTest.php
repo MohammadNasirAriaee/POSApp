@@ -8,6 +8,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the dashboard's daily sales KPI calculations.
+ */
 class DashboardStatsTest extends TestCase
 {
     use RefreshDatabase;
