@@ -8,6 +8,9 @@ use Database\Seeders\OrderSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the demo data seeded for orders.
+ */
 class OrderSeederTest extends TestCase
 {
     use RefreshDatabase;
