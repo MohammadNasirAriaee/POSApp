@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers checkout's stock/price validation and sale recording.
+ */
 class PosCheckoutTest extends TestCase
 {
     use RefreshDatabase;
