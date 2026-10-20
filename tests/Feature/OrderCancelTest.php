@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers cancelling a completed order and its stock return.
+ */
 class OrderCancelTest extends TestCase
 {
     use RefreshDatabase;
