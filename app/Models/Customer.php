@@ -32,6 +32,8 @@ class Customer extends Model
 
     /**
      * The orders placed by this customer.
+     *
+     * @return HasMany<Order, $this>
      */
     public function orders(): HasMany
     {
