@@ -68,6 +68,8 @@ class Order extends Model
 
     /**
      * The customer this order was placed for, if any.
+     *
+     * @return BelongsTo<Customer, $this>
      */
     public function customer(): BelongsTo
     {
