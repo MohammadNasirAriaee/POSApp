@@ -88,6 +88,8 @@ class Order extends Model
 
     /**
      * The line items that make up this order.
+     *
+     * @return HasMany<OrderItem, $this>
      */
     public function items(): HasMany
     {
