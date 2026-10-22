@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers product create/update/delete behavior and constraints.
+ */
 class ProductWriteTest extends TestCase
 {
     use RefreshDatabase;
