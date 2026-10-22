@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers checkout's tax/discount rounding and total calculation.
+ */
 class PosTaxRoundingTest extends TestCase
 {
     use RefreshDatabase;
