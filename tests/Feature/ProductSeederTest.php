@@ -8,6 +8,9 @@ use Database\Seeders\ProductSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the demo data seeded for products.
+ */
 class ProductSeederTest extends TestCase
 {
     use RefreshDatabase;
