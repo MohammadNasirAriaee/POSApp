@@ -7,6 +7,9 @@ use App\Models\Employee;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
+/**
+ * Covers the HasFullName trait's name concatenation.
+ */
 class HasFullNameTest extends TestCase
 {
     public static function modelProvider(): array
