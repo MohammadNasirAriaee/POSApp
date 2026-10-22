@@ -6,6 +6,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers that a failed checkout flashes an error instead of a validation response.
+ */
 class PosFailureResponseTest extends TestCase
 {
     use RefreshDatabase;
