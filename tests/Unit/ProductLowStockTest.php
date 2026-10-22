@@ -6,6 +6,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers that Product::isLowStock() agrees with scopeLowStock().
+ */
 class ProductLowStockTest extends TestCase
 {
     use RefreshDatabase;
