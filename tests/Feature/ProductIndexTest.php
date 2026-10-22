@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers product listing search/filter/ordering behavior.
+ */
 class ProductIndexTest extends TestCase
 {
     use RefreshDatabase;
