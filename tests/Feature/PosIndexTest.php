@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the POS terminal's product/category listing and filters.
+ */
 class PosIndexTest extends TestCase
 {
     use RefreshDatabase;
