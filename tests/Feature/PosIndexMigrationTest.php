@@ -6,6 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
+/**
+ * Covers that the POS page's hot query columns are indexed.
+ */
 class PosIndexMigrationTest extends TestCase
 {
     use RefreshDatabase;
