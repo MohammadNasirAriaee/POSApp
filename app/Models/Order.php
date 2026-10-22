@@ -78,6 +78,8 @@ class Order extends Model
 
     /**
      * The employee who rang up this order, if any.
+     *
+     * @return BelongsTo<Employee, $this>
      */
     public function employee(): BelongsTo
     {
