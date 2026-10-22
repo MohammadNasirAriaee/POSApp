@@ -6,6 +6,9 @@ use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Covers the receipt's configured store details and their fallback.
+ */
 class StoreDetailsTest extends TestCase
 {
     use RefreshDatabase;
